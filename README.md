@@ -1,1 +1,3 @@
-# Canvas-Flow-Website
+# Canvas Flow Website
+
+The Canvas Flow website.
