@@ -24,6 +24,71 @@
             "location": "/Page2/#page-2", 
             "text": "", 
             "title": "Page 2"
+        }, 
+        {
+            "location": "/Manual/Plan/", 
+            "text": "Quick Start\n\n\nMake a basic two-screen flow.\n\n\n\n\nCreate a canvas controller.\n\n\nCreate the second canvas controller.\n\n\nCreate the storyboard.\n\n\nWire up the storyboard.\n\n\nOpen up your game scene, add a storyboard.\n\n\n\n\nIn this quick start guide, we will create a two-screen UI \nwith a storyboard\nwithout writing a line of code.\n\n\nOverview\n\n\nCanvas Controllers\n\n\nIntroduction/What Is A Canvas Controller\n\n\nCreating a canvas controller\n\n\nStoryboards\n\n\nCreating A Storyboard\n\n\nThe Storyboard Editor\n\n\nUsing The Storyboard Editor\n\n\nPresenting A Storyboard\n\n\nCustom Transition Animators\n\n\nOther/Extra/More", 
+            "title": "Quick Start"
+        }, 
+        {
+            "location": "/Manual/Plan/#quick-start", 
+            "text": "Make a basic two-screen flow.   Create a canvas controller.  Create the second canvas controller.  Create the storyboard.  Wire up the storyboard.  Open up your game scene, add a storyboard.   In this quick start guide, we will create a two-screen UI \nwith a storyboard\nwithout writing a line of code.", 
+            "title": "Quick Start"
+        }, 
+        {
+            "location": "/Manual/Plan/#overview", 
+            "text": "", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/Manual/Plan/#canvas-controllers", 
+            "text": "", 
+            "title": "Canvas Controllers"
+        }, 
+        {
+            "location": "/Manual/Plan/#introductionwhat-is-a-canvas-controller", 
+            "text": "", 
+            "title": "Introduction/What Is A Canvas Controller"
+        }, 
+        {
+            "location": "/Manual/Plan/#creating-a-canvas-controller", 
+            "text": "", 
+            "title": "Creating a canvas controller"
+        }, 
+        {
+            "location": "/Manual/Plan/#storyboards", 
+            "text": "", 
+            "title": "Storyboards"
+        }, 
+        {
+            "location": "/Manual/Plan/#creating-a-storyboard", 
+            "text": "", 
+            "title": "Creating A Storyboard"
+        }, 
+        {
+            "location": "/Manual/Plan/#the-storyboard-editor", 
+            "text": "", 
+            "title": "The Storyboard Editor"
+        }, 
+        {
+            "location": "/Manual/Plan/#using-the-storyboard-editor", 
+            "text": "", 
+            "title": "Using The Storyboard Editor"
+        }, 
+        {
+            "location": "/Manual/Plan/#presenting-a-storyboard", 
+            "text": "", 
+            "title": "Presenting A Storyboard"
+        }, 
+        {
+            "location": "/Manual/Plan/#custom-transition-animators", 
+            "text": "", 
+            "title": "Custom Transition Animators"
+        }, 
+        {
+            "location": "/Manual/Plan/#otherextramore", 
+            "text": "", 
+            "title": "Other/Extra/More"
         }
     ]
 }
