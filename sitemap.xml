@@ -4,23 +4,7 @@
     
     <url>
      <loc>/</loc>
-     <lastmod>2018-04-29</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>/Page1/</loc>
-     <lastmod>2018-04-29</lastmod>
-     <changefreq>daily</changefreq>
-    </url>
-    
-
-    
-    <url>
-     <loc>/Page2/</loc>
-     <lastmod>2018-04-29</lastmod>
+     <lastmod>2018-05-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
     
@@ -28,11 +12,37 @@
     
         
     <url>
-     <loc>/Manual/Plan/</loc>
-     <lastmod>2018-04-29</lastmod>
+     <loc>/manual/contents/</loc>
+     <lastmod>2018-05-02</lastmod>
      <changefreq>daily</changefreq>
     </url>
         
+    <url>
+     <loc></loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc></loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    <url>
+     <loc></loc>
+     <lastmod></lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+        
+    
+
+    
+    <url>
+     <loc>/scripting-reference/overview/</loc>
+     <lastmod>2018-05-02</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
     
 
 </urlset>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Custom Storyboard Hooks - Canvas Flow</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <link href="../../../css/extra.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../../..">Canvas Flow</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Home</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../canvas-controllers/introduction/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controllers/creating-a-canvas-controller/">Creating A Canvas Controller</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controllers/canvas-controller-scenes/">Canvas Controller Scenes</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controllers/presentation-and-dismissal/">Presentation & Dismissal</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controllers/canvas-controller-life-cycle/">Canvas Controller Life Cycle</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../introduction/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../creating-a-storyboard/">Creating A Storyboard</a>
+</li>
+            
+<li >
+    <a href="../storyboard-nodes/">Storyboard Nodes</a>
+</li>
+            
+<li >
+    <a href="../storyboard-transitions/">Storyboard Transitions</a>
+</li>
+            
+<li >
+    <a href="../presenting-a-storyboard/">Presenting A Storyboard</a>
+</li>
+            
+<li class="active">
+    <a href="./">Custom Storyboard Hooks</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Transition Animators</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../transition-animators/introduction/">Introduction</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Default Transition Animators</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-default/">Default Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-fade-to-color/">Fade To Color Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-slide/">Slide Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-scale/">Scale Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-scale-and-fade/">Scale And Fade Background Transition Animator</a>
+</li>
+    </ul>
+  </li>
+            
+<li >
+    <a href="../../transition-animators/using-a-transition-animator/">Using A Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/custom-transition-animators/">Custom Transition Animators</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../../scripting-reference/overview/">Scripting Reference</a>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../presenting-a-storyboard/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../transition-animators/introduction/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#custom-storyboard-hooks">Custom Storyboard Hooks</a></li>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#1-create-a-new-storyboard-hook-subclass">1. Create A New Storyboard Hook Subclass</a></li>
+            <li><a href="#2-implement-the-connect-method">2. Implement The Connect Method</a></li>
+            <li><a href="#3-implement-the-reset-method">3. Implement The Reset Method</a></li>
+            <li><a href="#4-implement-the-auto-add-component-type-property-optional">4. Implement The Auto-Add Component Type Property (Optional)</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="custom-storyboard-hooks">Custom Storyboard Hooks</h1>
+<p>Custom <a href="../../../scripting-reference/Storyboards/Hooks/StoryboardHook">Storyboard Hooks</a> allow you to use your own button types in storyboards. They will show up in the canvas preview area as <em>hookable</em> elements, just as native UI Buttons do.</p>
+<h2 id="overview">Overview</h2>
+<p>A storyboard hook is a component that is attached to game objects in your canvas controller's scene. Any game object in the canvas controller's scene with a <code>StoryboardHook</code> component will become <em>hookable</em> in a storyboard.</p>
+<p>You do not use the <code>StoryboardHook</code> component directly, however. Instead, a subclass is created that adds support for a single target component type - the component that you wish to make <em>hookable</em>. It is this <code>StoryboardHook</code> subclass that is then added to any game objects with the target component type. Additionally, the process of adding <code>StoryboardHook</code> subclasses to their relevant game objects can be performed automatically for you by Canvas Flow, each time a canvas controller's scene is saved.</p>
+<p>For example, Canvas Flow includes one such <code>StoryboardHook</code> subclass - <code>StoryboardHookUnityEngineUIButton</code> - which is a storyboard hook for native <a href="https://docs.unity3d.com/Manual/script-Button.html">UI Button</a> components. It can be (and is automatically) added to any game object with a <code>UI.Button</code> component in order to make it <em>hookable</em> in a storyboard.</p>
+<p>In order to make your own buttons <em>hookable</em> in a storyboard, you must create a similar <code>StoryboardHook</code> subclass for your custom button type, as documented below.</p>
+<blockquote>
+<p>Canvas Flow's default storyboard hook for native <a href="https://docs.unity3d.com/Manual/script-Button.html">UI Button</a> components is included as a .cs file. This means you can easily inspect the source code, which is recommended when creating your first custom storyboard hook. It can be found in the Project inspector at <em>Canvas Flow/Storyboard Hooks/StoryboardHookUnityEngineUIButton.cs</em>.</p>
+</blockquote>
+<h2 id="1-create-a-new-storyboard-hook-subclass">1. Create A New Storyboard Hook Subclass</h2>
+<p>To begin creating a new storyboard hook, open Unity's <em>Create</em> menu - by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting <em>Create/Canvas Flow/Storyboard Hook</em>. Enter a name and a directory for your new hook. This will generate a new <code>StoryboardHook</code> subclass at the specified location.</p>
+<p>The generated script contains three methods for you to implement.</p>
+<ul>
+<li><a href="#2-implement-the-connect-method"><code>Connect()</code></a></li>
+<li><a href="#3-implement-the-reset-method"><code>Reset()</code></a></li>
+<li><a href="#4-implement-the-autoaddcomponenttype-property"><code>AutoAddComponentType</code></a></li>
+</ul>
+<h2 id="2-implement-the-connect-method">2. Implement The Connect Method</h2>
+<p>When a canvas controller is loaded from a storyboard at runtime, its connected hooks will be provided with a callback via the <a href="../../scripting-reference/Storyboards/Hooks/storyboardhook.md#connect"><code>Connect()</code></a> method. Your hook's responsibility is to simply invoke this callback when it deems itself to have been triggered. Invoking the provided callback is all that is required to trigger a storyboard transition.</p>
+<p>So, in the case of the <code>StoryboardHookUnityEngineUIButton</code>, the callback passed to the <code>Connect()</code> method is attached to the button's <a href="https://docs.unity3d.com/ScriptReference/UI.Button-onClick.html">onClick</a> handler.  This means that when the button is clicked, the callback will be invoked, triggering the storyboard transition.</p>
+<p>The source code for the <code>StoryboardHookUnityEngineUIButton</code>'s <code>Connect()</code> method is therefore:</p>
+<pre><code class="csharp">public override void Connect(System.Action&lt;StoryboardHook&gt; invokeTransition)
+{
+    // For a Unity UI Button we invoke our storyboard transition when
+    // our Button is clicked.
+    button.onClick.AddListener(() =&gt; {
+        invokeTransition(this);
+    });
+}
+</code></pre>
+
+<p>You may wish to do some additional logic here. For example, if we were making a hook to be used with a UI Toggle switch, we might only wish to trigger the transition when the toggle is switched on, like so:</p>
+<pre><code class="csharp">public override void Connect(System.Action&lt;StoryboardHook&gt; invokeTransition)
+{
+    toggle.onValueChanged.AddListener(() =&gt;
+    {
+        // Only invoke the transition if the toggle is switched on.
+        if (toggle.isOn)
+        {
+            invokeTransition(this);
+        }
+    });
+}
+</code></pre>
+
+<blockquote>
+<p>Note: You can pass your hook to the callback with <code>this</code>, as above. This causes it to be included in the subsequent <a href="../../scripting-reference/Storyboards/storyboardtransition.md">StoryboardTransition</a> object that is created and passed to methods such as <a href="../../scripting-reference/Canvas Controllers/canvas-controller.md#prepareforstoryboardtransition">PrepareForStoryboardTransition</a>.</p>
+</blockquote>
+<h2 id="3-implement-the-reset-method">3. Implement The Reset Method</h2>
+<p>The <code>Reset()</code> method is called on your hook in the Unity Editor when the component is added to a game object or the user resets it in the inspector. A hook can be automatically added to a game object when the scene is saved or manually added in the inspector. In either case, the <code>Reset()</code> method is where you must do any configuration you require.</p>
+<p>In the case of the <code>StoryboardHookUnityEngineUIButton</code>, the <code>Reset()</code> method obtains the required reference to the <code>Button</code> component that is used in the <code>Connect()</code> method above, like so:</p>
+<pre><code class="csharp">protected override void Reset()
+{
+    // Always call base.Reset() when overriding Reset() in a custom hook.
+    base.Reset();
+
+    // Store a reference to the Button component.
+    button = GetComponent&lt;UnityEngine.UI.Button&gt;();
+}
+</code></pre>
+
+<p>You might wish to follow a similar pattern, storing a reference to your custom button type that can later be used in the <code>Connect()</code> method.</p>
+<h2 id="4-implement-the-auto-add-component-type-property-optional">4. Implement The Auto-Add Component Type Property (Optional)</h2>
+<p>When a canvas controller scene is saved in the Editor, Canvas Flow will ensure that storyboard hooks are present on any game objects with the hook's 'auto-add' component type. Here you can return the target type of your hook, such as your custom button type, to have your hook automatically added to any game objects with the target component type.</p>
+<p>For example, Canvas Flow's default storyboard hook for native <a href="https://docs.unity3d.com/Manual/script-Button.html">UI Button</a> components returns the <code>UI.Button</code> component here, causing it to automatically be added to any game objects with a <code>UI.Button</code> component.</p>
+<pre><code class="csharp">public override System.Type AutoAddComponentType
+{
+    get
+    {
+        // Automatically add this hook to game objects with a Unity UI
+        // Button component when the scene is saved.
+        return typeof(UnityEngine.UI.Button);
+    }
+}
+</code></pre>
+
+<blockquote>
+<p>Note: This is an optional step. You may return <code>null</code> here if you do not want your custom storyboard hook to automatically be added to the target component type when the scene is saved. Additionally, you can turn off <em>auto-add</em> for all storyboard hooks in Canvas Flow's preferences, found in the menu bar at <em>Unity/Preferences/Canvas Flow</em>.</p>
+</blockquote></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>© 2018 <a href="https://www.pelican7.com/" target="_blank">Pelican 7 LTD</a>. All rights reserved.</p>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '../../..';</script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/require.js"></script>
+        <script src="../../../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>

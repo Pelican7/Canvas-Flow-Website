@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Storyboard Transitions - Canvas Flow</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <link href="../../../css/extra.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../../..">Canvas Flow</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Home</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../canvas-controllers/introduction/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controllers/creating-a-canvas-controller/">Creating A Canvas Controller</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controllers/canvas-controller-scenes/">Canvas Controller Scenes</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controllers/presentation-and-dismissal/">Presentation & Dismissal</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controllers/canvas-controller-life-cycle/">Canvas Controller Life Cycle</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../introduction/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../creating-a-storyboard/">Creating A Storyboard</a>
+</li>
+            
+<li >
+    <a href="../storyboard-nodes/">Storyboard Nodes</a>
+</li>
+            
+<li class="active">
+    <a href="./">Storyboard Transitions</a>
+</li>
+            
+<li >
+    <a href="../presenting-a-storyboard/">Presenting A Storyboard</a>
+</li>
+            
+<li >
+    <a href="../custom-storyboard-hooks/">Custom Storyboard Hooks</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Transition Animators</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../transition-animators/introduction/">Introduction</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Default Transition Animators</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-default/">Default Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-fade-to-color/">Fade To Color Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-slide/">Slide Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-scale/">Scale Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/default-transition-animators/transition-animator-scale-and-fade/">Scale And Fade Background Transition Animator</a>
+</li>
+    </ul>
+  </li>
+            
+<li >
+    <a href="../../transition-animators/using-a-transition-animator/">Using A Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../transition-animators/custom-transition-animators/">Custom Transition Animators</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li >
+                        <a href="../../../scripting-reference/overview/">Scripting Reference</a>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../storyboard-nodes/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../presenting-a-storyboard/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#storyboard-transitions">Storyboard Transitions</a></li>
+            <li><a href="#direction">Direction</a></li>
+            <li><a href="#creation">Creation</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#passing-data-between-canvas-controllers">Passing Data Between Canvas Controllers</a></li>
+            <li><a href="#manual-transitions">Manual Transitions</a></li>
+            <li><a href="#entry-transition">Entry Transition</a></li>
+            <li><a href="#exit-transition">Exit Transition</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="storyboard-transitions">Storyboard Transitions</h1>
+<p>Storyboard transitions define the flow of nodes in the storyboard. A connection from one node to another represents a transition between those two nodes - a presentation or dismissal. The hook from which the transition originates defines the trigger for that transition.</p>
+<h2 id="direction">Direction</h2>
+<p>All transitions in a storyboard have a direction, which can be one of two values - downstream or upstream. A downstream connection is equivalent to a presentation and is represented by a <span style="color:white;background-color:#00C7D8;">&nbsp;blue&nbsp;</span> color. An upstream connection is equivalent to a dismissal and is represented by an <span style="color:white;background-color:#DD6337;">&nbsp;orange&nbsp;</span> color.</p>
+<div id="centered">
+    <img src="../img/storyboard-transitions-direction.png" style="margin:0px;" id="noborder"/>
+    <p><i>A downstream transition (presentation) from the menu to the settings screen and an upstream transition (dismissal) from the settings screen back to the menu.</i></p>
+</div>
+
+<h2 id="creation">Creation</h2>
+<p>To create a transition between two nodes, drag from the source node's hook to the destination node, as shown in the video below. Canvas Flow automatically detects the direction - downstream or upstream - based on the current state of the flow graph.</p>
+<div id="centered">
+    <video controls controlsList="nodownload" width="100%" name="Create Storyboard Transition" src="../vid/create-storyboard-transition.mov" style="margin-bottom:0px"></video>
+    <p><i>Creating transitions between nodes.</i></p>
+    <br>
+</div>
+
+<blockquote>
+<p>Note: An upstream transition, or dismissal, is created when a connection is made in which the destination node has a downstream path to the source node. Therefore, to create an upstream transition a downstream path between the nodes must exist.</p>
+</blockquote>
+<h2 id="configuration">Configuration</h2>
+<p>A transition's properties can be configured by selecting its origin hook. This will open the transition inspector, which is shown below and followed by a description of each property.</p>
+<div id="centered">
+    <img src="../img/storyboard-transition-inspector.png" style="margin:0px; width:792px;" id="noborder"/>
+    <p><i>The transition inspector.</i></p>
+</div>
+
+<table>
+<thead>
+<tr>
+<th>Property&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hook Name</td>
+<td>The name of the hook that will invoke this transition. This is taken from the game object that the hook component is attached to in the canvas controller.</td>
+</tr>
+<tr>
+<td>Animated</td>
+<td>Is the transition animated?</td>
+</tr>
+<tr>
+<td>Custom Animator</td>
+<td>The transition's animator. For more information, please see the <a href="../../transition-animators/introduction/">transition animators</a> section of the manual.</td>
+</tr>
+<tr>
+<td>Presentation Mode</td>
+<td>The presentation mode of the destination canvas controller (only available on downstream transitions). Please see <a href="../../canvas-controllers/presentation-and-dismissal#presentation-mode">presentation mode</a> for more information.</td>
+</tr>
+<tr>
+<td>User Identifier</td>
+<td>The transition's user identifier. This is used to identify the transition when triggering it manually, such as with a <a href="#manual-transitions">manual transition</a>.</td>
+</tr>
+<tr>
+<td>Load Asynchronously</td>
+<td>Should the canvas controller be loaded asynchronously? By default, canvas controllers are always loaded asynchronously.</td>
+</tr>
+<tr>
+<td>Override World Position</td>
+<td>Specify a world position at which to place the loaded canvas controller. This can be specified as an absolute world position with the <em>'Position'</em> setting, or as a spacing multiplier with the <em>'World Spacing Multiplier'</em> setting. If <em>'World Spacing Multiplier'</em> is selected, the world position for the new canvas will be the source canvas' world position plus the canvas size scaled by the multiplier.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="passing-data-between-canvas-controllers">Passing Data Between Canvas Controllers</h2>
+<p>When a transition occurs in a storyboard, the transition's source canvas controller will have its <a href="../../scripting-reference/Canvas Controllers/Canvas Controller.md#prepareforstoryboardtransition">PrepareForStoryboardTransition()</a> method called, passing in a <a href="../../scripting-reference/Storyboards/StoryboardTransition.md">StoryboardTransition</a>.</p>
+<p>This gives an opportunity to pass data between canvas controllers, just as you might use a <a href="../../canvas-controllers/presentation-and-dismissal/#configuring-a-to-be-presented-canvas-controller">configuration action</a> when presenting a canvas controller from script.</p>
+<p>For example, in Canvas Flow's Floaty Cube example, the menu canvas controller uses the <code>PrepareForStoryboardTransition()</code> method to detect when the loading screen is being presented and to configure it with the name of the scene to load, like so:</p>
+<pre><code class="csharp">public override void PrepareForStoryboardTransition(StoryboardTransition transition)
+{
+    var destination = transition.DestinationCanvasController();
+    if (destination is FCLoadingCanvasController &amp;&amp;
+        transition.direction == StoryboardTransitionDirection.Downstream)
+    {
+        // We are presenting the loading screen. Configure it to present the Game scene.
+        var loadingCanvasController = (FCLoadingCanvasController)destination;
+        loadingCanvasController.SceneToLoad = &quot;FCGameScene&quot;;
+    }
+}
+</code></pre>
+
+<h2 id="manual-transitions">Manual Transitions</h2>
+<p>Manual transitions are transitions that have no origin hook - i.e. they must be triggered manually. These can be used to invoke a storyboard transition in response to non-UI events, such as a <a href="https://docs.unity3d.com/Manual/CollidersOverview.html">collider</a> being intersected or a timer expiring.</p>
+<p>To create a manual transition, drag from the source node's <em>'Manual Transitions'</em> element to the destination node and enter a user identifier, as shown in the video below.</p>
+<div id="centered">
+    <video controls controlsList="nodownload" width="100%" name="Create Manual Storyboard Transition" src="../vid/create-storyboard-manual-transition.mov" style="margin-bottom:0px"></video>
+    <p><i>Creating a manual transition between nodes.</i></p>
+    <br>
+</div>
+
+<p>To trigger a manual transition, call <code>PerformTransitionWithIdentifier()</code> from the source canvas controller, passing in the transition's <code>userIdentifier</code>.</p>
+<p>For example, in Canvas Flow's Floaty Cube example, an event is raised when the player reaches a target height. The game overlay screen subscribes to this event, and in the callback it triggers its manual transition named <em>"PresentGameCompleteScreen"</em>, like so:</p>
+<pre><code class="csharp">public void OnPlayerReachedHeight()
+{
+    PerformTransitionWithIdentifier(&quot;PresentGameCompleteScreen&quot;);
+}
+</code></pre>
+
+<blockquote>
+<p>Note: Any storyboard transition - not just manual transitions - can be triggered by passing its <em>User Identifier</em> to <a href="../../scripting-reference/Canvas Controllers/Canvas Controller.md#performtransitionwithidentifier">PerformTransitionWithIdentifier()</a>.</p>
+</blockquote>
+<h2 id="entry-transition">Entry Transition</h2>
+<p>When the first canvas controller is added to a storyboard, an entry transition pointing to the new canvas controller is automatically created. This is shown by the blue wire connecting the 'Entry' node to the newly-added canvas controller.</p>
+<div id="centered">
+    <img src="../img/storyboard-entry.png" style="margin:0px; width:578px;" id="noborder"/>
+    <p><i>The storyboard's entry transition.</i></p>
+    <br>
+</div>
+
+<p>The storyboard's entry transition determines which canvas controller is presented when the storyboard is presented - i.e. the storyboard's entry point. To change the storyboard's entry point, select the <em>'Make storyboard entry point'</em> button on the canvas controller's node, as shown below.</p>
+<div id="centered">
+    <img src="../img/storyboard-set-entry.png" style="margin:0px;" id="noborder"/>
+    <p><i>Set a storyboard's entry point.</i></p>
+    <br>
+</div>
+
+<blockquote>
+<p>Note: A node can only become the entry point if it has no downstream transitions pointing to it. Similarly, if a node is the entry point, a downstream connection cannot be made to it.</p>
+</blockquote>
+<p>The entry transition can be configured just like any other transition, as described above, with the exception that it cannot be deleted; a storyboard must have an entry point.</p>
+<h2 id="exit-transition">Exit Transition</h2>
+<p>A storyboard exit transition is optional and is not always required. It is used in the event that you want to dismiss the entire storyboard. It will dismiss all canvas controllers that are in the storyboard's initial canvas controller's presentation hierarchy, including the initial canvas controller itself. It is the equivalent of calling <a href="../../scripting-reference/Canvas Controllers/Canvas Controller.md#dismissallcanvascontrollers">DismissAllCanvasControllers</a>.</p>
+<p>To create an exit transition, drag from a hook or manual transition element to the <em>Exit Transition</em> node.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>© 2018 <a href="https://www.pelican7.com/" target="_blank">Pelican 7 LTD</a>. All rights reserved.</p>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '../../..';</script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/require.js"></script>
+        <script src="../../../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>
