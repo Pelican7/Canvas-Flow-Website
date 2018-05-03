@@ -367,7 +367,6 @@
 <hr />
 <h2 id="canvasrecttransform">CanvasRectTransform</h2>
 <p><code>public static RectTransform CanvasRectTransform(this CanvasController canvasController);</code></p>
-<h3 id="returns">Returns</h3>
 <h3 id="description_1">Description</h3>
 <p>The canvas controller’s canvas’ <code>RectTransform</code> component. </p>
 <p>This is equivalent to calling <code>canvasController.canvas.GetComponent()</code>. </p>
@@ -376,7 +375,6 @@
 <hr />
 <h2 id="canvassize">CanvasSize</h2>
 <p><code>public static Vector2 CanvasSize(this CanvasController canvasController);</code></p>
-<h3 id="returns_1">Returns</h3>
 <h3 id="description_2">Description</h3>
 <p>The canvas controller’s canvas’ size. </p>
 <p>This is equivalent to calling <code>canvasController.CanvasRectTransform().rect.size</code>. </p>
@@ -385,7 +383,6 @@
 <hr />
 <h2 id="canvasworldbounds">CanvasWorldBounds</h2>
 <p><code>public static Bounds CanvasWorldBounds(this CanvasController canvasController);</code></p>
-<h3 id="returns_2">Returns</h3>
 <h3 id="description_3">Description</h3>
 <p>The canvas controller’s canvas’ bounds in world space. </p>
 <p>You might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller’s next to one another in world space. </p>
@@ -394,7 +391,6 @@
 <hr />
 <h2 id="canvasworldcorners">CanvasWorldCorners</h2>
 <p><code>public static Vector3[] CanvasWorldCorners(this CanvasController canvasController);</code></p>
-<h3 id="returns_3">Returns</h3>
 <h3 id="description_4">Description</h3>
 <p>The canvas controller’s canvas’ corners in world space. </p>
 <p>You might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller’s next to one another in world space. </p>
@@ -403,7 +399,6 @@
 <hr />
 <h2 id="canvasworldsize">CanvasWorldSize</h2>
 <p><code>public static Vector2 CanvasWorldSize(this CanvasController canvasController);</code></p>
-<h3 id="returns_4">Returns</h3>
 <h3 id="description_5">Description</h3>
 <p>The canvas controller’s canvas’ size in world space. This is the difference between the top right world corner and the bottom left world corner. </p>
 <p>You might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller’s next to one another in world space. </p>
@@ -412,7 +407,6 @@
 <hr />
 <h2 id="isscreenspace">IsScreenSpace</h2>
 <p><code>public static bool IsScreenSpace(this CanvasController canvasController);</code></p>
-<h3 id="returns_5">Returns</h3>
 <h3 id="description_6">Description</h3>
 <p>Is the canvas controller’s canvas in screen space? </p>
 <p>Returns <code>true</code> if the canvas controller’s canvas is in a screen space render mode. </p>
@@ -421,7 +415,6 @@
 <hr />
 <h2 id="offscreenbottomcontentposition">OffScreenBottomContentPosition</h2>
 <p><code>public static Vector3 OffScreenBottomContentPosition(this CanvasController canvasController);</code></p>
-<h3 id="returns_6">Returns</h3>
 <h3 id="description_7">Description</h3>
 <p>The position for the canvas controller’s content that will position it off the bottom of the screen. </p>
 <p>This is calculated using the height of the canvas controller’s canvas. You might use this method when animating or moving a canvas controller’s content to or from the bottom of the screen. </p>
@@ -432,7 +425,6 @@
 <hr />
 <h2 id="offscreenleftcontentposition">OffScreenLeftContentPosition</h2>
 <p><code>public static Vector3 OffScreenLeftContentPosition(this CanvasController canvasController);</code></p>
-<h3 id="returns_7">Returns</h3>
 <h3 id="description_8">Description</h3>
 <p>The position for the canvas controller’s content that will position it off the left of the screen. </p>
 <p>This is calculated using the width of the canvas controller’s canvas. You might use this method when animating or moving a canvas controller’s content to or from the left of the screen. </p>
@@ -443,7 +435,6 @@
 <hr />
 <h2 id="offscreenrightcontentposition">OffScreenRightContentPosition</h2>
 <p><code>public static Vector3 OffScreenRightContentPosition(this CanvasController canvasController);</code></p>
-<h3 id="returns_8">Returns</h3>
 <h3 id="description_9">Description</h3>
 <p>The position for the canvas controller’s content that will position it off the right of the screen. </p>
 <p>This is calculated using the width of the canvas controller’s canvas. You might use this method when animating or moving a canvas controller’s content to or from the right of the screen. </p>
@@ -454,7 +445,6 @@
 <hr />
 <h2 id="offscreentopcontentposition">OffScreenTopContentPosition</h2>
 <p><code>public static Vector3 OffScreenTopContentPosition(this CanvasController canvasController);</code></p>
-<h3 id="returns_9">Returns</h3>
 <h3 id="description_10">Description</h3>
 <p>The position for the canvas controller’s content that will position it off the top of the screen. </p>
 <p>This is calculated using the height of the canvas controller’s canvas. You might use this method when animating or moving a canvas controller’s content to or from the top of the screen. </p>
@@ -465,7 +455,6 @@
 <hr />
 <h2 id="onscreencontentposition">OnScreenContentPosition</h2>
 <p><code>public static Vector3 OnScreenContentPosition(this CanvasController canvasController);</code></p>
-<h3 id="returns_10">Returns</h3>
 <h3 id="description_11">Description</h3>
 <p>The on-screen position for the canvas controller’s content. </p>
 <p>You might use this method when animating or moving a canvas controller’s content. Note that because a canvas controller’s canvas and camera are coupled together, its on screen content position is always Vector3.zero. </p>

@@ -362,14 +362,12 @@
 <hr />
 <h2 id="completetransition">CompleteTransition</h2>
 <p><code>public void CompleteTransition();</code></p>
-<h3 id="returns">Returns</h3>
 <h3 id="description_4">Description</h3>
 <p>You must call <code>CompleteTransition()</code> on the context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition. </p>
 <hr />
 <h2 id="destinationcanvascontrollert">DestinationCanvasController&lt;T&gt;</h2>
 <p><code>public T DestinationCanvasController&lt;T&gt;()
     where T : CanvasController;</code></p>
-<h3 id="returns_1">Returns</h3>
 <h3 id="description_5">Description</h3>
 <p>The canvas controller being transitioned to, if it is of type T. </p>
 <p>In a downstream transition - a presentation - this is the canvas controller being presented. In an upstream transition - a dismissal - this is the canvas controller whom is being dismissed to.  If the <code>destinationCanvasController</code> is not of type T, returns null. </p>
@@ -377,7 +375,6 @@
 <h2 id="sourcecanvascontrollert">SourceCanvasController&lt;T&gt;</h2>
 <p><code>public T SourceCanvasController&lt;T&gt;()
     where T : CanvasController;</code></p>
-<h3 id="returns_2">Returns</h3>
 <h3 id="description_6">Description</h3>
 <p>The canvas controller being transitioned from, if it is of type T. </p>
 <p>In a downstream transition - a presentation - this is the canvas controller whom is presenting - the presenter. In an upstream transition - a dismissal - this is the canvas controller being dismissed. If the <code>sourceCanvasController</code> is not of type T, returns null. </p>
