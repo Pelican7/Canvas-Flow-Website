@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Routine - Canvas Flow</title>
+        <link href="../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../css/highlight.css">
+        <link href="../../../css/extra.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../../..">Canvas Flow</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../..">Home</a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../manual/contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../manual/canvas-controllers/introduction/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../../manual/canvas-controllers/creating-a-canvas-controller/">Creating A Canvas Controller</a>
+</li>
+            
+<li >
+    <a href="../../../manual/canvas-controllers/canvas-controller-scenes/">Canvas Controller Scenes</a>
+</li>
+            
+<li >
+    <a href="../../../manual/canvas-controllers/presentation-and-dismissal/">Presentation & Dismissal</a>
+</li>
+            
+<li >
+    <a href="../../../manual/canvas-controllers/canvas-controller-life-cycle/">Canvas Controller Life Cycle</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../manual/storyboards/introduction/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../../manual/storyboards/creating-a-storyboard/">Creating A Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../manual/storyboards/storyboard-nodes/">Storyboard Nodes</a>
+</li>
+            
+<li >
+    <a href="../../../manual/storyboards/storyboard-transitions/">Storyboard Transitions</a>
+</li>
+            
+<li >
+    <a href="../../../manual/storyboards/presenting-a-storyboard/">Presenting A Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../manual/storyboards/custom-storyboard-hooks/">Custom Storyboard Hooks</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Transition Animators</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../manual/transition-animators/introduction/">Introduction</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Default Transition Animators</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../manual/transition-animators/default-transition-animators/transition-animator-default/">Default Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../manual/transition-animators/default-transition-animators/transition-animator-fade-to-color/">Fade To Color Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../manual/transition-animators/default-transition-animators/transition-animator-slide/">Slide Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../manual/transition-animators/default-transition-animators/transition-animator-scale/">Scale Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../manual/transition-animators/default-transition-animators/transition-animator-scale-and-fade/">Scale And Fade Background Transition Animator</a>
+</li>
+    </ul>
+  </li>
+            
+<li >
+    <a href="../../../manual/transition-animators/using-a-transition-animator/">Using A Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../manual/transition-animators/custom-transition-animators/">Custom Transition Animators</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Scripting Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../canvas-controller/CanvasController/">CanvasController</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controller/CanvasControllerExtensions/">CanvasController Extensions</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controller/CanvasControllerPresentationMode/">CanvasControllerPresentationMode</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controller/CanvasControllerTransitionContext/">CanvasControllerTransitionContext</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controller/CanvasControllerTransitioningAnimator/">CanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controller/ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../canvas-controller/ICanvasControllerTransitioningAnimatorVendor/">ICanvasControllerTransitioningAnimatorVendor</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../storyboards/Storyboard/">Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../storyboards/hooks/StoryboardHook/">StoryboardHook</a>
+</li>
+            
+<li >
+    <a href="../../storyboards/StoryboardTransition/">StoryboardTransition</a>
+</li>
+            
+<li >
+    <a href="../../storyboards/StoryboardTransitionDirection/">StoryboardTransitionDirection</a>
+</li>
+            
+<li >
+    <a href="../../storyboards/StoryboardTransitionEvent/">StoryboardTransitionEvent</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Extensions And Convenience</a>
+    <ul class="dropdown-menu">
+            
+<li class="active">
+    <a href="./">Routine</a>
+</li>
+            
+<li >
+    <a href="../../extensions/DynamicObjectExtensions/">DynamicObjectExtensions</a>
+</li>
+            
+<li >
+    <a href="../../extensions/RectTransformExtensions/">RectTransformExtensions</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../../storyboards/StoryboardTransitionEvent/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../extensions/DynamicObjectExtensions/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#routine">Routine</a></li>
+            <li><a href="#description">Description</a></li>
+            <li><a href="#delay">delay</a></li>
+            <li><a href="#duration">duration</a></li>
+            <li><a href="#isrunning">IsRunning</a></li>
+            <li><a href="#updatemode">updateMode</a></li>
+            <li><a href="#routine_1">Routine</a></li>
+            <li><a href="#run">Run</a></li>
+            <li><a href="#stop">Stop</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="routine">Routine</h1>
+<p><code>public class Routine;</code></p>
+<h2 id="description">Description</h2>
+<p>The Routine class is a convenience class for easily executing a Unity coroutine with progress callbacks. This can be helpful when animating an object over a duration, for example. </p>
+<p>To use the routine class, create an instance of it and call <a href="#run">Run</a> like so: 
+<pre><code> // Create a routine lasting <code>duration</code> seconds.
+ Routine animation = new Routine(duration);</p>
+<p>// Execute the routine.
+ animation.Run(OnUpdate: (progress01) =&gt;
+ {
+     // The update action is called every frame for the routine's duration,
+     // passing in a progress01 value.
+     // e.g. Vector3.LerpUnclamped(startPos, endPos, progress01);
+ }, OnComplete: () =&gt;
+ {
+     // The completion action is called after <code>duration</code> seconds.
+ }); </code></pre></p>
+<p>The Routine class will instantiate a game object to execute the coroutine, and destroy it upon completion. </p>
+<table>
+<thead>
+<tr>
+<th>Properties</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#delay">delay</a></td>
+<td>The delay, in seconds, to wait before starting the routine after <a href="#run">Run</a> is called.</td>
+</tr>
+<tr>
+<td><a href="#duration">duration</a></td>
+<td>The duration of the routine, in seconds.</td>
+</tr>
+<tr>
+<td><a href="#isrunning">IsRunning</a></td>
+<td>Is the routine running?</td>
+</tr>
+<tr>
+<td><a href="#updatemode">updateMode</a></td>
+<td>The update mode of the routine. Can either be <em>UnscaledTime</em> or <em>ScaledTime</em>.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Methods</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#routine">Routine</a></td>
+<td>Initializes a new instance of the <a href="#routine">Routine</a> class.</td>
+</tr>
+<tr>
+<td><a href="#run">Run</a></td>
+<td>Run the routine with the specified OnUpdate and OnComplete callbacks.</td>
+</tr>
+<tr>
+<td><a href="#stop">Stop</a></td>
+<td>Stop the routine.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="delay">delay</h2>
+<p><code>public float delay;</code></p>
+<h3 id="description_1">Description</h3>
+<p>The delay, in seconds, to wait before starting the routine after <a href="#run">Run</a> is called. </p>
+<hr />
+<h2 id="duration">duration</h2>
+<p><code>public float duration;</code></p>
+<h3 id="description_2">Description</h3>
+<p>The duration of the routine, in seconds. </p>
+<hr />
+<h2 id="isrunning">IsRunning</h2>
+<p><code>public bool IsRunning;</code></p>
+<h3 id="description_3">Description</h3>
+<p>Is the routine running? </p>
+<hr />
+<h2 id="updatemode">updateMode</h2>
+<p><code>public RoutineUpdateMode updateMode;</code></p>
+<h3 id="description_4">Description</h3>
+<p>The update mode of the routine. Can either be <em>UnscaledTime</em> or <em>ScaledTime</em>. </p>
+<hr />
+<h2 id="routine_1">Routine</h2>
+<p><code>public Routine(float duration = 1f,
+               float delay = 0f,
+               RoutineUpdateMode updateMode = RoutineUpdateMode.UnscaledTime);</code></p>
+<h3 id="returns">Returns</h3>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>duration</td>
+<td>The duration of the routine, in seconds.</td>
+</tr>
+<tr>
+<td>delay</td>
+<td>The delay, in seconds, to wait before starting the routine after  is called.</td>
+</tr>
+<tr>
+<td>updateMode</td>
+<td>The update mode of the routine. Can either be UnscaledTime or ScaledTime.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_5">Description</h3>
+<p>Initializes a new instance of the <a href="#routine">Routine</a> class. </p>
+<hr />
+<h2 id="run">Run</h2>
+<p><code>public void Run(System.Action&lt;float&gt; OnUpdate = null,
+                      System.Action OnComplete = null);</code></p>
+<h3 id="returns_1">Returns</h3>
+<h3 id="parameters_1">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OnUpdate</td>
+<td>The OnUpdate action. This will be called every frame with a progress value for the routine's duration.</td>
+</tr>
+<tr>
+<td>OnComplete</td>
+<td>The OnComplete action. This will be called once when the routine has reached its duration.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_6">Description</h3>
+<p>Run the routine with the specified OnUpdate and OnComplete callbacks. </p>
+<hr />
+<h2 id="stop">Stop</h2>
+<p><code>public void Stop();</code></p>
+<h3 id="returns_2">Returns</h3>
+<h3 id="description_7">Description</h3>
+<p>Stop the routine. </p>
+<hr /></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>© 2018 <a href="https://www.pelican7.com/" target="_blank">Pelican 7 LTD</a>. All rights reserved.</p>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '../../..';</script>
+        <script src="../../../js/base.js"></script>
+        <script src="../../../search/require.js"></script>
+        <script src="../../../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>

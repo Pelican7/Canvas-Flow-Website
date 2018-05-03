@@ -158,8 +158,96 @@
   </li>
                         </ul>
                     </li>
-                    <li >
-                        <a href="../../../scripting-reference/overview/">Scripting Reference</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Scripting Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../scripting-reference/contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasController/">CanvasController</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerExtensions/">CanvasController Extensions</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerPresentationMode/">CanvasControllerPresentationMode</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitionContext/">CanvasControllerTransitionContext</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitioningAnimator/">CanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/">ICanvasControllerTransitioningAnimatorVendor</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/hooks/StoryboardHook/">StoryboardHook</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransition/">StoryboardTransition</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransitionDirection/">StoryboardTransitionDirection</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransitionEvent/">StoryboardTransitionEvent</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Extensions And Convenience</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/routine/Routine/">Routine</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/extensions/DynamicObjectExtensions/">DynamicObjectExtensions</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/extensions/RectTransformExtensions/">RectTransformExtensions</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
                     </li>
                 </ul>
 
@@ -175,7 +263,7 @@
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../../../scripting-reference/overview/">
+                        <a rel="prev" href="../../../scripting-reference/contents/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -190,7 +278,7 @@
         <li class="main active"><a href="#custom-transition-animators">Custom Transition Animators</a></li>
             <li><a href="#1-create-a-custom-transition-animator-script">1. Create A Custom Transition Animator Script</a></li>
             <li><a href="#2-the-animate-transition-method">2. The Animate Transition Method</a></li>
-            <li><a href="#3-the-animate-transition-involving-root-canvas-controller-method-optional">3. The Animate Transition Involving Root Canvas Controller Method (Optional)</a></li>
+            <li><a href="#3-the-animate-transition-for-initial-canvas-controller-method-optional">3. The Animate Transition For Initial Canvas Controller Method (Optional)</a></li>
             <li><a href="#4-performing-the-animation">4. Performing The Animation</a></li>
             <li><a href="#5-use-your-custom-transition-animator">5. Use Your Custom Transition Animator</a></li>
     </ul>
@@ -207,10 +295,10 @@
 <p>The generated script contains two methods for you to implement.</p>
 <ul>
 <li><a href="#2-the-animate-transition-method"><code>AnimateTransition()</code></a></li>
-<li><a href="#3-the-animate-transition-involving-root-canvas-controller-method-optional"><code>AnimateTransitionInvolvingRootCanvasController()</code></a></li>
+<li><a href="#3-the-animate-transition-for-initial-canvas-controller-method-optional"><code>AnimateTransitionForInitialCanvasController()</code></a></li>
 </ul>
 <h2 id="2-the-animate-transition-method">2. The Animate Transition Method</h2>
-<p>As described in <a href="../using-a-transition-animator">Using A Transition Animator</a>, an instance of your custom transition animator will be <em>vended</em> to Canvas Flow at runtime when the transition is about to be performed. Once this has occurred, Canvas Flow will tell the transition animator to perform the transition by calling its <a href="../../../scripting-reference/Canvas Controllers/icanvascontrollertransitioninganimator#animatetransition"><code>AnimateTransition()</code></a> method. This is where you can perform your custom animation. Please see <a href="#performing-the-animation">Performing The Animation</a> for more details.</p>
+<p>As described in <a href="../using-a-transition-animator">Using A Transition Animator</a>, an instance of your custom transition animator will be <em>vended</em> to Canvas Flow at runtime when the transition is about to be performed. Once this has occurred, Canvas Flow will tell the transition animator to perform the transition by calling its <a href="../../../scripting-reference/canvas-controller/icanvascontrollertransitioninganimator#animatetransition"><code>AnimateTransition()</code></a> method. This is where you can perform your custom animation. Please see <a href="#performing-the-animation">Performing The Animation</a> for more details.</p>
 <pre><code class="csharp">public override void AnimateTransition(CanvasControllerTransitionContext transitionContext)
 {
     /*  
@@ -233,26 +321,26 @@
 </code></pre>
 
 <blockquote>
-<p>When your transition animator has completed its animation, you must call <a href="../../scripting-reference/Canvas Controllers/canvascontrollertransitioncontext.md#completetransition">CompleteTransition</a> on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition.</p>
+<p>When your transition animator has completed its animation, you must call <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitionContext/#completetransition">CompleteTransition</a> on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition.</p>
 </blockquote>
-<h2 id="3-the-animate-transition-involving-root-canvas-controller-method-optional">3. The Animate Transition Involving Root Canvas Controller Method (Optional)</h2>
-<p>The <code>AnimateTransitionInvolvingRootCanvasController()</code> method is called on your transition animator when the transition to be animated involves a root canvas controller. A root canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using PresentInitialCanvasController(). Therefore, you only need to implement this method if you intend to use your transition animator on root transitions.</p>
+<h2 id="3-the-animate-transition-for-initial-canvas-controller-method-optional">3. The Animate Transition For Initial Canvas Controller Method (Optional)</h2>
+<p>The <code>AnimateTransitionForInitialCanvasController()</code> method is called on your transition animator when the transition is presenting or dismissing an initial canvas controller. An initial canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using <a href="../../../scripting-reference/canvas-controller/CanvasController/#presentinitialcanvascontroller">PresentInitialCanvasController</a>. Therefore, you only need to implement this method if you intend to use your transition animator on transitions involving an initial canvas controller.</p>
 <p>The only difference from the <a href="#2theanimatetransitionmethod">AnimateTransition</a> method is that either the context's <code>sourceCanvasController</code> or <code>destinationCanvasController</code> will be null, depending on whether the transition context <code>isUpstream</code> - i.e. it is presenting/dismissing to <em>'nothing'</em>.</p>
 <p>The default transition animator, found in <em>Canvas Flow/Transition Animators/DefaultTransitionAnimator.cs</em> simply forwards this method to <code>AnimateTransition()</code> as it only ever operates on the presented canvas, like so:</p>
-<pre><code class="csharp">public override void AnimateTransitionInvolvingRootCanvasController(
+<pre><code class="csharp">public override void AnimateTransitionInvolvingInitialCanvasController(
     CanvasControllerTransitionContext transitionContext)
 {
     /*
-      *  We support transitions to and from the root canvas controller by default
-      *  in our main AnimateTransition() method as we only operate on the
-      *  presented canvas controller, so we can just forward to that method.
-      */
+     *  We support transitions to and from the initial canvas controller by
+     *  default in our main AnimateTransition() method as we only operate on the
+     *  presented canvas controller, so we can just forward to that method.
+     */
 
     AnimateTransition(transitionContext);
 }
 </code></pre>
 
-<p>Please see <em>Canvas Flow/Transition Animators/FadeToColorTransitionAnimator.cs</em> for an example of how different behaviour can be implemented when presenting/dismissing the root canvas controller.</p>
+<p>Please see <em>Canvas Flow/Transition Animators/FadeToColorTransitionAnimator.cs</em> for an example of how different behaviour can be implemented when presenting/dismissing the initial canvas controller.</p>
 <h2 id="4-performing-the-animation">4. Performing The Animation</h2>
 <p>Below is an example of a complete <code>AnimateTransition</code> method, which animates the presented canvas controller from/to the bottom of the screen. This will serve as a basis for presenting several useful pointers when animating canvas controllers.</p>
 <blockquote>
@@ -300,20 +388,20 @@
 </code></pre>
 
 <h4 id="the-content-transform">The Content Transform</h4>
-<p>To move a canvas controller's content, the <a href="../../scripting-reference/canvas-controller/canvascontroller.md#contentposition">ContentPosition</a> (or <code>content.localPosition</code>) should be animated. Animating the canvas' transform itself will cause the canvas' <a href="../../scripting-reference/canvas-controller/canvascontroller.md#camera">camera</a> to move with it, which, although moving the canvas in world space, will have no effect on the canvas' screen position. </p>
-<p>Similarly, to scale or rotate the canvas, you should also perform these operations on the canvas controller's <a href="../../scripting-reference/canvas-controller/canvascontroller.md#content">content</a> transform.</p>
+<p>To move a canvas controller's content, the <a href="../../../scripting-reference/canvas-controller/CanvasController/#contentposition">ContentPosition</a> (or <code>content.localPosition</code>) should be animated. Animating the canvas' transform itself will cause the canvas' <a href="../../../scripting-reference/canvas-controller/CanvasController/#camera">camera</a> to move with it, which, although moving the canvas in world space, will have no effect on the canvas' screen position. </p>
+<p>Similarly, to scale or rotate the canvas, you should also perform these operations on the canvas controller's <a href="../../../scripting-reference/canvas-controller/CanvasController/#content">content</a> transform.</p>
 <h4 id="use-the-helper-positioning-methods">Use The Helper Positioning Methods</h4>
 <p>A canvas controller has several extension methods to help with positioning a canvas controller's content transform. These are used above to calculate the content's on/off-screen position.</p>
 <ul>
-<li><a href="../../scripting-reference/canvas-controller/canvascontrollerextensions.md#onscreencontentposition">OnScreenContentPosition</a></li>
-<li><a href="../../../scripting-reference/canvas-controller/canvascontrollerextensions#offscreenbottomcontentposition">OffScreenBottomContentPosition</a></li>
-<li><a href="../../../scripting-reference/canvas-controller/canvascontrollerextensions#offscreenleftcontentposition">OffScreenLeftContentPosition</a></li>
-<li><a href="../../../scripting-reference/canvas-controller/canvascontrollerextensions#offscreentopcontentposition">OffScreenTopContentPosition</a></li>
+<li><a href="../../../scripting-reference/canvas-controller/CanvasControllerExtensions/#onscreencontentposition">OnScreenContentPosition</a></li>
+<li><a href="../../../scripting-reference/canvas-controller/CanvasControllerExtensions#offscreenbottomcontentposition">OffScreenBottomContentPosition</a></li>
+<li><a href="../../../scripting-reference/canvas-controller/CanvasControllerExtensions#offscreenleftcontentposition">OffScreenLeftContentPosition</a></li>
+<li><a href="../../../scripting-reference/canvas-controller/CanvasControllerExtensions#offscreentopcontentposition">OffScreenTopContentPosition</a></li>
 </ul>
 <h4 id="routine">Routine</h4>
 <p>The above example, as well as all default transition animators, use Canvas Flow's <a href="../../../scripting-reference/routine/routine">Routine</a> class to perform their animation. You may also use this class to easily create a <a href="https://docs.unity3d.com/Manual/Coroutines.html">coroutine</a> with a progress and completion callback, as above.</p>
 <h4 id="complete-the-transition">Complete The Transition</h4>
-<p>When your transition animator has completed its animation, you <strong>must</strong> call <a href="../../scripting-reference/Canvas Controllers/canvascontrollertransitioncontext.md#completetransition">CompleteTransition</a> on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition.</p>
+<p>When your transition animator has completed its animation, you <strong>must</strong> call <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitionContext/#completetransition">CompleteTransition</a> on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition.</p>
 <h2 id="5-use-your-custom-transition-animator">5. Use Your Custom Transition Animator</h2>
 <p>Once your custom transition animator is complete, it will be available to select in Unity's <em>Create</em> menu. Please refer to <a href="../using-a-transition-animator">Using A Transition Animator</a> to create an instance of your custom animator.</p></div>
         </div>

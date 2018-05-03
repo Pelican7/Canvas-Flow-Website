@@ -158,8 +158,96 @@
   </li>
                         </ul>
                     </li>
-                    <li >
-                        <a href="../../../scripting-reference/overview/">Scripting Reference</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Scripting Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../scripting-reference/contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasController/">CanvasController</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerExtensions/">CanvasController Extensions</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerPresentationMode/">CanvasControllerPresentationMode</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitionContext/">CanvasControllerTransitionContext</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitioningAnimator/">CanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/">ICanvasControllerTransitioningAnimatorVendor</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/hooks/StoryboardHook/">StoryboardHook</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransition/">StoryboardTransition</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransitionDirection/">StoryboardTransitionDirection</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransitionEvent/">StoryboardTransitionEvent</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Extensions And Convenience</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/routine/Routine/">Routine</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/extensions/DynamicObjectExtensions/">DynamicObjectExtensions</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/extensions/RectTransformExtensions/">RectTransformExtensions</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
                     </li>
                 </ul>
 
@@ -195,7 +283,7 @@
 
 <h1 id="presenting-a-storyboard">Presenting A Storyboard</h1>
 <p>Storyboards are presented from a scene. This could be a game scene, a menu scene, or any other content scene, over which the user interface is presented.</p>
-<p>To present a storyboard, create a new game object in the scene, add the <a href="../../scripting-reference/Storyboards/Storyboard.md">Storyboard</a> component, and select your storyboard asset in the <em>Storyboard</em> field, as shown below. Run the scene and the storyboard will be presented.</p>
+<p>To present a storyboard, create a new game object in the scene, add the <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard</a> component, and select your storyboard asset in the <em>Storyboard</em> field, as shown below. Run the scene and the storyboard will be presented.</p>
 <div id="centered">
     <img src="../img/storyboard-component.png" style="margin:0px; width:736px;" id="noborder"/>
     <p><i>Presenting a storyboard from an empty scene.</i></p>
@@ -205,7 +293,7 @@
 <p>Note: A single <a href="https://docs.unity3d.com/Manual/EventSystem.html">Unity EventSystem</a> is required to be present for canvases to receive input events. Therefore, depending on your game's structure, you may wish to place an Event System (<em>Game Object/UI/Event System</em>) in the scene presenting your storyboard.</p>
 </blockquote>
 <h2 id="callbacks">Callbacks</h2>
-<p>As shown above, three <a href="https://docs.unity3d.com/Manual/UnityEvents.html">UnityEvent</a> callbacks are available on a <a href="../../scripting-reference/Storyboards/Storyboard.md">Storyboard</a> component.</p>
+<p>As shown above, three <a href="https://docs.unity3d.com/Manual/UnityEvents.html">UnityEvent</a> callbacks are available on a <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard</a> component.</p>
 <p>These callbacks can be particularly useful for passing scene data to the user interface, such as references to scene objects. For example, Canvas Flow's Floaty Cube example uses the <code>StoryboardWillPresentInitialCanvasController</code> callback to pass a reference to the player object to the intial game overlay screen. This allows the game overlay screen to display the player's current height. It is implemented like so:</p>
 <pre><code class="csharp">public void OnGameStoryboardWillPresentInitialCanvasController(StoryboardTransition transition)
 {
@@ -216,9 +304,9 @@
 </code></pre>
 
 <blockquote>
-<p>Note: The callbacks pass a <a href="../../scripting-reference/Storyboards/StoryboardTransition.md">StoryboardTransition</a> object, allowing you to access the canvas controllers involved.</p>
+<p>Note: The callbacks pass a <a href="../../../scripting-reference/storyboards/StoryboardTransition/">StoryboardTransition</a> object, allowing you to access the canvas controllers involved.</p>
 </blockquote>
-<p>For more information, please see the <a href="../../scripting-reference/Storyboards/Storyboard.md">Storyboard component's documentation</a>.</p></div>
+<p>For more information, please see the <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard component's documentation</a>.</p></div>
         </div>
 
         <footer class="col-md-12">

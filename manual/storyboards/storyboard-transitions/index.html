@@ -158,8 +158,96 @@
   </li>
                         </ul>
                     </li>
-                    <li >
-                        <a href="../../../scripting-reference/overview/">Scripting Reference</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Scripting Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../scripting-reference/contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasController/">CanvasController</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerExtensions/">CanvasController Extensions</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerPresentationMode/">CanvasControllerPresentationMode</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitionContext/">CanvasControllerTransitionContext</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitioningAnimator/">CanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/">ICanvasControllerTransitioningAnimatorVendor</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/hooks/StoryboardHook/">StoryboardHook</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransition/">StoryboardTransition</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransitionDirection/">StoryboardTransitionDirection</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransitionEvent/">StoryboardTransitionEvent</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Extensions And Convenience</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/routine/Routine/">Routine</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/extensions/DynamicObjectExtensions/">DynamicObjectExtensions</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/extensions/RectTransformExtensions/">RectTransformExtensions</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
                     </li>
                 </ul>
 
@@ -265,7 +353,7 @@
 </tbody>
 </table>
 <h2 id="passing-data-between-canvas-controllers">Passing Data Between Canvas Controllers</h2>
-<p>When a transition occurs in a storyboard, the transition's source canvas controller will have its <a href="../../scripting-reference/Canvas Controllers/Canvas Controller.md#prepareforstoryboardtransition">PrepareForStoryboardTransition()</a> method called, passing in a <a href="../../scripting-reference/Storyboards/StoryboardTransition.md">StoryboardTransition</a>.</p>
+<p>When a transition occurs in a storyboard, the transition's source canvas controller will have its <a href="../../../scripting-reference/canvas-controller/CanvasController/#prepareforstoryboardtransition">PrepareForStoryboardTransition()</a> method called, passing in a <a href="../../../scripting-reference/storyboards/StoryboardTransition/">StoryboardTransition</a>.</p>
 <p>This gives an opportunity to pass data between canvas controllers, just as you might use a <a href="../../canvas-controllers/presentation-and-dismissal/#configuring-a-to-be-presented-canvas-controller">configuration action</a> when presenting a canvas controller from script.</p>
 <p>For example, in Canvas Flow's Floaty Cube example, the menu canvas controller uses the <code>PrepareForStoryboardTransition()</code> method to detect when the loading screen is being presented and to configure it with the name of the scene to load, like so:</p>
 <pre><code class="csharp">public override void PrepareForStoryboardTransition(StoryboardTransition transition)
@@ -299,7 +387,7 @@
 </code></pre>
 
 <blockquote>
-<p>Note: Any storyboard transition - not just manual transitions - can be triggered by passing its <em>User Identifier</em> to <a href="../../scripting-reference/Canvas Controllers/Canvas Controller.md#performtransitionwithidentifier">PerformTransitionWithIdentifier()</a>.</p>
+<p>Note: Any storyboard transition - not just manual transitions - can be triggered by passing its <em>User Identifier</em> to <a href="../../../scripting-reference/canvas-controller/CanvasController/#performtransitionwithidentifier">PerformTransitionWithIdentifier()</a>.</p>
 </blockquote>
 <h2 id="entry-transition">Entry Transition</h2>
 <p>When the first canvas controller is added to a storyboard, an entry transition pointing to the new canvas controller is automatically created. This is shown by the blue wire connecting the 'Entry' node to the newly-added canvas controller.</p>
@@ -321,7 +409,7 @@
 </blockquote>
 <p>The entry transition can be configured just like any other transition, as described above, with the exception that it cannot be deleted; a storyboard must have an entry point.</p>
 <h2 id="exit-transition">Exit Transition</h2>
-<p>A storyboard exit transition is optional and is not always required. It is used in the event that you want to dismiss the entire storyboard. It will dismiss all canvas controllers that are in the storyboard's initial canvas controller's presentation hierarchy, including the initial canvas controller itself. It is the equivalent of calling <a href="../../scripting-reference/Canvas Controllers/Canvas Controller.md#dismissallcanvascontrollers">DismissAllCanvasControllers</a>.</p>
+<p>A storyboard exit transition is optional and is not always required. It is used in the event that you want to dismiss the entire storyboard. It will dismiss all canvas controllers that are in the storyboard's initial canvas controller's presentation hierarchy, including the initial canvas controller itself. It is the equivalent of calling <a href="../../../scripting-reference/canvas-controller/CanvasController/#dismissallcanvascontrollers">DismissAllCanvasControllers</a>.</p>
 <p>To create an exit transition, drag from a hook or manual transition element to the <em>Exit Transition</em> node.</p></div>
         </div>
 

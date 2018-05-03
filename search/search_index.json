@@ -402,7 +402,7 @@
         }, 
         {
             "location": "/manual/transition-animators/custom-transition-animators/", 
-            "text": "Custom Transition Animators\n\n\nYou may create your own transition animators to implement a custom transition animation between canvas controllers. If following the steps below, your custom transition animator will be displayed in Unity's \nCreate\n menu alongside the default transition animators, and will therefore also be compatible with storyboards.\n\n\n\n\nCanvas Flow's default transition animators are included as .cs files. This means you can easily inspect their source code, which is recommended when creating your first custom transition animator. They can be found in the Project inspector at \nCanvas Flow/Transition Animators/\n.\n\n\n\n\n1. Create A Custom Transition Animator Script\n\n\nTo begin creating a new transition animator, open Unity's \nCreate\n menu - by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting \nCreate/Canvas Flow/Custom Transition Animator\n. Enter a name and a directory for your new animator. This will generate a new transition animator script file at the specified location.\n\n\nThe generated script contains two methods for you to implement.\n\n\n\n\nAnimateTransition()\n\n\nAnimateTransitionInvolvingRootCanvasController()\n\n\n\n\n2. The Animate Transition Method\n\n\nAs described in \nUsing A Transition Animator\n, an instance of your custom transition animator will be \nvended\n to Canvas Flow at runtime when the transition is about to be performed. Once this has occurred, Canvas Flow will tell the transition animator to perform the transition by calling its \nAnimateTransition()\n method. This is where you can perform your custom animation. Please see \nPerforming The Animation\n for more details.\n\n\npublic override void AnimateTransition(CanvasControllerTransitionContext transitionContext)\n{\n    /*  \n      *  Do your custom animation with the source and destination content\n      *  here. For example:\n      *\n      *  CanvasController source = transitionContext.sourceCanvasController;\n      *  CanvasController destination = transitionContext.destinationCanvasController;\n      *\n      *  source.ContentPosition = ...\n      *  destination.ContentScale = ...\n      */\n\n    /*  \n     *  Call CompleteTransition() on the transition context once you have\n     *  performed your custom animation.\n     */\n    transitionContext.CompleteTransition();\n}\n\n\n\n\n\n\nWhen your transition animator has completed its animation, you must call \nCompleteTransition\n on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition.\n\n\n\n\n3. The Animate Transition Involving Root Canvas Controller Method (Optional)\n\n\nThe \nAnimateTransitionInvolvingRootCanvasController()\n method is called on your transition animator when the transition to be animated involves a root canvas controller. A root canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using PresentInitialCanvasController(). Therefore, you only need to implement this method if you intend to use your transition animator on root transitions.\n\n\nThe only difference from the \nAnimateTransition\n method is that either the context's \nsourceCanvasController\n or \ndestinationCanvasController\n will be null, depending on whether the transition context \nisUpstream\n - i.e. it is presenting/dismissing to \n'nothing'\n.\n\n\nThe default transition animator, found in \nCanvas Flow/Transition Animators/DefaultTransitionAnimator.cs\n simply forwards this method to \nAnimateTransition()\n as it only ever operates on the presented canvas, like so:\n\n\npublic override void AnimateTransitionInvolvingRootCanvasController(\n    CanvasControllerTransitionContext transitionContext)\n{\n    /*\n      *  We support transitions to and from the root canvas controller by default\n      *  in our main AnimateTransition() method as we only operate on the\n      *  presented canvas controller, so we can just forward to that method.\n      */\n\n    AnimateTransition(transitionContext);\n}\n\n\n\n\nPlease see \nCanvas Flow/Transition Animators/FadeToColorTransitionAnimator.cs\n for an example of how different behaviour can be implemented when presenting/dismissing the root canvas controller.\n\n\n4. Performing The Animation\n\n\nBelow is an example of a complete \nAnimateTransition\n method, which animates the presented canvas controller from/to the bottom of the screen. This will serve as a basis for presenting several useful pointers when animating canvas controllers.\n\n\n\n\nNote that you are free to animate the context's canvas controllers however you wish, including using external animation tools.\n\n\n\n\npublic override void AnimateTransition(CanvasControllerTransitionContext transitionContext)\n{\n    // Determine the target canvas controller - the one being presented or dismissed.\n    var targetCanvasController = (transitionContext.isUpstream) ?\n        transitionContext.sourceCanvasController :\n            transitionContext.destinationCanvasController;\n\n    // Determine the content's start position.\n    Vector3 contentStartPosition = (transitionContext.isUpstream) ?\n        targetCanvasController.OnScreenContentPosition() :\n            targetCanvasController.OffScreenBottomContentPosition();\n\n    // Determine the content's end position.\n    Vector3 contentEndPosition = (transitionContext.isUpstream) ?\n        targetCanvasController.OffScreenBottomContentPosition() :\n            targetCanvasController.OnScreenContentPosition();\n\n    // Create a routine lasting `duration` seconds.\n    Routine animation = new Routine(duration);\n\n    // Execute the routine.\n    animation.Run(OnUpdate: (progress01) =\n\n    {\n        // The update action is called every frame for the routine's duration,\n        // passing in a progress01 value.\n\n        // Move the canvas controller's content from the start position\n        // to the end position, each frame.\n        targetCanvasController.ContentPosition = Vector3.LerpUnclamped(\n                    contentStartPosition,\n                    contentEndPosition,\n                    progress01);\n\n    }, OnComplete: () =\n\n    {\n        // The completion action is called after `duration` seconds.\n        transitionContext.CompleteTransition();\n    });\n}\n\n\n\n\nThe Content Transform\n\n\nTo move a canvas controller's content, the \nContentPosition\n (or \ncontent.localPosition\n) should be animated. Animating the canvas' transform itself will cause the canvas' \ncamera\n to move with it, which, although moving the canvas in world space, will have no effect on the canvas' screen position. \n\n\nSimilarly, to scale or rotate the canvas, you should also perform these operations on the canvas controller's \ncontent\n transform.\n\n\nUse The Helper Positioning Methods\n\n\nA canvas controller has several extension methods to help with positioning a canvas controller's content transform. These are used above to calculate the content's on/off-screen position.\n\n\n\n\nOnScreenContentPosition\n\n\nOffScreenBottomContentPosition\n\n\nOffScreenLeftContentPosition\n\n\nOffScreenTopContentPosition\n\n\n\n\nRoutine\n\n\nThe above example, as well as all default transition animators, use Canvas Flow's \nRoutine\n class to perform their animation. You may also use this class to easily create a \ncoroutine\n with a progress and completion callback, as above.\n\n\nComplete The Transition\n\n\nWhen your transition animator has completed its animation, you \nmust\n call \nCompleteTransition\n on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition.\n\n\n5. Use Your Custom Transition Animator\n\n\nOnce your custom transition animator is complete, it will be available to select in Unity's \nCreate\n menu. Please refer to \nUsing A Transition Animator\n to create an instance of your custom animator.", 
+            "text": "Custom Transition Animators\n\n\nYou may create your own transition animators to implement a custom transition animation between canvas controllers. If following the steps below, your custom transition animator will be displayed in Unity's \nCreate\n menu alongside the default transition animators, and will therefore also be compatible with storyboards.\n\n\n\n\nCanvas Flow's default transition animators are included as .cs files. This means you can easily inspect their source code, which is recommended when creating your first custom transition animator. They can be found in the Project inspector at \nCanvas Flow/Transition Animators/\n.\n\n\n\n\n1. Create A Custom Transition Animator Script\n\n\nTo begin creating a new transition animator, open Unity's \nCreate\n menu - by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting \nCreate/Canvas Flow/Custom Transition Animator\n. Enter a name and a directory for your new animator. This will generate a new transition animator script file at the specified location.\n\n\nThe generated script contains two methods for you to implement.\n\n\n\n\nAnimateTransition()\n\n\nAnimateTransitionForInitialCanvasController()\n\n\n\n\n2. The Animate Transition Method\n\n\nAs described in \nUsing A Transition Animator\n, an instance of your custom transition animator will be \nvended\n to Canvas Flow at runtime when the transition is about to be performed. Once this has occurred, Canvas Flow will tell the transition animator to perform the transition by calling its \nAnimateTransition()\n method. This is where you can perform your custom animation. Please see \nPerforming The Animation\n for more details.\n\n\npublic override void AnimateTransition(CanvasControllerTransitionContext transitionContext)\n{\n    /*  \n      *  Do your custom animation with the source and destination content\n      *  here. For example:\n      *\n      *  CanvasController source = transitionContext.sourceCanvasController;\n      *  CanvasController destination = transitionContext.destinationCanvasController;\n      *\n      *  source.ContentPosition = ...\n      *  destination.ContentScale = ...\n      */\n\n    /*  \n     *  Call CompleteTransition() on the transition context once you have\n     *  performed your custom animation.\n     */\n    transitionContext.CompleteTransition();\n}\n\n\n\n\n\n\nWhen your transition animator has completed its animation, you must call \nCompleteTransition\n on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition.\n\n\n\n\n3. The Animate Transition For Initial Canvas Controller Method (Optional)\n\n\nThe \nAnimateTransitionForInitialCanvasController()\n method is called on your transition animator when the transition is presenting or dismissing an initial canvas controller. An initial canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using \nPresentInitialCanvasController\n. Therefore, you only need to implement this method if you intend to use your transition animator on transitions involving an initial canvas controller.\n\n\nThe only difference from the \nAnimateTransition\n method is that either the context's \nsourceCanvasController\n or \ndestinationCanvasController\n will be null, depending on whether the transition context \nisUpstream\n - i.e. it is presenting/dismissing to \n'nothing'\n.\n\n\nThe default transition animator, found in \nCanvas Flow/Transition Animators/DefaultTransitionAnimator.cs\n simply forwards this method to \nAnimateTransition()\n as it only ever operates on the presented canvas, like so:\n\n\npublic override void AnimateTransitionInvolvingInitialCanvasController(\n    CanvasControllerTransitionContext transitionContext)\n{\n    /*\n     *  We support transitions to and from the initial canvas controller by\n     *  default in our main AnimateTransition() method as we only operate on the\n     *  presented canvas controller, so we can just forward to that method.\n     */\n\n    AnimateTransition(transitionContext);\n}\n\n\n\n\nPlease see \nCanvas Flow/Transition Animators/FadeToColorTransitionAnimator.cs\n for an example of how different behaviour can be implemented when presenting/dismissing the initial canvas controller.\n\n\n4. Performing The Animation\n\n\nBelow is an example of a complete \nAnimateTransition\n method, which animates the presented canvas controller from/to the bottom of the screen. This will serve as a basis for presenting several useful pointers when animating canvas controllers.\n\n\n\n\nNote that you are free to animate the context's canvas controllers however you wish, including using external animation tools.\n\n\n\n\npublic override void AnimateTransition(CanvasControllerTransitionContext transitionContext)\n{\n    // Determine the target canvas controller - the one being presented or dismissed.\n    var targetCanvasController = (transitionContext.isUpstream) ?\n        transitionContext.sourceCanvasController :\n            transitionContext.destinationCanvasController;\n\n    // Determine the content's start position.\n    Vector3 contentStartPosition = (transitionContext.isUpstream) ?\n        targetCanvasController.OnScreenContentPosition() :\n            targetCanvasController.OffScreenBottomContentPosition();\n\n    // Determine the content's end position.\n    Vector3 contentEndPosition = (transitionContext.isUpstream) ?\n        targetCanvasController.OffScreenBottomContentPosition() :\n            targetCanvasController.OnScreenContentPosition();\n\n    // Create a routine lasting `duration` seconds.\n    Routine animation = new Routine(duration);\n\n    // Execute the routine.\n    animation.Run(OnUpdate: (progress01) =\n\n    {\n        // The update action is called every frame for the routine's duration,\n        // passing in a progress01 value.\n\n        // Move the canvas controller's content from the start position\n        // to the end position, each frame.\n        targetCanvasController.ContentPosition = Vector3.LerpUnclamped(\n                    contentStartPosition,\n                    contentEndPosition,\n                    progress01);\n\n    }, OnComplete: () =\n\n    {\n        // The completion action is called after `duration` seconds.\n        transitionContext.CompleteTransition();\n    });\n}\n\n\n\n\nThe Content Transform\n\n\nTo move a canvas controller's content, the \nContentPosition\n (or \ncontent.localPosition\n) should be animated. Animating the canvas' transform itself will cause the canvas' \ncamera\n to move with it, which, although moving the canvas in world space, will have no effect on the canvas' screen position. \n\n\nSimilarly, to scale or rotate the canvas, you should also perform these operations on the canvas controller's \ncontent\n transform.\n\n\nUse The Helper Positioning Methods\n\n\nA canvas controller has several extension methods to help with positioning a canvas controller's content transform. These are used above to calculate the content's on/off-screen position.\n\n\n\n\nOnScreenContentPosition\n\n\nOffScreenBottomContentPosition\n\n\nOffScreenLeftContentPosition\n\n\nOffScreenTopContentPosition\n\n\n\n\nRoutine\n\n\nThe above example, as well as all default transition animators, use Canvas Flow's \nRoutine\n class to perform their animation. You may also use this class to easily create a \ncoroutine\n with a progress and completion callback, as above.\n\n\nComplete The Transition\n\n\nWhen your transition animator has completed its animation, you \nmust\n call \nCompleteTransition\n on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition.\n\n\n5. Use Your Custom Transition Animator\n\n\nOnce your custom transition animator is complete, it will be available to select in Unity's \nCreate\n menu. Please refer to \nUsing A Transition Animator\n to create an instance of your custom animator.", 
             "title": "Custom Transition Animators"
         }, 
         {
@@ -412,7 +412,7 @@
         }, 
         {
             "location": "/manual/transition-animators/custom-transition-animators/#1-create-a-custom-transition-animator-script", 
-            "text": "To begin creating a new transition animator, open Unity's  Create  menu - by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting  Create/Canvas Flow/Custom Transition Animator . Enter a name and a directory for your new animator. This will generate a new transition animator script file at the specified location.  The generated script contains two methods for you to implement.   AnimateTransition()  AnimateTransitionInvolvingRootCanvasController()", 
+            "text": "To begin creating a new transition animator, open Unity's  Create  menu - by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting  Create/Canvas Flow/Custom Transition Animator . Enter a name and a directory for your new animator. This will generate a new transition animator script file at the specified location.  The generated script contains two methods for you to implement.   AnimateTransition()  AnimateTransitionForInitialCanvasController()", 
             "title": "1. Create A Custom Transition Animator Script"
         }, 
         {
@@ -421,9 +421,9 @@
             "title": "2. The Animate Transition Method"
         }, 
         {
-            "location": "/manual/transition-animators/custom-transition-animators/#3-the-animate-transition-involving-root-canvas-controller-method-optional", 
-            "text": "The  AnimateTransitionInvolvingRootCanvasController()  method is called on your transition animator when the transition to be animated involves a root canvas controller. A root canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using PresentInitialCanvasController(). Therefore, you only need to implement this method if you intend to use your transition animator on root transitions.  The only difference from the  AnimateTransition  method is that either the context's  sourceCanvasController  or  destinationCanvasController  will be null, depending on whether the transition context  isUpstream  - i.e. it is presenting/dismissing to  'nothing' .  The default transition animator, found in  Canvas Flow/Transition Animators/DefaultTransitionAnimator.cs  simply forwards this method to  AnimateTransition()  as it only ever operates on the presented canvas, like so:  public override void AnimateTransitionInvolvingRootCanvasController(\n    CanvasControllerTransitionContext transitionContext)\n{\n    /*\n      *  We support transitions to and from the root canvas controller by default\n      *  in our main AnimateTransition() method as we only operate on the\n      *  presented canvas controller, so we can just forward to that method.\n      */\n\n    AnimateTransition(transitionContext);\n}  Please see  Canvas Flow/Transition Animators/FadeToColorTransitionAnimator.cs  for an example of how different behaviour can be implemented when presenting/dismissing the root canvas controller.", 
-            "title": "3. The Animate Transition Involving Root Canvas Controller Method (Optional)"
+            "location": "/manual/transition-animators/custom-transition-animators/#3-the-animate-transition-for-initial-canvas-controller-method-optional", 
+            "text": "The  AnimateTransitionForInitialCanvasController()  method is called on your transition animator when the transition is presenting or dismissing an initial canvas controller. An initial canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using  PresentInitialCanvasController . Therefore, you only need to implement this method if you intend to use your transition animator on transitions involving an initial canvas controller.  The only difference from the  AnimateTransition  method is that either the context's  sourceCanvasController  or  destinationCanvasController  will be null, depending on whether the transition context  isUpstream  - i.e. it is presenting/dismissing to  'nothing' .  The default transition animator, found in  Canvas Flow/Transition Animators/DefaultTransitionAnimator.cs  simply forwards this method to  AnimateTransition()  as it only ever operates on the presented canvas, like so:  public override void AnimateTransitionInvolvingInitialCanvasController(\n    CanvasControllerTransitionContext transitionContext)\n{\n    /*\n     *  We support transitions to and from the initial canvas controller by\n     *  default in our main AnimateTransition() method as we only operate on the\n     *  presented canvas controller, so we can just forward to that method.\n     */\n\n    AnimateTransition(transitionContext);\n}  Please see  Canvas Flow/Transition Animators/FadeToColorTransitionAnimator.cs  for an example of how different behaviour can be implemented when presenting/dismissing the initial canvas controller.", 
+            "title": "3. The Animate Transition For Initial Canvas Controller Method (Optional)"
         }, 
         {
             "location": "/manual/transition-animators/custom-transition-animators/#4-performing-the-animation", 
@@ -456,14 +456,1449 @@
             "title": "5. Use Your Custom Transition Animator"
         }, 
         {
-            "location": "/scripting-reference/overview/", 
-            "text": "Overview", 
-            "title": "Scripting Reference"
+            "location": "/scripting-reference/contents/", 
+            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nCanvasController\n\n\nCanvasController Extensions\n\n\nCanvasControllerPresentationMode\n\n\nCanvasControllerTransitionContext\n\n\nCanvasControllerTransitioningAnimator\n\n\nICanvasControllerTransitioningAnimator\n\n\nICanvasControllerTransitioningAnimatorVendor\n\n\n\n\nStoryboards\n\n\n\n\nStoryboard\n\n\nStoryboardData\n\n\nStoryboardHook\n\n\nStoryboardTransition\n\n\nStoryboardTransitionDirection\n\n\nStoryboardTransitionEvent\n\n\n\n\nExtensions \n Convenience\n\n\n\n\nRoutine\n\n\nDynamicObjectExtensions\n\n\nRectTransformExtensions", 
+            "title": "Contents"
         }, 
         {
-            "location": "/scripting-reference/overview/#overview", 
+            "location": "/scripting-reference/contents/#contents", 
             "text": "", 
-            "title": "Overview"
+            "title": "Contents"
+        }, 
+        {
+            "location": "/scripting-reference/contents/#canvas-controllers", 
+            "text": "CanvasController  CanvasController Extensions  CanvasControllerPresentationMode  CanvasControllerTransitionContext  CanvasControllerTransitioningAnimator  ICanvasControllerTransitioningAnimator  ICanvasControllerTransitioningAnimatorVendor", 
+            "title": "Canvas Controllers"
+        }, 
+        {
+            "location": "/scripting-reference/contents/#storyboards", 
+            "text": "Storyboard  StoryboardData  StoryboardHook  StoryboardTransition  StoryboardTransitionDirection  StoryboardTransitionEvent", 
+            "title": "Storyboards"
+        }, 
+        {
+            "location": "/scripting-reference/contents/#extensions-convenience", 
+            "text": "Routine  DynamicObjectExtensions  RectTransformExtensions", 
+            "title": "Extensions &amp; Convenience"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/", 
+            "text": "CanvasController\n\n\npublic class CanvasController : MonoBehaviour, IStoryboardable;\n\n\nDescription\n\n\nA canvas controller represents a single screen in your user interface. Canvas controllers can present and dismiss other canvas controllers, or screens, allowing you to easily build a user interface flow, presenting and dismissing screens as required. A canvas controller automatically manages the presentation hierarchy, as well as loading and unloading itself as it is presented or dismissed. \n\n\nCanvas controllers should be created with Unity's \nCreate\n menu - found by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting \nCreate/Canvas Flow/Canvas Controller\n. \n\n\nPresent and dismiss canvas controllers with the \nPresentCanvasController\n and \nDismissCanvasController\n methods. To present or dismiss an initial canvas controller use the \nPresentInitialCanvasController\n and  \n DismissAllCanvasControllers\n methods. \n\n\nA canvas controller can override its appearance methods to be notified of the appearance events \nCanvasWillAppear\n, \nCanvasDidAppear\n, \nCanvasWillDisappear\n, and \nCanvasDidDisappear\n. \n\n\nCanvas controllers can be used with storyboards to visually define the presentation flow. When working with storyboards, data can be passed between canvas controllers by overriding the \nPrepareForStoryboardTransition\n method. Additionally, storyboard transitions can be triggered from a canvas controller using the \nPerformTransitionWithIdentifier\n method. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nbackgroundImage\n\n\nThe canvas controller's background image.\n\n\n\n\n\n\ncamera\n\n\nThe canvas controller's camera.\n\n\n\n\n\n\ncanvas\n\n\nThe canvas controller's main canvas.\n\n\n\n\n\n\ncontent\n\n\nThe canvas controller's content transform.\n\n\n\n\n\n\nContentActive\n\n\nEnable/disable the canvas contoller's content. This is equivalent to calling \ncontent.gameObject.activeSelf\n and \ncontent.gameObject.SetActive\n.\n\n\n\n\n\n\nContentPosition\n\n\nGet/set the position of the canvas controller's content. This is equivalent to calling \ncontent.localPosition\n.\n\n\n\n\n\n\nContentScale\n\n\nGet/set the scale of the canvas controller's content. This is equivalent to calling \ncontent.localScale\n.\n\n\n\n\n\n\nHidden\n\n\nHide/show the canvas controller. This will enable/disable both the canvas controller's \ncamera\n and \ncontent\n.\n\n\n\n\n\n\nIsBeingDismissed\n\n\nIs the canvas controller currently being dismissed?\n\n\n\n\n\n\nIsBeingPresented\n\n\nIs the canvas controller currently being presented?\n\n\n\n\n\n\nIsTransitioning\n\n\nIs the canvas controller currently transitioning?\n\n\n\n\n\n\npresentationMode\n\n\nThe canvas controller's presentation mode.\n\n\n\n\n\n\nPresentedCanvasController\n\n\nGet the presented canvas controller.\n\n\n\n\n\n\nPresentingCanvasController\n\n\nGet the presenting canvas controller - the canvas controller's presenter.\n\n\n\n\n\n\nscene\n\n\nThe canvas controller's scene.\n\n\n\n\n\n\nStoryboard\n\n\nGet the canvas controller's storyboard.\n\n\n\n\n\n\ntransitioningAnimatorVendor\n\n\nThe canvas controller's 'transitioning animator' vendor.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nAwake\n\n\nAwake is called when the canvas controller is loaded.\n\n\n\n\n\n\nCanvasDidAppear\n\n\nOverride this method in your canvas controller to be notified just after the canvas has transitioned on screen. This could be because it has just been presented or has just dismissed its \nPresentedCanvasController\n.\n\n\n\n\n\n\nCanvasDidDisappear\n\n\nOverride this method in your canvas controller to be notified just after the canvas has transitioned off screen. This could be because it has just been dismissed or has just presented a canvas controller.\n\n\n\n\n\n\nCanvasWillAppear\n\n\nOverride this method in your canvas controller to be notified just before the canvas is about to transition on screen. This could be because it is about to be presented or about to dismiss its \nPresentedCanvasController\n.\n\n\n\n\n\n\nCanvasWillDisappear\n\n\nOverride this method in your canvas controller to be notified just before the canvas is about to transition off screen. This could be because it is about to be dismissed or about to present a canvas controller.\n\n\n\n\n\n\nDismissAllCanvasControllers\n\n\nDismisses all canvas controllers in the current hierarchy.\n\n\n\n\n\n\nDismissCanvasController\n\n\nDismiss a canvas controller.\n\n\n\n\n\n\nPerformTransitionWithIdentifier\n\n\nPerform the storyboard transition with this identifier.\n\n\n\n\n\n\nPrepareForStoryboardTransition\n\n\nOverride this method to be notified when the canvas controller is about to be involved in a storyboard transition.\n\n\n\n\n\n\nPresentCanvasController\n\n\nPresent a canvas controller, specifying a name.\n\n\n\n\n\n\nPresentCanvasController\nT\n\n\nPresent a canvas controller, specifying a type.\n\n\n\n\n\n\nPresentCanvasController\nT\n\n\nPresent a canvas controller, specifying a type and a name.\n\n\n\n\n\n\nPresentInitialCanvasController\n\n\nPresent an initial canvas controller, specifying a name.\n\n\n\n\n\n\nPresentInitialCanvasController\nT\n\n\nPresent an initial canvas controller, specifying a type.\n\n\n\n\n\n\nPresentInitialCanvasController\nT\n\n\nPresent an initial canvas controller, specifying a type and a name.\n\n\n\n\n\n\nStart\n\n\nStart is called on the frame when the canvas controller is loaded, after \nAwake\n.\n\n\n\n\n\n\n\n\n\n\nbackgroundImage\n\n\npublic Image backgroundImage;\n\n\nDescription\n\n\nThe canvas controller's background image. \n\n\n\n\ncamera\n\n\npublic new Camera camera;\n\n\nDescription\n\n\nThe canvas controller's camera. \n\n\n\n\ncanvas\n\n\npublic Canvas canvas;\n\n\nDescription\n\n\nThe canvas controller's main canvas. \n\n\n\n\ncontent\n\n\npublic RectTransform content;\n\n\nDescription\n\n\nThe canvas controller's content transform. \n\n\nAll content should be placed under the content transform. \n\n\n\n\nContentActive\n\n\npublic bool ContentActive;\n\n\nDescription\n\n\nEnable/disable the canvas contoller's content. This is equivalent to calling \ncontent.gameObject.activeSelf\n and \ncontent.gameObject.SetActive\n. \n\n\nIf you intend to hide the canvas controller completely, use the \nHidden\n property as this will disable the canvas' camera as well as the content. \n\n\n\n\nContentPosition\n\n\npublic Vector3 ContentPosition;\n\n\nDescription\n\n\nGet/set the position of the canvas controller's content. This is equivalent to calling \ncontent.localPosition\n. \n\n\n\n\nContentScale\n\n\npublic Vector3 ContentScale;\n\n\nDescription\n\n\nGet/set the scale of the canvas controller's content. This is equivalent to calling \ncontent.localScale\n. \n\n\n\n\nHidden\n\n\npublic bool Hidden;\n\n\nDescription\n\n\nHide/show the canvas controller. This will enable/disable both the canvas controller's \ncamera\n and \ncontent\n. \n\n\n\n\nIsBeingDismissed\n\n\npublic bool IsBeingDismissed;\n\n\nDescription\n\n\nIs the canvas controller currently being dismissed? \n\n\nWill return true if the canvas controller is currently involved in a transition in which it is being dismissed. \n\n\n\n\nIsBeingPresented\n\n\npublic bool IsBeingPresented;\n\n\nDescription\n\n\nIs the canvas controller currently being presented? \n\n\nWill return true if the canvas controller is currently involved in a transition in which it is being presented. \n\n\n\n\nIsTransitioning\n\n\npublic bool IsTransitioning;\n\n\nDescription\n\n\nIs the canvas controller currently transitioning? \n\n\nThis returns true on both canvas controllers involved in a transition whilst that transition is executing. \n\n\n\n\npresentationMode\n\n\npublic CanvasControllerPresentationMode presentationMode =\n    CanvasControllerPresentationMode.HidePresenter;\n\n\nDescription\n\n\nThe canvas controller's presentation mode. \n\n\nSee also: \n\n\nCanvasControllerPresentationMode\n \n\n\n\n\nPresentedCanvasController\n\n\npublic CanvasController PresentedCanvasController;\n\n\nDescription\n\n\nGet the presented canvas controller. \n\n\nIf this canvas controller has not presented a canvas controller then the presented canvas controller will be null. \n\n\n\n\nPresentingCanvasController\n\n\npublic CanvasController PresentingCanvasController;\n\n\nDescription\n\n\nGet the presenting canvas controller - the canvas controller's presenter. \n\n\nIf no canvas controller presented this canvas controller then the presenting canvas controller will be null. This is true for initial canvas controllers - canvas controllers presented from a storyboard entry transition or using \nPresentInitialCanvasController\n. \n\n\n\n\nscene\n\n\nprotected Scene scene;\n\n\nDescription\n\n\nThe canvas controller's scene. \n\n\n\n\nStoryboard\n\n\npublic Storyboard Storyboard;\n\n\nDescription\n\n\nGet the canvas controller's storyboard. \n\n\nWhen a canvas controller is presented from a storyboard, this property will be set to the storyboard whom presented it. Otherwise, it will be null. \n\n\n\n\ntransitioningAnimatorVendor\n\n\npublic ICanvasControllerTransitioningAnimatorVendor transitioningAnimatorVendor;\n\n\nDescription\n\n\nThe canvas controller's 'transitioning animator' vendor. \n\n\nWhen a canvas controller is about to be presented or dismissed, it will ask its \ntransitioningAnimatorVendor\n for an animator to animate the transition. Specify a vendor to supply transition animators to a transitioning canvas controller. \n\n\n\n\nAwake\n\n\nprotected virtual void Awake();\n\n\nReturns\n\n\nDescription\n\n\nAwake is called when the canvas controller is loaded. \n\n\nIf you override Awake, always call \nbase.Awake()\n in your derived class's implementation. \n\n\n\n\nCanvasDidAppear\n\n\nprotected virtual void CanvasDidAppear();\n\n\nReturns\n\n\nDescription\n\n\nOverride this method in your canvas controller to be notified just after the canvas has transitioned on screen. This could be because it has just been presented or has just dismissed its \nPresentedCanvasController\n. \n\n\nSee also: \n\n\nIsBeingPresented\n \n\n\nIsBeingDismissed\n \n\n\n\n\nCanvasDidDisappear\n\n\nprotected virtual void CanvasDidDisappear();\n\n\nReturns\n\n\nDescription\n\n\nOverride this method in your canvas controller to be notified just after the canvas has transitioned off screen. This could be because it has just been dismissed or has just presented a canvas controller. \n\n\nSee also: \n\n\nIsBeingPresented\n \n\n\nIsBeingDismissed\n \n\n\n\n\nCanvasWillAppear\n\n\nprotected virtual void CanvasWillAppear();\n\n\nReturns\n\n\nDescription\n\n\nOverride this method in your canvas controller to be notified just before the canvas is about to transition on screen. This could be because it is about to be presented or about to dismiss its \nPresentedCanvasController\n. \n\n\nSee also: \n\n\nIsBeingPresented\n \n\n\nIsBeingDismissed\n \n\n\n\n\nCanvasWillDisappear\n\n\nprotected virtual void CanvasWillDisappear();\n\n\nReturns\n\n\nDescription\n\n\nOverride this method in your canvas controller to be notified just before the canvas is about to transition off screen. This could be because it is about to be dismissed or about to present a canvas controller. \n\n\nSee also: \n\n\nIsBeingPresented\n \n\n\nIsBeingDismissed\n \n\n\n\n\nDismissAllCanvasControllers\n\n\npublic void DismissAllCanvasControllers(bool animated = true,\n                                        System.Action completion = null);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\ncompletion\n\n\nA completion action, called after the canvas controller has been dismissed.\n\n\n\n\n\n\n\n\nDescription\n\n\nDismisses all canvas controllers in the current hierarchy. \n\n\nThis method dismisses all canvas controllers in the current presentation stack. Only the top-most canvas controller will be animated in the transition. All canvas controllers in the stack will be unloaded. \n\n\n\n\nDismissCanvasController\n\n\npublic void DismissCanvasController(bool animated = true, System.Action completion = null);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\ncompletion\n\n\nA completion action, called after the canvas controller has been dismissed.\n\n\n\n\n\n\n\n\nDescription\n\n\nDismiss a canvas controller. \n\n\nThis method dismisses the canvas controller's top-most \nPresentedCanvasController\n - i.e. its PresentedCanvasController's PresentedCanvasController's... etc. If any intermediary canvas controllers exist between this canvas controller and the top-most presented one, they will be unloaded. Only the top-most canvas controller and this canvas controller will be animated during the transition. \n\n\nIf this canvas controller has no \nPresentedCanvasController\n, it will be dismissed by its \nPresentingCanvasController\n. \n\n\nIf this canvas controller is an initial canvas controller, it will be dismissed completely. \n\n\n\n\nPerformTransitionWithIdentifier\n\n\npublic void PerformTransitionWithIdentifier(string identifier);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nidentifier\n\n\nIdentifier.\n\n\n\n\n\n\n\n\nDescription\n\n\nPerform the storyboard transition with this identifier. \n\n\nIf a canvas controller has been loaded from a storyboard, its storyboard transitions can be triggered with this method. The identifier specified must be set on the transition in the storyboard editor. If a canvas controller has not been loaded from a storyboard, its \nStoryboard\n property will be \nnull\n. \n\n\n\n\nPrepareForStoryboardTransition\n\n\npublic virtual void PrepareForStoryboardTransition(StoryboardTransition transition);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\ntransition\n\n\nThe storyboard transition, which provides information about the transition such as the canvas controllers involved.\n\n\n\n\n\n\n\n\nDescription\n\n\nOverride this method to be notified when the canvas controller is about to be involved in a storyboard transition. \n\n\nWhen a transition occurs in a storyboard, the transition's source canvas controller will have its \nPrepareForStoryboardTransition\n method called. This gives an opportunity to pass data between canvas controllers. \n\n\nThis method will only be called on a canvas controller whom has been loaded from a storyboard. \n\n\n\n\nPresentCanvasController\n\n\npublic void PresentCanvasController(string canvasControllerName,\n                                    bool animated = true,\n                                    System.Action\nCanvasController\n configuration = null,\n                                    System.Action\nCanvasController\n completion = null,\n                                    Vector3? canvasWorldPositionOverride = null,\n                                    bool loadAsynchronously = true);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\ncanvasControllerName\n\n\nThe name of the canvas controller to present.\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\nconfiguration\n\n\nA configuration action, called after the canvas controller has been loaded but before it has been presented.\n\n\n\n\n\n\ncompletion\n\n\nA completion action, called after the canvas controller has been presented.\n\n\n\n\n\n\ncanvasWorldPositionOverride\n\n\nA position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.\n\n\n\n\n\n\nloadAsynchronously\n\n\nShould the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.\n\n\n\n\n\n\n\n\nDescription\n\n\nPresent a canvas controller, specifying a name. \n\n\nThe specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. \n\n\n\n\nPresentCanvasController\nT\n\n\npublic void PresentCanvasController\nT\n(bool animated = true,\n                                       System.Action\nT\n configuration = null,\n                                       System.Action\nT\n completion = null,\n                                       Vector3? canvasWorldPositionOverride = null,\n                                       bool loadAsynchronously = true)\n    where T : CanvasController;\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type of the canvas controller to present.\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\nconfiguration\n\n\nA configuration action, called after the canvas controller has been loaded but before it has been presented.\n\n\n\n\n\n\ncompletion\n\n\nA completion action, called after the canvas controller has been presented.\n\n\n\n\n\n\ncanvasWorldPositionOverride\n\n\nA position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.\n\n\n\n\n\n\nloadAsynchronously\n\n\nShould the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.\n\n\n\n\n\n\n\n\nDescription\n\n\nPresent a canvas controller, specifying a type. \n\n\nThe specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. \n\n\n\n\nPresentCanvasController\nT\n\n\npublic void PresentCanvasController\nT\n(string canvasControllerName,\n                                       bool animated = true,\n                                       System.Action\nT\n configuration = null,\n                                       System.Action\nT\n completion = null,\n                                       Vector3? canvasWorldPositionOverride = null,\n                                       bool loadAsynchronously = true)\n    where T : CanvasController;\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type of the canvas controller to present.\n\n\n\n\n\n\ncanvasControllerName\n\n\nThe name of the canvas controller to present.\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\nconfiguration\n\n\nA configuration action, called after the canvas controller has been loaded but before it has been presented.\n\n\n\n\n\n\ncompletion\n\n\nA completion action, called after the canvas controller has been presented.\n\n\n\n\n\n\ncanvasWorldPositionOverride\n\n\nA position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.\n\n\n\n\n\n\nloadAsynchronously\n\n\nShould the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.\n\n\n\n\n\n\n\n\nDescription\n\n\nPresent a canvas controller, specifying a type and a name. \n\n\nThe specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. \n\n\n\n\nPresentInitialCanvasController\n\n\npublic static void PresentInitialCanvasController(\n    string canvasControllerName,\n    System.Action\nCanvasController\n configuration = null,\n    System.Action\nCanvasController\n completion = null,\n    bool animated = true,\n    Vector3? canvasWorldPositionOverride = null,\n    bool loadAsynchronously = true);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\ncanvasControllerName\n\n\nThe name of the canvas controller to present.\n\n\n\n\n\n\nconfiguration\n\n\nA configuration action, called after the canvas controller has been loaded but before it has been presented.\n\n\n\n\n\n\ncompletion\n\n\nA completion action, called after the canvas controller has been presented.\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\ncanvasWorldPositionOverride\n\n\nA position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.\n\n\n\n\n\n\nloadAsynchronously\n\n\nShould the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.\n\n\n\n\n\n\n\n\nDescription\n\n\nPresent an initial canvas controller, specifying a name. \n\n\nThis method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the \nPresentCanvasController\n and \nDismissCanvasController\n methods can be used. \n\n\n\n\nPresentInitialCanvasController\nT\n\n\npublic static void PresentInitialCanvasController\nT\n(\n    System.Action\nT\n configuration = null,\n    System.Action\nT\n completion = null,\n    bool animated = true,\n    Vector3? canvasWorldPositionOverride = null,\n    bool loadAsynchronously = true)\n    where T : CanvasController;\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type of the canvas controller to present.\n\n\n\n\n\n\nconfiguration\n\n\nA configuration action, called after the canvas controller has been loaded but before it has been presented.\n\n\n\n\n\n\ncompletion\n\n\nA completion action, called after the canvas controller has been presented.\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\ncanvasWorldPositionOverride\n\n\nA position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.\n\n\n\n\n\n\nloadAsynchronously\n\n\nShould the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.\n\n\n\n\n\n\n\n\nDescription\n\n\nPresent an initial canvas controller, specifying a type. \n\n\nThis method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the \nPresentCanvasController\n and \nDismissCanvasController\n methods can be used. \n\n\n\n\nPresentInitialCanvasController\nT\n\n\npublic static void PresentInitialCanvasController\nT\n(\n    string canvasControllerName,\n    System.Action\nT\n configuration = null,\n    System.Action\nT\n completion = null,\n    bool animated = true,\n    Vector3? canvasWorldPositionOverride = null,\n    bool loadAsynchronously = true)\n    where T : CanvasController;\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type of the canvas controller to present.\n\n\n\n\n\n\ncanvasControllerName\n\n\nThe name of the canvas controller to present.\n\n\n\n\n\n\nconfiguration\n\n\nA configuration action, called after the canvas controller has been loaded but before it has been presented.\n\n\n\n\n\n\ncompletion\n\n\nA completion action, called after the canvas controller has been presented.\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\ncanvasWorldPositionOverride\n\n\nA position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.\n\n\n\n\n\n\nloadAsynchronously\n\n\nShould the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.\n\n\n\n\n\n\n\n\nDescription\n\n\nPresent an initial canvas controller, specifying a type and a name. \n\n\nThis method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the \nPresentCanvasController\n and \nDismissCanvasController\n methods can be used. \n\n\n\n\nStart\n\n\nprotected virtual void Start();\n\n\nReturns\n\n\nDescription\n\n\nStart is called on the frame when the canvas controller is loaded, after \nAwake\n.", 
+            "title": "CanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#canvascontroller", 
+            "text": "public class CanvasController : MonoBehaviour, IStoryboardable;", 
+            "title": "CanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description", 
+            "text": "A canvas controller represents a single screen in your user interface. Canvas controllers can present and dismiss other canvas controllers, or screens, allowing you to easily build a user interface flow, presenting and dismissing screens as required. A canvas controller automatically manages the presentation hierarchy, as well as loading and unloading itself as it is presented or dismissed.   Canvas controllers should be created with Unity's  Create  menu - found by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting  Create/Canvas Flow/Canvas Controller .   Present and dismiss canvas controllers with the  PresentCanvasController  and  DismissCanvasController  methods. To present or dismiss an initial canvas controller use the  PresentInitialCanvasController  and    DismissAllCanvasControllers  methods.   A canvas controller can override its appearance methods to be notified of the appearance events  CanvasWillAppear ,  CanvasDidAppear ,  CanvasWillDisappear , and  CanvasDidDisappear .   Canvas controllers can be used with storyboards to visually define the presentation flow. When working with storyboards, data can be passed between canvas controllers by overriding the  PrepareForStoryboardTransition  method. Additionally, storyboard transitions can be triggered from a canvas controller using the  PerformTransitionWithIdentifier  method.      Properties       backgroundImage  The canvas controller's background image.    camera  The canvas controller's camera.    canvas  The canvas controller's main canvas.    content  The canvas controller's content transform.    ContentActive  Enable/disable the canvas contoller's content. This is equivalent to calling  content.gameObject.activeSelf  and  content.gameObject.SetActive .    ContentPosition  Get/set the position of the canvas controller's content. This is equivalent to calling  content.localPosition .    ContentScale  Get/set the scale of the canvas controller's content. This is equivalent to calling  content.localScale .    Hidden  Hide/show the canvas controller. This will enable/disable both the canvas controller's  camera  and  content .    IsBeingDismissed  Is the canvas controller currently being dismissed?    IsBeingPresented  Is the canvas controller currently being presented?    IsTransitioning  Is the canvas controller currently transitioning?    presentationMode  The canvas controller's presentation mode.    PresentedCanvasController  Get the presented canvas controller.    PresentingCanvasController  Get the presenting canvas controller - the canvas controller's presenter.    scene  The canvas controller's scene.    Storyboard  Get the canvas controller's storyboard.    transitioningAnimatorVendor  The canvas controller's 'transitioning animator' vendor.        Methods       Awake  Awake is called when the canvas controller is loaded.    CanvasDidAppear  Override this method in your canvas controller to be notified just after the canvas has transitioned on screen. This could be because it has just been presented or has just dismissed its  PresentedCanvasController .    CanvasDidDisappear  Override this method in your canvas controller to be notified just after the canvas has transitioned off screen. This could be because it has just been dismissed or has just presented a canvas controller.    CanvasWillAppear  Override this method in your canvas controller to be notified just before the canvas is about to transition on screen. This could be because it is about to be presented or about to dismiss its  PresentedCanvasController .    CanvasWillDisappear  Override this method in your canvas controller to be notified just before the canvas is about to transition off screen. This could be because it is about to be dismissed or about to present a canvas controller.    DismissAllCanvasControllers  Dismisses all canvas controllers in the current hierarchy.    DismissCanvasController  Dismiss a canvas controller.    PerformTransitionWithIdentifier  Perform the storyboard transition with this identifier.    PrepareForStoryboardTransition  Override this method to be notified when the canvas controller is about to be involved in a storyboard transition.    PresentCanvasController  Present a canvas controller, specifying a name.    PresentCanvasController T  Present a canvas controller, specifying a type.    PresentCanvasController T  Present a canvas controller, specifying a type and a name.    PresentInitialCanvasController  Present an initial canvas controller, specifying a name.    PresentInitialCanvasController T  Present an initial canvas controller, specifying a type.    PresentInitialCanvasController T  Present an initial canvas controller, specifying a type and a name.    Start  Start is called on the frame when the canvas controller is loaded, after  Awake .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#backgroundimage", 
+            "text": "public Image backgroundImage;", 
+            "title": "backgroundImage"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_1", 
+            "text": "The canvas controller's background image.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#camera", 
+            "text": "public new Camera camera;", 
+            "title": "camera"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_2", 
+            "text": "The canvas controller's camera.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#canvas", 
+            "text": "public Canvas canvas;", 
+            "title": "canvas"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_3", 
+            "text": "The canvas controller's main canvas.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#content", 
+            "text": "public RectTransform content;", 
+            "title": "content"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_4", 
+            "text": "The canvas controller's content transform.   All content should be placed under the content transform.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#contentactive", 
+            "text": "public bool ContentActive;", 
+            "title": "ContentActive"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_5", 
+            "text": "Enable/disable the canvas contoller's content. This is equivalent to calling  content.gameObject.activeSelf  and  content.gameObject.SetActive .   If you intend to hide the canvas controller completely, use the  Hidden  property as this will disable the canvas' camera as well as the content.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#contentposition", 
+            "text": "public Vector3 ContentPosition;", 
+            "title": "ContentPosition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_6", 
+            "text": "Get/set the position of the canvas controller's content. This is equivalent to calling  content.localPosition .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#contentscale", 
+            "text": "public Vector3 ContentScale;", 
+            "title": "ContentScale"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_7", 
+            "text": "Get/set the scale of the canvas controller's content. This is equivalent to calling  content.localScale .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#hidden", 
+            "text": "public bool Hidden;", 
+            "title": "Hidden"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_8", 
+            "text": "Hide/show the canvas controller. This will enable/disable both the canvas controller's  camera  and  content .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#isbeingdismissed", 
+            "text": "public bool IsBeingDismissed;", 
+            "title": "IsBeingDismissed"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_9", 
+            "text": "Is the canvas controller currently being dismissed?   Will return true if the canvas controller is currently involved in a transition in which it is being dismissed.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#isbeingpresented", 
+            "text": "public bool IsBeingPresented;", 
+            "title": "IsBeingPresented"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_10", 
+            "text": "Is the canvas controller currently being presented?   Will return true if the canvas controller is currently involved in a transition in which it is being presented.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#istransitioning", 
+            "text": "public bool IsTransitioning;", 
+            "title": "IsTransitioning"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_11", 
+            "text": "Is the canvas controller currently transitioning?   This returns true on both canvas controllers involved in a transition whilst that transition is executing.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentationmode", 
+            "text": "public CanvasControllerPresentationMode presentationMode =\n    CanvasControllerPresentationMode.HidePresenter;", 
+            "title": "presentationMode"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_12", 
+            "text": "The canvas controller's presentation mode.   See also:   CanvasControllerPresentationMode", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentedcanvascontroller", 
+            "text": "public CanvasController PresentedCanvasController;", 
+            "title": "PresentedCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_13", 
+            "text": "Get the presented canvas controller.   If this canvas controller has not presented a canvas controller then the presented canvas controller will be null.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentingcanvascontroller", 
+            "text": "public CanvasController PresentingCanvasController;", 
+            "title": "PresentingCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_14", 
+            "text": "Get the presenting canvas controller - the canvas controller's presenter.   If no canvas controller presented this canvas controller then the presenting canvas controller will be null. This is true for initial canvas controllers - canvas controllers presented from a storyboard entry transition or using  PresentInitialCanvasController .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#scene", 
+            "text": "protected Scene scene;", 
+            "title": "scene"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_15", 
+            "text": "The canvas controller's scene.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#storyboard", 
+            "text": "public Storyboard Storyboard;", 
+            "title": "Storyboard"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_16", 
+            "text": "Get the canvas controller's storyboard.   When a canvas controller is presented from a storyboard, this property will be set to the storyboard whom presented it. Otherwise, it will be null.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#transitioninganimatorvendor", 
+            "text": "public ICanvasControllerTransitioningAnimatorVendor transitioningAnimatorVendor;", 
+            "title": "transitioningAnimatorVendor"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_17", 
+            "text": "The canvas controller's 'transitioning animator' vendor.   When a canvas controller is about to be presented or dismissed, it will ask its  transitioningAnimatorVendor  for an animator to animate the transition. Specify a vendor to supply transition animators to a transitioning canvas controller.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#awake", 
+            "text": "protected virtual void Awake();", 
+            "title": "Awake"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_18", 
+            "text": "Awake is called when the canvas controller is loaded.   If you override Awake, always call  base.Awake()  in your derived class's implementation.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#canvasdidappear", 
+            "text": "protected virtual void CanvasDidAppear();", 
+            "title": "CanvasDidAppear"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_1", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_19", 
+            "text": "Override this method in your canvas controller to be notified just after the canvas has transitioned on screen. This could be because it has just been presented or has just dismissed its  PresentedCanvasController .   See also:   IsBeingPresented    IsBeingDismissed", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#canvasdiddisappear", 
+            "text": "protected virtual void CanvasDidDisappear();", 
+            "title": "CanvasDidDisappear"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_2", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_20", 
+            "text": "Override this method in your canvas controller to be notified just after the canvas has transitioned off screen. This could be because it has just been dismissed or has just presented a canvas controller.   See also:   IsBeingPresented    IsBeingDismissed", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#canvaswillappear", 
+            "text": "protected virtual void CanvasWillAppear();", 
+            "title": "CanvasWillAppear"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_3", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_21", 
+            "text": "Override this method in your canvas controller to be notified just before the canvas is about to transition on screen. This could be because it is about to be presented or about to dismiss its  PresentedCanvasController .   See also:   IsBeingPresented    IsBeingDismissed", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#canvaswilldisappear", 
+            "text": "protected virtual void CanvasWillDisappear();", 
+            "title": "CanvasWillDisappear"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_4", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_22", 
+            "text": "Override this method in your canvas controller to be notified just before the canvas is about to transition off screen. This could be because it is about to be dismissed or about to present a canvas controller.   See also:   IsBeingPresented    IsBeingDismissed", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#dismissallcanvascontrollers", 
+            "text": "public void DismissAllCanvasControllers(bool animated = true,\n                                        System.Action completion = null);", 
+            "title": "DismissAllCanvasControllers"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_5", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters", 
+            "text": "Name  Description      animated  Is the transition animated?    completion  A completion action, called after the canvas controller has been dismissed.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_23", 
+            "text": "Dismisses all canvas controllers in the current hierarchy.   This method dismisses all canvas controllers in the current presentation stack. Only the top-most canvas controller will be animated in the transition. All canvas controllers in the stack will be unloaded.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#dismisscanvascontroller", 
+            "text": "public void DismissCanvasController(bool animated = true, System.Action completion = null);", 
+            "title": "DismissCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_6", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_1", 
+            "text": "Name  Description      animated  Is the transition animated?    completion  A completion action, called after the canvas controller has been dismissed.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_24", 
+            "text": "Dismiss a canvas controller.   This method dismisses the canvas controller's top-most  PresentedCanvasController  - i.e. its PresentedCanvasController's PresentedCanvasController's... etc. If any intermediary canvas controllers exist between this canvas controller and the top-most presented one, they will be unloaded. Only the top-most canvas controller and this canvas controller will be animated during the transition.   If this canvas controller has no  PresentedCanvasController , it will be dismissed by its  PresentingCanvasController .   If this canvas controller is an initial canvas controller, it will be dismissed completely.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#performtransitionwithidentifier", 
+            "text": "public void PerformTransitionWithIdentifier(string identifier);", 
+            "title": "PerformTransitionWithIdentifier"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_7", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_2", 
+            "text": "Name  Description      identifier  Identifier.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_25", 
+            "text": "Perform the storyboard transition with this identifier.   If a canvas controller has been loaded from a storyboard, its storyboard transitions can be triggered with this method. The identifier specified must be set on the transition in the storyboard editor. If a canvas controller has not been loaded from a storyboard, its  Storyboard  property will be  null .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#prepareforstoryboardtransition", 
+            "text": "public virtual void PrepareForStoryboardTransition(StoryboardTransition transition);", 
+            "title": "PrepareForStoryboardTransition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_8", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_3", 
+            "text": "Name  Description      transition  The storyboard transition, which provides information about the transition such as the canvas controllers involved.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_26", 
+            "text": "Override this method to be notified when the canvas controller is about to be involved in a storyboard transition.   When a transition occurs in a storyboard, the transition's source canvas controller will have its  PrepareForStoryboardTransition  method called. This gives an opportunity to pass data between canvas controllers.   This method will only be called on a canvas controller whom has been loaded from a storyboard.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentcanvascontroller", 
+            "text": "public void PresentCanvasController(string canvasControllerName,\n                                    bool animated = true,\n                                    System.Action CanvasController  configuration = null,\n                                    System.Action CanvasController  completion = null,\n                                    Vector3? canvasWorldPositionOverride = null,\n                                    bool loadAsynchronously = true);", 
+            "title": "PresentCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_9", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_4", 
+            "text": "Name  Description      canvasControllerName  The name of the canvas controller to present.    animated  Is the transition animated?    configuration  A configuration action, called after the canvas controller has been loaded but before it has been presented.    completion  A completion action, called after the canvas controller has been presented.    canvasWorldPositionOverride  A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.    loadAsynchronously  Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_27", 
+            "text": "Present a canvas controller, specifying a name.   The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentcanvascontrollert", 
+            "text": "public void PresentCanvasController T (bool animated = true,\n                                       System.Action T  configuration = null,\n                                       System.Action T  completion = null,\n                                       Vector3? canvasWorldPositionOverride = null,\n                                       bool loadAsynchronously = true)\n    where T : CanvasController;", 
+            "title": "PresentCanvasController&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_10", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_5", 
+            "text": "Name  Description      T  The type of the canvas controller to present.    animated  Is the transition animated?    configuration  A configuration action, called after the canvas controller has been loaded but before it has been presented.    completion  A completion action, called after the canvas controller has been presented.    canvasWorldPositionOverride  A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.    loadAsynchronously  Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_28", 
+            "text": "Present a canvas controller, specifying a type.   The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentcanvascontrollert_1", 
+            "text": "public void PresentCanvasController T (string canvasControllerName,\n                                       bool animated = true,\n                                       System.Action T  configuration = null,\n                                       System.Action T  completion = null,\n                                       Vector3? canvasWorldPositionOverride = null,\n                                       bool loadAsynchronously = true)\n    where T : CanvasController;", 
+            "title": "PresentCanvasController&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_11", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_6", 
+            "text": "Name  Description      T  The type of the canvas controller to present.    canvasControllerName  The name of the canvas controller to present.    animated  Is the transition animated?    configuration  A configuration action, called after the canvas controller has been loaded but before it has been presented.    completion  A completion action, called after the canvas controller has been presented.    canvasWorldPositionOverride  A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.    loadAsynchronously  Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_29", 
+            "text": "Present a canvas controller, specifying a type and a name.   The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentinitialcanvascontroller", 
+            "text": "public static void PresentInitialCanvasController(\n    string canvasControllerName,\n    System.Action CanvasController  configuration = null,\n    System.Action CanvasController  completion = null,\n    bool animated = true,\n    Vector3? canvasWorldPositionOverride = null,\n    bool loadAsynchronously = true);", 
+            "title": "PresentInitialCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_12", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_7", 
+            "text": "Name  Description      canvasControllerName  The name of the canvas controller to present.    configuration  A configuration action, called after the canvas controller has been loaded but before it has been presented.    completion  A completion action, called after the canvas controller has been presented.    animated  Is the transition animated?    canvasWorldPositionOverride  A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.    loadAsynchronously  Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_30", 
+            "text": "Present an initial canvas controller, specifying a name.   This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the  PresentCanvasController  and  DismissCanvasController  methods can be used.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentinitialcanvascontrollert", 
+            "text": "public static void PresentInitialCanvasController T (\n    System.Action T  configuration = null,\n    System.Action T  completion = null,\n    bool animated = true,\n    Vector3? canvasWorldPositionOverride = null,\n    bool loadAsynchronously = true)\n    where T : CanvasController;", 
+            "title": "PresentInitialCanvasController&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_13", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_8", 
+            "text": "Name  Description      T  The type of the canvas controller to present.    configuration  A configuration action, called after the canvas controller has been loaded but before it has been presented.    completion  A completion action, called after the canvas controller has been presented.    animated  Is the transition animated?    canvasWorldPositionOverride  A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.    loadAsynchronously  Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_31", 
+            "text": "Present an initial canvas controller, specifying a type.   This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the  PresentCanvasController  and  DismissCanvasController  methods can be used.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#presentinitialcanvascontrollert_1", 
+            "text": "public static void PresentInitialCanvasController T (\n    string canvasControllerName,\n    System.Action T  configuration = null,\n    System.Action T  completion = null,\n    bool animated = true,\n    Vector3? canvasWorldPositionOverride = null,\n    bool loadAsynchronously = true)\n    where T : CanvasController;", 
+            "title": "PresentInitialCanvasController&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_14", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#parameters_9", 
+            "text": "Name  Description      T  The type of the canvas controller to present.    canvasControllerName  The name of the canvas controller to present.    configuration  A configuration action, called after the canvas controller has been loaded but before it has been presented.    completion  A completion action, called after the canvas controller has been presented.    animated  Is the transition animated?    canvasWorldPositionOverride  A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.    loadAsynchronously  Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_32", 
+            "text": "Present an initial canvas controller, specifying a type and a name.   This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the  PresentCanvasController  and  DismissCanvasController  methods can be used.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#start", 
+            "text": "protected virtual void Start();", 
+            "title": "Start"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#returns_15", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasController/#description_33", 
+            "text": "Start is called on the frame when the canvas controller is loaded, after  Awake .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/", 
+            "text": "CanvasControllerExtensions\n\n\npublic static class CanvasControllerExtensions;\n\n\nDescription\n\n\nCanvasController\n extension methods. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nCanvasRectTransform\n\n\nThe canvas controller\u2019s canvas\u2019 \nRectTransform\n component.\n\n\n\n\n\n\nCanvasSize\n\n\nThe canvas controller\u2019s canvas\u2019 size.\n\n\n\n\n\n\nCanvasWorldBounds\n\n\nThe canvas controller\u2019s canvas\u2019 bounds in world space.\n\n\n\n\n\n\nCanvasWorldCorners\n\n\nThe canvas controller\u2019s canvas\u2019 corners in world space.\n\n\n\n\n\n\nCanvasWorldSize\n\n\nThe canvas controller\u2019s canvas\u2019 size in world space. This is the difference between the top right world corner and the bottom left world corner.\n\n\n\n\n\n\nIsScreenSpace\n\n\nIs the canvas controller\u2019s canvas in screen space?\n\n\n\n\n\n\nOffScreenBottomContentPosition\n\n\nThe position for the canvas controller\u2019s content that will position it off the bottom of the screen.\n\n\n\n\n\n\nOffScreenLeftContentPosition\n\n\nThe position for the canvas controller\u2019s content that will position it off the left of the screen.\n\n\n\n\n\n\nOffScreenRightContentPosition\n\n\nThe position for the canvas controller\u2019s content that will position it off the right of the screen.\n\n\n\n\n\n\nOffScreenTopContentPosition\n\n\nThe position for the canvas controller\u2019s content that will position it off the top of the screen.\n\n\n\n\n\n\nOnScreenContentPosition\n\n\nThe on-screen position for the canvas controller\u2019s content.\n\n\n\n\n\n\n\n\n\n\nCanvasRectTransform\n\n\npublic static RectTransform CanvasRectTransform(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe canvas controller\u2019s canvas\u2019 \nRectTransform\n component. \n\n\nThis is equivalent to calling \ncanvasController.canvas.GetComponent()\n. \n\n\nSee also: \n\n\nCanvasController.canvas\n \n\n\n\n\nCanvasSize\n\n\npublic static Vector2 CanvasSize(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe canvas controller\u2019s canvas\u2019 size. \n\n\nThis is equivalent to calling \ncanvasController.CanvasRectTransform().rect.size\n. \n\n\nSee also: \n\n\nCanvasController.canvas\n \n\n\n\n\nCanvasWorldBounds\n\n\npublic static Bounds CanvasWorldBounds(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe canvas controller\u2019s canvas\u2019 bounds in world space. \n\n\nYou might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller\u2019s next to one another in world space. \n\n\nSee also: \n\n\nCanvasController.canvas\n \n\n\n\n\nCanvasWorldCorners\n\n\npublic static Vector3[] CanvasWorldCorners(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe canvas controller\u2019s canvas\u2019 corners in world space. \n\n\nYou might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller\u2019s next to one another in world space. \n\n\nSee also: \n\n\nCanvasController.canvas\n \n\n\n\n\nCanvasWorldSize\n\n\npublic static Vector2 CanvasWorldSize(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe canvas controller\u2019s canvas\u2019 size in world space. This is the difference between the top right world corner and the bottom left world corner. \n\n\nYou might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller\u2019s next to one another in world space. \n\n\nSee also: \n\n\nCanvasController.canvas\n \n\n\n\n\nIsScreenSpace\n\n\npublic static bool IsScreenSpace(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nIs the canvas controller\u2019s canvas in screen space? \n\n\nReturns \ntrue\n if the canvas controller\u2019s canvas is in a screen space render mode. \n\n\nSee also: \n\n\nCanvasController.canvas\n \n\n\n\n\nOffScreenBottomContentPosition\n\n\npublic static Vector3 OffScreenBottomContentPosition(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe position for the canvas controller\u2019s content that will position it off the bottom of the screen. \n\n\nThis is calculated using the height of the canvas controller\u2019s canvas. You might use this method when animating or moving a canvas controller\u2019s content to or from the bottom of the screen. \n\n\nSee also: \n\n\nCanvasController.ContentPosition\n \n\n\nCanvasController.content\n \n\n\nCanvasController.canvas\n \n\n\n\n\nOffScreenLeftContentPosition\n\n\npublic static Vector3 OffScreenLeftContentPosition(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe position for the canvas controller\u2019s content that will position it off the left of the screen. \n\n\nThis is calculated using the width of the canvas controller\u2019s canvas. You might use this method when animating or moving a canvas controller\u2019s content to or from the left of the screen. \n\n\nSee also: \n\n\nCanvasController.ContentPosition\n \n\n\nCanvasController.content\n \n\n\nCanvasController.canvas\n \n\n\n\n\nOffScreenRightContentPosition\n\n\npublic static Vector3 OffScreenRightContentPosition(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe position for the canvas controller\u2019s content that will position it off the right of the screen. \n\n\nThis is calculated using the width of the canvas controller\u2019s canvas. You might use this method when animating or moving a canvas controller\u2019s content to or from the right of the screen. \n\n\nSee also: \n\n\nCanvasController.ContentPosition\n \n\n\nCanvasController.content\n \n\n\nCanvasController.canvas\n \n\n\n\n\nOffScreenTopContentPosition\n\n\npublic static Vector3 OffScreenTopContentPosition(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe position for the canvas controller\u2019s content that will position it off the top of the screen. \n\n\nThis is calculated using the height of the canvas controller\u2019s canvas. You might use this method when animating or moving a canvas controller\u2019s content to or from the top of the screen. \n\n\nSee also: \n\n\nCanvasController.ContentPosition\n \n\n\nCanvasController.content\n \n\n\nCanvasController.canvas\n \n\n\n\n\nOnScreenContentPosition\n\n\npublic static Vector3 OnScreenContentPosition(this CanvasController canvasController);\n\n\nReturns\n\n\nDescription\n\n\nThe on-screen position for the canvas controller\u2019s content. \n\n\nYou might use this method when animating or moving a canvas controller\u2019s content. Note that because a canvas controller\u2019s canvas and camera are coupled together, its on screen content position is always Vector3.zero. \n\n\nSee also: \n\n\nCanvasController.ContentPosition\n \n\n\nCanvasController.content\n \n\n\nCanvasController.canvas\n \n\n\nCanvasController.camera", 
+            "title": "CanvasController Extensions"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#canvascontrollerextensions", 
+            "text": "public static class CanvasControllerExtensions;", 
+            "title": "CanvasControllerExtensions"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description", 
+            "text": "CanvasController  extension methods.      Properties       None         Methods       CanvasRectTransform  The canvas controller\u2019s canvas\u2019  RectTransform  component.    CanvasSize  The canvas controller\u2019s canvas\u2019 size.    CanvasWorldBounds  The canvas controller\u2019s canvas\u2019 bounds in world space.    CanvasWorldCorners  The canvas controller\u2019s canvas\u2019 corners in world space.    CanvasWorldSize  The canvas controller\u2019s canvas\u2019 size in world space. This is the difference between the top right world corner and the bottom left world corner.    IsScreenSpace  Is the canvas controller\u2019s canvas in screen space?    OffScreenBottomContentPosition  The position for the canvas controller\u2019s content that will position it off the bottom of the screen.    OffScreenLeftContentPosition  The position for the canvas controller\u2019s content that will position it off the left of the screen.    OffScreenRightContentPosition  The position for the canvas controller\u2019s content that will position it off the right of the screen.    OffScreenTopContentPosition  The position for the canvas controller\u2019s content that will position it off the top of the screen.    OnScreenContentPosition  The on-screen position for the canvas controller\u2019s content.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#canvasrecttransform", 
+            "text": "public static RectTransform CanvasRectTransform(this CanvasController canvasController);", 
+            "title": "CanvasRectTransform"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_1", 
+            "text": "The canvas controller\u2019s canvas\u2019  RectTransform  component.   This is equivalent to calling  canvasController.canvas.GetComponent() .   See also:   CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#canvassize", 
+            "text": "public static Vector2 CanvasSize(this CanvasController canvasController);", 
+            "title": "CanvasSize"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_1", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_2", 
+            "text": "The canvas controller\u2019s canvas\u2019 size.   This is equivalent to calling  canvasController.CanvasRectTransform().rect.size .   See also:   CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#canvasworldbounds", 
+            "text": "public static Bounds CanvasWorldBounds(this CanvasController canvasController);", 
+            "title": "CanvasWorldBounds"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_2", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_3", 
+            "text": "The canvas controller\u2019s canvas\u2019 bounds in world space.   You might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller\u2019s next to one another in world space.   See also:   CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#canvasworldcorners", 
+            "text": "public static Vector3[] CanvasWorldCorners(this CanvasController canvasController);", 
+            "title": "CanvasWorldCorners"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_3", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_4", 
+            "text": "The canvas controller\u2019s canvas\u2019 corners in world space.   You might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller\u2019s next to one another in world space.   See also:   CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#canvasworldsize", 
+            "text": "public static Vector2 CanvasWorldSize(this CanvasController canvasController);", 
+            "title": "CanvasWorldSize"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_4", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_5", 
+            "text": "The canvas controller\u2019s canvas\u2019 size in world space. This is the difference between the top right world corner and the bottom left world corner.   You might use this method when doing canvas-related world space calculations. For example, Canvas Flow uses this internally to position canvas controller\u2019s next to one another in world space.   See also:   CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#isscreenspace", 
+            "text": "public static bool IsScreenSpace(this CanvasController canvasController);", 
+            "title": "IsScreenSpace"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_5", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_6", 
+            "text": "Is the canvas controller\u2019s canvas in screen space?   Returns  true  if the canvas controller\u2019s canvas is in a screen space render mode.   See also:   CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#offscreenbottomcontentposition", 
+            "text": "public static Vector3 OffScreenBottomContentPosition(this CanvasController canvasController);", 
+            "title": "OffScreenBottomContentPosition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_6", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_7", 
+            "text": "The position for the canvas controller\u2019s content that will position it off the bottom of the screen.   This is calculated using the height of the canvas controller\u2019s canvas. You might use this method when animating or moving a canvas controller\u2019s content to or from the bottom of the screen.   See also:   CanvasController.ContentPosition    CanvasController.content    CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#offscreenleftcontentposition", 
+            "text": "public static Vector3 OffScreenLeftContentPosition(this CanvasController canvasController);", 
+            "title": "OffScreenLeftContentPosition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_7", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_8", 
+            "text": "The position for the canvas controller\u2019s content that will position it off the left of the screen.   This is calculated using the width of the canvas controller\u2019s canvas. You might use this method when animating or moving a canvas controller\u2019s content to or from the left of the screen.   See also:   CanvasController.ContentPosition    CanvasController.content    CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#offscreenrightcontentposition", 
+            "text": "public static Vector3 OffScreenRightContentPosition(this CanvasController canvasController);", 
+            "title": "OffScreenRightContentPosition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_8", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_9", 
+            "text": "The position for the canvas controller\u2019s content that will position it off the right of the screen.   This is calculated using the width of the canvas controller\u2019s canvas. You might use this method when animating or moving a canvas controller\u2019s content to or from the right of the screen.   See also:   CanvasController.ContentPosition    CanvasController.content    CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#offscreentopcontentposition", 
+            "text": "public static Vector3 OffScreenTopContentPosition(this CanvasController canvasController);", 
+            "title": "OffScreenTopContentPosition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_9", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_10", 
+            "text": "The position for the canvas controller\u2019s content that will position it off the top of the screen.   This is calculated using the height of the canvas controller\u2019s canvas. You might use this method when animating or moving a canvas controller\u2019s content to or from the top of the screen.   See also:   CanvasController.ContentPosition    CanvasController.content    CanvasController.canvas", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#onscreencontentposition", 
+            "text": "public static Vector3 OnScreenContentPosition(this CanvasController canvasController);", 
+            "title": "OnScreenContentPosition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#returns_10", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerExtensions/#description_11", 
+            "text": "The on-screen position for the canvas controller\u2019s content.   You might use this method when animating or moving a canvas controller\u2019s content. Note that because a canvas controller\u2019s canvas and camera are coupled together, its on screen content position is always Vector3.zero.   See also:   CanvasController.ContentPosition    CanvasController.content    CanvasController.canvas    CanvasController.camera", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerPresentationMode/", 
+            "text": "CanvasControllerPresentationMode\n\n\npublic enum CanvasControllerPresentationMode;\n\n\nDescription\n\n\nThe presentation mode of a canvas controller. \n\n\nWhen a canvas controller is presented, its presentation mode determines what will happen to its presenter once the presentation transition is complete. By default, the presenter is hidden to prevent rendering a canvas that may not be visible, as denoted by the \nHidePresenter\n presentation mode. \n\n\nThe \nKeepPresenterVisible\n presentation mode indicates that the canvas controller\u2019s presenter should not to be hidden. A transparent canvas controller could use this mode to ensure that its presenting canvas controller can still be seen through its transparent canvas. \n\n\n\n\n\n\n\n\nValues\n\n\n\n\n\n\n\n\n\n\n\n\nHidePresenter\n\n\nUpon presentation, hide the canvas controller\u2019s presenter.\n\n\n\n\n\n\nKeepPresenterVisible\n\n\nUpon presentation, keep the canvas controller\u2019s presenter visible.\n\n\n\n\n\n\n\n\n\n\nHidePresenter\n\n\nHidePresenter,\n\n\nDescription\n\n\nUpon presentation, hide the canvas controller\u2019s presenter. \n\n\n\n\nKeepPresenterVisible\n\n\nKeepPresenterVisible\n\n\nDescription\n\n\nUpon presentation, keep the canvas controller\u2019s presenter visible.", 
+            "title": "CanvasControllerPresentationMode"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerPresentationMode/#canvascontrollerpresentationmode", 
+            "text": "public enum CanvasControllerPresentationMode;", 
+            "title": "CanvasControllerPresentationMode"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerPresentationMode/#description", 
+            "text": "The presentation mode of a canvas controller.   When a canvas controller is presented, its presentation mode determines what will happen to its presenter once the presentation transition is complete. By default, the presenter is hidden to prevent rendering a canvas that may not be visible, as denoted by the  HidePresenter  presentation mode.   The  KeepPresenterVisible  presentation mode indicates that the canvas controller\u2019s presenter should not to be hidden. A transparent canvas controller could use this mode to ensure that its presenting canvas controller can still be seen through its transparent canvas.      Values       HidePresenter  Upon presentation, hide the canvas controller\u2019s presenter.    KeepPresenterVisible  Upon presentation, keep the canvas controller\u2019s presenter visible.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerPresentationMode/#hidepresenter", 
+            "text": "HidePresenter,", 
+            "title": "HidePresenter"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerPresentationMode/#description_1", 
+            "text": "Upon presentation, hide the canvas controller\u2019s presenter.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerPresentationMode/#keeppresentervisible", 
+            "text": "KeepPresenterVisible", 
+            "title": "KeepPresenterVisible"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerPresentationMode/#description_2", 
+            "text": "Upon presentation, keep the canvas controller\u2019s presenter visible.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/", 
+            "text": "CanvasControllerTransitionContext\n\n\npublic class CanvasControllerTransitionContext;\n\n\nDescription\n\n\nWhen a transition between two canvas controllers occurs, a transition context is created to describe the transition. This context is passed to the transition\u2019s animator to provide the animator with the necessary data in order to carry out the animation. \n\n\nWhen implementing a custom transition animator, you use the context to access the canvas controllers involved in the transition in order to animate them. The \nsourceCanvasController\n is the canvas controller being transitioned from; the \ndestinationCanvasController\n is the canvas controller being transition to. Note that you always transition from the source to the destination. This includes in an upstream transition - a dismissal - in which the source is the canvas controller being dismissed and the destination is the canvas controller being returned to. \n\n\nIn the event that the transition is presenting or dismissing an initial canvas controller, either the context's \nsourceCanvasController\n or  \ndestinationCanvasController\n will be null, depending on whether the transition is upstream - i.e. it is presenting/dismissing to 'nothing'. \n\n\nYou must call \nCompleteTransition\n on the context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition. \n\n\nSee also: \n\n\nCanvasControllerTransitioningAnimator\n \n\n\nCanvasController.transitioningAnimatorVendor\n \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\ndestinationCanvasController\n\n\nThe canvas controller being transitioned to.\n\n\n\n\n\n\nisUpstream\n\n\nIs the transition upstream?\n\n\n\n\n\n\nsourceCanvasController\n\n\nThe canvas controller being transitioned from.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nCompleteTransition\n\n\nYou must call \nCompleteTransition()\n on the context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition.\n\n\n\n\n\n\nDestinationCanvasController\nT\n\n\nThe canvas controller being transitioned to, if it is of type T.\n\n\n\n\n\n\nSourceCanvasController\nT\n\n\nThe canvas controller being transitioned from, if it is of type T.\n\n\n\n\n\n\n\n\n\n\ndestinationCanvasController\n\n\npublic readonly CanvasController destinationCanvasController;\n\n\nDescription\n\n\nThe canvas controller being transitioned to. \n\n\nIn a downstream transition - a presentation - this is the canvas controller being presented. In an upstream transition - a dismissal - this is the canvas controller whom is being dismissed to. \n\n\n\n\nisUpstream\n\n\npublic readonly bool isUpstream;\n\n\nDescription\n\n\nIs the transition upstream? \n\n\nAn upstream transition refers to a dismissal. If \nfalse\n the transition is downstream, which refers to a presentation. You might use this flag to distinguish between an upstream and a downstream transition (a dismissal or a presentation) in your transition animator. \n\n\n\n\nsourceCanvasController\n\n\npublic readonly CanvasController sourceCanvasController;\n\n\nDescription\n\n\nThe canvas controller being transitioned from. \n\n\nIn a downstream transition - a presentation - this is the canvas controller whom is presenting - the presenter. In an upstream transition - a dismissal - this is the canvas controller being dismissed. \n\n\n\n\nCompleteTransition\n\n\npublic void CompleteTransition();\n\n\nReturns\n\n\nDescription\n\n\nYou must call \nCompleteTransition()\n on the context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition. \n\n\n\n\nDestinationCanvasController\nT\n\n\npublic T DestinationCanvasController\nT\n()\n    where T : CanvasController;\n\n\nReturns\n\n\nDescription\n\n\nThe canvas controller being transitioned to, if it is of type T. \n\n\nIn a downstream transition - a presentation - this is the canvas controller being presented. In an upstream transition - a dismissal - this is the canvas controller whom is being dismissed to.  If the \ndestinationCanvasController\n is not of type T, returns null. \n\n\n\n\nSourceCanvasController\nT\n\n\npublic T SourceCanvasController\nT\n()\n    where T : CanvasController;\n\n\nReturns\n\n\nDescription\n\n\nThe canvas controller being transitioned from, if it is of type T. \n\n\nIn a downstream transition - a presentation - this is the canvas controller whom is presenting - the presenter. In an upstream transition - a dismissal - this is the canvas controller being dismissed. If the \nsourceCanvasController\n is not of type T, returns null.", 
+            "title": "CanvasControllerTransitionContext"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#canvascontrollertransitioncontext", 
+            "text": "public class CanvasControllerTransitionContext;", 
+            "title": "CanvasControllerTransitionContext"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#description", 
+            "text": "When a transition between two canvas controllers occurs, a transition context is created to describe the transition. This context is passed to the transition\u2019s animator to provide the animator with the necessary data in order to carry out the animation.   When implementing a custom transition animator, you use the context to access the canvas controllers involved in the transition in order to animate them. The  sourceCanvasController  is the canvas controller being transitioned from; the  destinationCanvasController  is the canvas controller being transition to. Note that you always transition from the source to the destination. This includes in an upstream transition - a dismissal - in which the source is the canvas controller being dismissed and the destination is the canvas controller being returned to.   In the event that the transition is presenting or dismissing an initial canvas controller, either the context's  sourceCanvasController  or   destinationCanvasController  will be null, depending on whether the transition is upstream - i.e. it is presenting/dismissing to 'nothing'.   You must call  CompleteTransition  on the context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition.   See also:   CanvasControllerTransitioningAnimator    CanvasController.transitioningAnimatorVendor       Properties       destinationCanvasController  The canvas controller being transitioned to.    isUpstream  Is the transition upstream?    sourceCanvasController  The canvas controller being transitioned from.        Methods       CompleteTransition  You must call  CompleteTransition()  on the context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition.    DestinationCanvasController T  The canvas controller being transitioned to, if it is of type T.    SourceCanvasController T  The canvas controller being transitioned from, if it is of type T.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#destinationcanvascontroller", 
+            "text": "public readonly CanvasController destinationCanvasController;", 
+            "title": "destinationCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#description_1", 
+            "text": "The canvas controller being transitioned to.   In a downstream transition - a presentation - this is the canvas controller being presented. In an upstream transition - a dismissal - this is the canvas controller whom is being dismissed to.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#isupstream", 
+            "text": "public readonly bool isUpstream;", 
+            "title": "isUpstream"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#description_2", 
+            "text": "Is the transition upstream?   An upstream transition refers to a dismissal. If  false  the transition is downstream, which refers to a presentation. You might use this flag to distinguish between an upstream and a downstream transition (a dismissal or a presentation) in your transition animator.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#sourcecanvascontroller", 
+            "text": "public readonly CanvasController sourceCanvasController;", 
+            "title": "sourceCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#description_3", 
+            "text": "The canvas controller being transitioned from.   In a downstream transition - a presentation - this is the canvas controller whom is presenting - the presenter. In an upstream transition - a dismissal - this is the canvas controller being dismissed.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#completetransition", 
+            "text": "public void CompleteTransition();", 
+            "title": "CompleteTransition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#description_4", 
+            "text": "You must call  CompleteTransition()  on the context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#destinationcanvascontrollert", 
+            "text": "public T DestinationCanvasController T ()\n    where T : CanvasController;", 
+            "title": "DestinationCanvasController&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#returns_1", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#description_5", 
+            "text": "The canvas controller being transitioned to, if it is of type T.   In a downstream transition - a presentation - this is the canvas controller being presented. In an upstream transition - a dismissal - this is the canvas controller whom is being dismissed to.  If the  destinationCanvasController  is not of type T, returns null.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#sourcecanvascontrollert", 
+            "text": "public T SourceCanvasController T ()\n    where T : CanvasController;", 
+            "title": "SourceCanvasController&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#returns_2", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitionContext/#description_6", 
+            "text": "The canvas controller being transitioned from, if it is of type T.   In a downstream transition - a presentation - this is the canvas controller whom is presenting - the presenter. In an upstream transition - a dismissal - this is the canvas controller being dismissed. If the  sourceCanvasController  is not of type T, returns null.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitioningAnimator/", 
+            "text": "CanvasControllerTransitioningAnimator\n\n\npublic abstract class CanvasControllerTransitioningAnimator : ScriptableObject,\n    ICanvasControllerTransitioningAnimator;\n\n\nDescription\n\n\nAn abstract base class for a \nScriptableObject\n based implementation of the \nICanvasControllerTransitioningAnimator\n interface. This class is used when creating a new custom transition animator in Unity's 'Create'  menu. \n\n\nSee also: \n\n\nICanvasControllerTransitioningAnimator\n \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nNone", 
+            "title": "CanvasControllerTransitioningAnimator"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitioningAnimator/#canvascontrollertransitioninganimator", 
+            "text": "public abstract class CanvasControllerTransitioningAnimator : ScriptableObject,\n    ICanvasControllerTransitioningAnimator;", 
+            "title": "CanvasControllerTransitioningAnimator"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/CanvasControllerTransitioningAnimator/#description", 
+            "text": "An abstract base class for a  ScriptableObject  based implementation of the  ICanvasControllerTransitioningAnimator  interface. This class is used when creating a new custom transition animator in Unity's 'Create'  menu.   See also:   ICanvasControllerTransitioningAnimator       Properties       None         Methods       None", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/", 
+            "text": "ICanvasControllerTransitioningAnimator\n\n\npublic interface ICanvasControllerTransitioningAnimator;\n\n\nDescription\n\n\nThe \nICanvasControllerTransitioningAnimator\n interface defines the methods required to perform a transition animation between two canvas controllers. To implement a custom transition animation, you create an object that implements this interface - a transition animator. You can then provide, or vend, this animator to Canvas Flow via the target canvas controller's \nCanvasController.transitioningAnimatorVendor\n when the relevant transition is triggered. \n\n\nWhen a transition between canvas controllers is to be performed, Canvas Flow will ask the target canvas controller's\n \nCanvasController.transitioningAnimatorVendor\n for an animator. This is where you can return, or vend, your custom animator. Your animator will then have the appropriate \nAnimateTransition\n method called, where you can perform your transition animation. Please refer to the included transition animators' source code for examples of animating the transition. These can be found in \nCanvas Flow/Transition Animators*. \n\n\nThe recommended way to create a custom transition animator, as documented in the manual, is to use the menu item in the Unity Editor at \nAssets/Create/Canvas Flow/Custom Transition Animator\n. This creates a \nCanvasControllerTransitioningAnimator\n, which is derived from \nScriptableObject\n so it can be used in storyboards, be referenced in the Unity Editor, provide easily tweakable properties, and support having multiple instances. However, you may provide any object that implements this interface as an animator. \n\n\nOnce your transition animator has completed its animation, you must call \nCanvasControllerTransitionContext.CompleteTransition\n on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition. * The target canvas controller is the canvas controller being acted upon - i.e. the canvas controler being presented or being dismissed. Therefore, in a downstream transition - a presentation, this will be the \nCanvasControllerTransitionContext.destinationCanvasController\n , whereas in an upstream transition - a dismissal, this will be the \nCanvasControllerTransitionContext.sourceCanvasController\n. \n\n\nSee also: \n\n\nCanvasControllerTransitioningAnimator\n \n\n\nCanvasControllerTransitionContext\n \n\n\nCanvasController.transitioningAnimatorVendor\n \n\n\nRoutine\n \n\n\nCanvasControllerExtensions\n \n\n\nDynamicObjectExtensions\n \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nAnimateTransition\n\n\nPerform your transition animation with the \ntransitionContext\n's canvas controllers.\n\n\n\n\n\n\nAnimateTransitionForInitialCanvasController\n\n\nPerform your transition animation for an initial canvas controller.\n\n\n\n\n\n\n\n\n\n\nAnimateTransition\n\n\nvoid AnimateTransition(CanvasControllerTransitionContext transitionContext);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\ntransitionContext\n\n\nThe transition's context, which provides information about the transition such as the canvas controllers involved.\n\n\n\n\n\n\n\n\nDescription\n\n\nPerform your transition animation with the \ntransitionContext\n's canvas controllers. \n\n\nNote that you must call \nCanvasControllerTransitionContext.CompleteTransition\n on the provided transition context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition. \n\n\n\n\nAnimateTransitionForInitialCanvasController\n\n\nvoid AnimateTransitionForInitialCanvasController(\n    CanvasControllerTransitionContext transitionContext);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\ntransitionContext\n\n\nThe transition's context, which provides information about the transition such as the canvas controllers involved.\n\n\n\n\n\n\n\n\nDescription\n\n\nPerform your transition animation for an initial canvas controller. \n\n\nCanvas Flow will call this method on a transition animator instead of \nAnimateTransition\n when the transition is presenting or dismissing an initial canvas controller. An initial canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using \nCanvasController.PresentInitialCanvasController\n. The only  difference from the \nAnimateTransition\n method is that either the context's \nsourceCanvasController\n or \ndestinationCanvasController\n will be null, depending on whether the transition is upstream - i.e. it is presenting/dismissing to 'nothing'. \n\n\nNote that you must call \nCanvasControllerTransitionContext.CompleteTransition\n on the provided transition context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition.", 
+            "title": "ICanvasControllerTransitioningAnimator"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#icanvascontrollertransitioninganimator", 
+            "text": "public interface ICanvasControllerTransitioningAnimator;", 
+            "title": "ICanvasControllerTransitioningAnimator"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#description", 
+            "text": "The  ICanvasControllerTransitioningAnimator  interface defines the methods required to perform a transition animation between two canvas controllers. To implement a custom transition animation, you create an object that implements this interface - a transition animator. You can then provide, or vend, this animator to Canvas Flow via the target canvas controller's  CanvasController.transitioningAnimatorVendor  when the relevant transition is triggered.   When a transition between canvas controllers is to be performed, Canvas Flow will ask the target canvas controller's   CanvasController.transitioningAnimatorVendor  for an animator. This is where you can return, or vend, your custom animator. Your animator will then have the appropriate  AnimateTransition  method called, where you can perform your transition animation. Please refer to the included transition animators' source code for examples of animating the transition. These can be found in  Canvas Flow/Transition Animators*.   The recommended way to create a custom transition animator, as documented in the manual, is to use the menu item in the Unity Editor at  Assets/Create/Canvas Flow/Custom Transition Animator . This creates a  CanvasControllerTransitioningAnimator , which is derived from  ScriptableObject  so it can be used in storyboards, be referenced in the Unity Editor, provide easily tweakable properties, and support having multiple instances. However, you may provide any object that implements this interface as an animator.   Once your transition animator has completed its animation, you must call  CanvasControllerTransitionContext.CompleteTransition  on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition. * The target canvas controller is the canvas controller being acted upon - i.e. the canvas controler being presented or being dismissed. Therefore, in a downstream transition - a presentation, this will be the  CanvasControllerTransitionContext.destinationCanvasController  , whereas in an upstream transition - a dismissal, this will be the  CanvasControllerTransitionContext.sourceCanvasController .   See also:   CanvasControllerTransitioningAnimator    CanvasControllerTransitionContext    CanvasController.transitioningAnimatorVendor    Routine    CanvasControllerExtensions    DynamicObjectExtensions       Properties       None         Methods       AnimateTransition  Perform your transition animation with the  transitionContext 's canvas controllers.    AnimateTransitionForInitialCanvasController  Perform your transition animation for an initial canvas controller.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#animatetransition", 
+            "text": "void AnimateTransition(CanvasControllerTransitionContext transitionContext);", 
+            "title": "AnimateTransition"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#parameters", 
+            "text": "Name  Description      transitionContext  The transition's context, which provides information about the transition such as the canvas controllers involved.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#description_1", 
+            "text": "Perform your transition animation with the  transitionContext 's canvas controllers.   Note that you must call  CanvasControllerTransitionContext.CompleteTransition  on the provided transition context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#animatetransitionforinitialcanvascontroller", 
+            "text": "void AnimateTransitionForInitialCanvasController(\n    CanvasControllerTransitionContext transitionContext);", 
+            "title": "AnimateTransitionForInitialCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#returns_1", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#parameters_1", 
+            "text": "Name  Description      transitionContext  The transition's context, which provides information about the transition such as the canvas controllers involved.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/#description_2", 
+            "text": "Perform your transition animation for an initial canvas controller.   Canvas Flow will call this method on a transition animator instead of  AnimateTransition  when the transition is presenting or dismissing an initial canvas controller. An initial canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using  CanvasController.PresentInitialCanvasController . The only  difference from the  AnimateTransition  method is that either the context's  sourceCanvasController  or  destinationCanvasController  will be null, depending on whether the transition is upstream - i.e. it is presenting/dismissing to 'nothing'.   Note that you must call  CanvasControllerTransitionContext.CompleteTransition  on the provided transition context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/", 
+            "text": "ICanvasControllerTransitioningAnimatorVendor\n\n\npublic interface ICanvasControllerTransitioningAnimatorVendor;\n\n\nDescription\n\n\nThe \nICanvasControllerTransitioningAnimatorVendor\n interface defines the methods required to supply transition animators to a transitioning canvas controller. \n\n\nWhen a canvas controller is about to be presented or dismissed, it will ask its \nCanvasController.transitioningAnimatorVendor\n for an animator to animate the transition. The vendor returns an \nICanvasControllerTransitioningAnimator\n object that will be used to animate the transition. Different animators may be returned depending on the values of the \nCanvasControllerTransitionContext\n parameter. The vendor may return \nnull\n to have the transition be animated by the default animator. \n\n\nSee also: \n\n\nICanvasControllerTransitioningAnimator\n \n\n\nCanvasControllerTransitionContext\n \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nTransitioningAnimatorForContext\n\n\nReturn the transition animator that will be used to animate the transition. You may return \nnull\n to have the transition be animated by the default animator.\n\n\n\n\n\n\n\n\n\n\nTransitioningAnimatorForContext\n\n\nICanvasControllerTransitioningAnimator TransitioningAnimatorForContext(\n    CanvasControllerTransitionContext transitionContext);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\ntransitionContext\n\n\nThe transition's context, which provides information about the transition such as the canvas controllers involved.\n\n\n\n\n\n\n\n\nDescription\n\n\nReturn the transition animator that will be used to animate the transition. You may return \nnull\n to have the transition be animated by the default animator.", 
+            "title": "ICanvasControllerTransitioningAnimatorVendor"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/#icanvascontrollertransitioninganimatorvendor", 
+            "text": "public interface ICanvasControllerTransitioningAnimatorVendor;", 
+            "title": "ICanvasControllerTransitioningAnimatorVendor"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/#description", 
+            "text": "The  ICanvasControllerTransitioningAnimatorVendor  interface defines the methods required to supply transition animators to a transitioning canvas controller.   When a canvas controller is about to be presented or dismissed, it will ask its  CanvasController.transitioningAnimatorVendor  for an animator to animate the transition. The vendor returns an  ICanvasControllerTransitioningAnimator  object that will be used to animate the transition. Different animators may be returned depending on the values of the  CanvasControllerTransitionContext  parameter. The vendor may return  null  to have the transition be animated by the default animator.   See also:   ICanvasControllerTransitioningAnimator    CanvasControllerTransitionContext       Properties       None         Methods       TransitioningAnimatorForContext  Return the transition animator that will be used to animate the transition. You may return  null  to have the transition be animated by the default animator.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/#transitioninganimatorforcontext", 
+            "text": "ICanvasControllerTransitioningAnimator TransitioningAnimatorForContext(\n    CanvasControllerTransitionContext transitionContext);", 
+            "title": "TransitioningAnimatorForContext"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/#parameters", 
+            "text": "Name  Description      transitionContext  The transition's context, which provides information about the transition such as the canvas controllers involved.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/#description_1", 
+            "text": "Return the transition animator that will be used to animate the transition. You may return  null  to have the transition be animated by the default animator.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/", 
+            "text": "Storyboard\n\n\npublic class Storyboard : MonoBehaviour, IStoryboardNodeResponder;\n\n\nDescription\n\n\nA storyboard component used to present a storyboard in the scene. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nautomaticPresentationMode\n\n\nThe automatic presentation mode of the storyboard component. Can be one of \nPresentOnAwake\n, \nPresentOnStart\n, or \nDontPresentAutomatically\n.\n\n\n\n\n\n\nstoryboard\n\n\nThe storyboard asset.\n\n\n\n\n\n\nStoryboardWillDismiss\n\n\nA UnityEvent that is triggered when the storyboard is about to perform its exit transition, i.e. dismiss its initial canvas controller.\n\n\n\n\n\n\nStoryboardWillPerformTransition\n\n\nA UnityEvent that is triggered when the storyboard is about to perform a transition, excluding its initial/entry transition.\n\n\n\n\n\n\nStoryboardWillPresentInitialCanvasController\n\n\nA UnityEvent that is triggered when the storyboard is about to perform its entry transition, i.e. present its initial canvas controller.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nPresent\n\n\nPresent the storyboard manually.\n\n\n\n\n\n\n\n\n\n\nautomaticPresentationMode\n\n\npublic AutomaticPresentationMode automaticPresentationMode =\n    AutomaticPresentationMode.PresentOnAwake;\n\n\nDescription\n\n\nThe automatic presentation mode of the storyboard component. Can be one of \nPresentOnAwake\n, \nPresentOnStart\n, or \nDontPresentAutomatically\n. \n\n\n\n\nstoryboard\n\n\npublic StoryboardData storyboard;\n\n\nDescription\n\n\nThe storyboard asset. \n\n\n\n\nStoryboardWillDismiss\n\n\npublic StoryboardTransitionEvent StoryboardWillDismiss;\n\n\nDescription\n\n\nA UnityEvent that is triggered when the storyboard is about to perform its exit transition, i.e. dismiss its initial canvas controller. \n\n\nThis event receives a \nStoryboardTransition\n for the transition to be performed. Therefore, the required method signature to use this event is \npublic void yourMethodName(StoryboardTransition transition)\n. \n\n\n\n\nStoryboardWillPerformTransition\n\n\npublic StoryboardTransitionEvent StoryboardWillPerformTransition;\n\n\nDescription\n\n\nA UnityEvent that is triggered when the storyboard is about to perform a transition, excluding its initial/entry transition. \n\n\nThis event receives a \nStoryboardTransition\n for the transition to be performed. Therefore, the required method signature to use this event is \npublic void yourMethodName(StoryboardTransition transition)\n. \n\n\n\n\nStoryboardWillPresentInitialCanvasController\n\n\npublic StoryboardTransitionEvent StoryboardWillPresentInitialCanvasController;\n\n\nDescription\n\n\nA UnityEvent that is triggered when the storyboard is about to perform its entry transition, i.e. present its initial canvas controller. \n\n\nThis event receives a \nStoryboardTransition\n for the transition to be performed. Therefore, the required method signature to use this event is \npublic void yourMethodName(StoryboardTransition transition)\n. \n\n\n\n\nPresent\n\n\npublic void Present();\n\n\nReturns\n\n\nDescription\n\n\nPresent the storyboard manually. \n\n\nThis can be used in conjunction with \nautomaticPresentationMode\n to present the storyboard manually.", 
+            "title": "Storyboard"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#storyboard", 
+            "text": "public class Storyboard : MonoBehaviour, IStoryboardNodeResponder;", 
+            "title": "Storyboard"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#description", 
+            "text": "A storyboard component used to present a storyboard in the scene.      Properties       automaticPresentationMode  The automatic presentation mode of the storyboard component. Can be one of  PresentOnAwake ,  PresentOnStart , or  DontPresentAutomatically .    storyboard  The storyboard asset.    StoryboardWillDismiss  A UnityEvent that is triggered when the storyboard is about to perform its exit transition, i.e. dismiss its initial canvas controller.    StoryboardWillPerformTransition  A UnityEvent that is triggered when the storyboard is about to perform a transition, excluding its initial/entry transition.    StoryboardWillPresentInitialCanvasController  A UnityEvent that is triggered when the storyboard is about to perform its entry transition, i.e. present its initial canvas controller.        Methods       Present  Present the storyboard manually.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#automaticpresentationmode", 
+            "text": "public AutomaticPresentationMode automaticPresentationMode =\n    AutomaticPresentationMode.PresentOnAwake;", 
+            "title": "automaticPresentationMode"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#description_1", 
+            "text": "The automatic presentation mode of the storyboard component. Can be one of  PresentOnAwake ,  PresentOnStart , or  DontPresentAutomatically .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#storyboard_1", 
+            "text": "public StoryboardData storyboard;", 
+            "title": "storyboard"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#description_2", 
+            "text": "The storyboard asset.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#storyboardwilldismiss", 
+            "text": "public StoryboardTransitionEvent StoryboardWillDismiss;", 
+            "title": "StoryboardWillDismiss"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#description_3", 
+            "text": "A UnityEvent that is triggered when the storyboard is about to perform its exit transition, i.e. dismiss its initial canvas controller.   This event receives a  StoryboardTransition  for the transition to be performed. Therefore, the required method signature to use this event is  public void yourMethodName(StoryboardTransition transition) .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#storyboardwillperformtransition", 
+            "text": "public StoryboardTransitionEvent StoryboardWillPerformTransition;", 
+            "title": "StoryboardWillPerformTransition"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#description_4", 
+            "text": "A UnityEvent that is triggered when the storyboard is about to perform a transition, excluding its initial/entry transition.   This event receives a  StoryboardTransition  for the transition to be performed. Therefore, the required method signature to use this event is  public void yourMethodName(StoryboardTransition transition) .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#storyboardwillpresentinitialcanvascontroller", 
+            "text": "public StoryboardTransitionEvent StoryboardWillPresentInitialCanvasController;", 
+            "title": "StoryboardWillPresentInitialCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#description_5", 
+            "text": "A UnityEvent that is triggered when the storyboard is about to perform its entry transition, i.e. present its initial canvas controller.   This event receives a  StoryboardTransition  for the transition to be performed. Therefore, the required method signature to use this event is  public void yourMethodName(StoryboardTransition transition) .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#present", 
+            "text": "public void Present();", 
+            "title": "Present"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/Storyboard/#description_6", 
+            "text": "Present the storyboard manually.   This can be used in conjunction with  automaticPresentationMode  to present the storyboard manually.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardData/", 
+            "text": "StoryboardData\n\n\npublic class StoryboardData : ScriptableObject;\n\n\nDescription\n\n\nA storyboard asset file containg all of a storyboard's data. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nNone", 
+            "title": "StoryboardData"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardData/#storyboarddata", 
+            "text": "public class StoryboardData : ScriptableObject;", 
+            "title": "StoryboardData"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardData/#description", 
+            "text": "A storyboard asset file containg all of a storyboard's data.      Properties       None         Methods       None", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/", 
+            "text": "StoryboardHook\n\n\npublic abstract class StoryboardHook : MonoBehaviour;\n\n\nDescription\n\n\nA storyboard hook component is attached to game objects to make them \nhookable\n in the storyboard editor. \n\n\nA \nStoryboardTransition\n will contain a reference to the storyboard hook component whom triggered it. You could use this reference to access the hook itself, as well as any other components on the hook's game object. This class is not used directly. It is derived from to create custom storyboard hooks, as documented in the manual. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nAutoAddComponentType\n\n\nOverride to specify the component type to which this hook should be automatically added.\n\n\n\n\n\n\nIdentifier\n\n\nThe hook's unique identifier.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nCalculateRect01\n\n\nA normalized rect used to position the hook element within the canvas preview area of the node view in the storyboard editor.\n\n\n\n\n\n\nConnect\n\n\nOverride to attach the provided callback to your storyboard hook.\n\n\n\n\n\n\n\n\n\n\nAutoAddComponentType\n\n\npublic virtual System.Type AutoAddComponentType;\n\n\nDescription\n\n\nOverride to specify the component type to which this hook should be automatically added. \n\n\nWhen a canvas controller scene is saved in the Editor, Canvas Flow will ensure that storyboard hooks are present on any game objects with the hook's 'auto-add' component type. Here you can return the target type of your hook, such as your custom button type, to have your hook automatically added to any game objects with the target component type. \n\n\n\n\nIdentifier\n\n\npublic string Identifier;\n\n\nDescription\n\n\nThe hook's unique identifier. \n\n\n\n\nCalculateRect01\n\n\npublic virtual Rect CalculateRect01();\n\n\nReturns\n\n\nDescription\n\n\nA normalized rect used to position the hook element within the canvas preview area of the node view in the storyboard editor. \n\n\nThis method is invoked by Canvas Flow in the Editor when laying out a node's hooks in the storyboard editor. The default implementation of this method calculates the relative position of the hook's \nRectTransform\n component to its highest parent canvas. You may override it to specify a custom implementation. \n\n\n\n\nConnect\n\n\npublic abstract void Connect(System.Action\nStoryboardHook\n invokeTransition);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\ninvokeTransition\n\n\nInvoke transition.\n\n\n\n\n\n\n\n\nDescription\n\n\nOverride to attach the provided callback to your storyboard hook. \n\n\nWhen a canvas controller is loaded from a storyboard at runtime, its connected hooks will be provided with a callback via the \nConnect()\n method. Your hook's responsibility is to simply invoke this callback when it deems itself to have been triggered. Invoking the provided callback is all that is required to trigger a storyboard transition.", 
+            "title": "StoryboardHook"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#storyboardhook", 
+            "text": "public abstract class StoryboardHook : MonoBehaviour;", 
+            "title": "StoryboardHook"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#description", 
+            "text": "A storyboard hook component is attached to game objects to make them  hookable  in the storyboard editor.   A  StoryboardTransition  will contain a reference to the storyboard hook component whom triggered it. You could use this reference to access the hook itself, as well as any other components on the hook's game object. This class is not used directly. It is derived from to create custom storyboard hooks, as documented in the manual.      Properties       AutoAddComponentType  Override to specify the component type to which this hook should be automatically added.    Identifier  The hook's unique identifier.        Methods       CalculateRect01  A normalized rect used to position the hook element within the canvas preview area of the node view in the storyboard editor.    Connect  Override to attach the provided callback to your storyboard hook.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#autoaddcomponenttype", 
+            "text": "public virtual System.Type AutoAddComponentType;", 
+            "title": "AutoAddComponentType"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#description_1", 
+            "text": "Override to specify the component type to which this hook should be automatically added.   When a canvas controller scene is saved in the Editor, Canvas Flow will ensure that storyboard hooks are present on any game objects with the hook's 'auto-add' component type. Here you can return the target type of your hook, such as your custom button type, to have your hook automatically added to any game objects with the target component type.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#identifier", 
+            "text": "public string Identifier;", 
+            "title": "Identifier"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#description_2", 
+            "text": "The hook's unique identifier.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#calculaterect01", 
+            "text": "public virtual Rect CalculateRect01();", 
+            "title": "CalculateRect01"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#description_3", 
+            "text": "A normalized rect used to position the hook element within the canvas preview area of the node view in the storyboard editor.   This method is invoked by Canvas Flow in the Editor when laying out a node's hooks in the storyboard editor. The default implementation of this method calculates the relative position of the hook's  RectTransform  component to its highest parent canvas. You may override it to specify a custom implementation.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#connect", 
+            "text": "public abstract void Connect(System.Action StoryboardHook  invokeTransition);", 
+            "title": "Connect"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#returns_1", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#parameters", 
+            "text": "Name  Description      invokeTransition  Invoke transition.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/hooks/StoryboardHook/#description_4", 
+            "text": "Override to attach the provided callback to your storyboard hook.   When a canvas controller is loaded from a storyboard at runtime, its connected hooks will be provided with a callback via the  Connect()  method. Your hook's responsibility is to simply invoke this callback when it deems itself to have been triggered. Invoking the provided callback is all that is required to trigger a storyboard transition.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/", 
+            "text": "StoryboardTransition\n\n\npublic class StoryboardTransition;\n\n\nDescription\n\n\nA \nStoryboardTransition\n object is created at runtime when a transition in a storyboard is invoked. This object can be used to infer information about the transition, such as the canvas controllers involved, the \ndirection\n of the transition, whether the transition is \nanimated\n, as well as the \ninvokedHook\n that triggered the transition. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\ndirection\n\n\nThe direction of the transition.\n\n\n\n\n\n\ninvokedHook\n\n\nThe \nStoryboardHook\n that triggered this transition.\n\n\n\n\n\n\npresentationMode\n\n\nThe presentation mode of the presented canvas controller.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nDestinationCanvasController\n\n\nThe transition's destination canvas controller.\n\n\n\n\n\n\nDestinationCanvasController\nT\n\n\nThe transition's destination canvas controller, if it is of type T.\n\n\n\n\n\n\nSourceCanvasController\n\n\nThe transition's source canvas controller.\n\n\n\n\n\n\nSourceCanvasController\nT\n\n\nThe transition's source canvas controller, if it is of type T.\n\n\n\n\n\n\n\n\n\n\nanimated\n\n\npublic readonly bool animated;\n\n\nDescription\n\n\nIs the transition animated? \n\n\n\n\ndirection\n\n\npublic readonly StoryboardTransitionDirection direction;\n\n\nDescription\n\n\nThe direction of the transition. \n\n\n\n\ninvokedHook\n\n\npublic readonly StoryboardHook invokedHook;\n\n\nDescription\n\n\nThe \nStoryboardHook\n that triggered this transition. \n\n\nIf the transition was invoked manually with \nCanvasController.PerformTransitionWithIdentifier\n, this will be null. \n\n\n\n\npresentationMode\n\n\npublic readonly CanvasControllerPresentationMode presentationMode;\n\n\nDescription\n\n\nThe presentation mode of the presented canvas controller. \n\n\n\n\nDestinationCanvasController\n\n\npublic CanvasController DestinationCanvasController();\n\n\nReturns\n\n\nDescription\n\n\nThe transition's destination canvas controller. \n\n\n\n\nDestinationCanvasController\nT\n\n\npublic T DestinationCanvasController\nT\n()\n    where T : CanvasController;\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type to cast the destination canvas controller to.\n\n\n\n\n\n\n\n\nDescription\n\n\nThe transition's destination canvas controller, if it is of type T. \n\n\n\n\nSourceCanvasController\n\n\npublic CanvasController SourceCanvasController();\n\n\nReturns\n\n\nDescription\n\n\nThe transition's source canvas controller. \n\n\n\n\nSourceCanvasController\nT\n\n\npublic T SourceCanvasController\nT\n()\n    where T : CanvasController;\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type to cast the source canvas controller to.\n\n\n\n\n\n\n\n\nDescription\n\n\nThe transition's source canvas controller, if it is of type T.", 
+            "title": "StoryboardTransition"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#storyboardtransition", 
+            "text": "public class StoryboardTransition;", 
+            "title": "StoryboardTransition"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description", 
+            "text": "A  StoryboardTransition  object is created at runtime when a transition in a storyboard is invoked. This object can be used to infer information about the transition, such as the canvas controllers involved, the  direction  of the transition, whether the transition is  animated , as well as the  invokedHook  that triggered the transition.      Properties       animated  Is the transition animated?    direction  The direction of the transition.    invokedHook  The  StoryboardHook  that triggered this transition.    presentationMode  The presentation mode of the presented canvas controller.        Methods       DestinationCanvasController  The transition's destination canvas controller.    DestinationCanvasController T  The transition's destination canvas controller, if it is of type T.    SourceCanvasController  The transition's source canvas controller.    SourceCanvasController T  The transition's source canvas controller, if it is of type T.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#animated", 
+            "text": "public readonly bool animated;", 
+            "title": "animated"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_1", 
+            "text": "Is the transition animated?", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#direction", 
+            "text": "public readonly StoryboardTransitionDirection direction;", 
+            "title": "direction"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_2", 
+            "text": "The direction of the transition.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#invokedhook", 
+            "text": "public readonly StoryboardHook invokedHook;", 
+            "title": "invokedHook"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_3", 
+            "text": "The  StoryboardHook  that triggered this transition.   If the transition was invoked manually with  CanvasController.PerformTransitionWithIdentifier , this will be null.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#presentationmode", 
+            "text": "public readonly CanvasControllerPresentationMode presentationMode;", 
+            "title": "presentationMode"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_4", 
+            "text": "The presentation mode of the presented canvas controller.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#destinationcanvascontroller", 
+            "text": "public CanvasController DestinationCanvasController();", 
+            "title": "DestinationCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_5", 
+            "text": "The transition's destination canvas controller.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#destinationcanvascontrollert", 
+            "text": "public T DestinationCanvasController T ()\n    where T : CanvasController;", 
+            "title": "DestinationCanvasController&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#returns_1", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#parameters", 
+            "text": "Name  Description      T  The type to cast the destination canvas controller to.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_6", 
+            "text": "The transition's destination canvas controller, if it is of type T.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#sourcecanvascontroller", 
+            "text": "public CanvasController SourceCanvasController();", 
+            "title": "SourceCanvasController"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#returns_2", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_7", 
+            "text": "The transition's source canvas controller.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#sourcecanvascontrollert", 
+            "text": "public T SourceCanvasController T ()\n    where T : CanvasController;", 
+            "title": "SourceCanvasController&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#returns_3", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#parameters_1", 
+            "text": "Name  Description      T  The type to cast the source canvas controller to.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_8", 
+            "text": "The transition's source canvas controller, if it is of type T.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionDirection/", 
+            "text": "StoryboardTransitionDirection\n\n\npublic enum StoryboardTransitionDirection;\n\n\nDescription\n\n\nThe direction of a storyboard transition. \n\n\n\n\n\n\n\n\nValues\n\n\n\n\n\n\n\n\n\n\n\n\nDownstream\n\n\nA downstream direction refers to a presentation transition - represented by a blue color in the storyboard editor.\n\n\n\n\n\n\nUpstream\n\n\nAn upstream direction refers to a dismissal transition - represented by an orange color in the storyboard editor.\n\n\n\n\n\n\n\n\n\n\nDownstream\n\n\nDownstream,\n\n\nDescription\n\n\nA downstream direction refers to a presentation transition - represented by a blue color in the storyboard editor. \n\n\n\n\nUpstream\n\n\nUpstream\n\n\nDescription\n\n\nAn upstream direction refers to a dismissal transition - represented by an orange color in the storyboard editor.", 
+            "title": "StoryboardTransitionDirection"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionDirection/#storyboardtransitiondirection", 
+            "text": "public enum StoryboardTransitionDirection;", 
+            "title": "StoryboardTransitionDirection"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionDirection/#description", 
+            "text": "The direction of a storyboard transition.      Values       Downstream  A downstream direction refers to a presentation transition - represented by a blue color in the storyboard editor.    Upstream  An upstream direction refers to a dismissal transition - represented by an orange color in the storyboard editor.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionDirection/#downstream", 
+            "text": "Downstream,", 
+            "title": "Downstream"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionDirection/#description_1", 
+            "text": "A downstream direction refers to a presentation transition - represented by a blue color in the storyboard editor.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionDirection/#upstream", 
+            "text": "Upstream", 
+            "title": "Upstream"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionDirection/#description_2", 
+            "text": "An upstream direction refers to a dismissal transition - represented by an orange color in the storyboard editor.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionEvent/", 
+            "text": "StoryboardTransitionEvent\n\n\npublic class StoryboardTransitionEvent : UnityEvent\nStoryboardTransition\n;\n\n\nDescription\n\n\nA UnityEvent type for Storyboard events that passes in a \nStoryboardTransition\n. See \nStoryboard\n for available event callbacks. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nNone", 
+            "title": "StoryboardTransitionEvent"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionEvent/#storyboardtransitionevent", 
+            "text": "public class StoryboardTransitionEvent : UnityEvent StoryboardTransition ;", 
+            "title": "StoryboardTransitionEvent"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransitionEvent/#description", 
+            "text": "A UnityEvent type for Storyboard events that passes in a  StoryboardTransition . See  Storyboard  for available event callbacks.      Properties       None         Methods       None", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/", 
+            "text": "Routine\n\n\npublic class Routine;\n\n\nDescription\n\n\nThe Routine class is a convenience class for easily executing a Unity coroutine with progress callbacks. This can be helpful when animating an object over a duration, for example. \n\n\nTo use the routine class, create an instance of it and call \nRun\n like so: \n\n // Create a routine lasting \nduration\n seconds.\n Routine animation = new Routine(duration);\n\n\n// Execute the routine.\n animation.Run(OnUpdate: (progress01) =\n\n {\n     // The update action is called every frame for the routine's duration,\n     // passing in a progress01 value.\n     // e.g. Vector3.LerpUnclamped(startPos, endPos, progress01);\n }, OnComplete: () =\n\n {\n     // The completion action is called after \nduration\n seconds.\n }); \n\n\nThe Routine class will instantiate a game object to execute the coroutine, and destroy it upon completion. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\ndelay\n\n\nThe delay, in seconds, to wait before starting the routine after \nRun\n is called.\n\n\n\n\n\n\nduration\n\n\nThe duration of the routine, in seconds.\n\n\n\n\n\n\nIsRunning\n\n\nIs the routine running?\n\n\n\n\n\n\nupdateMode\n\n\nThe update mode of the routine. Can either be \nUnscaledTime\n or \nScaledTime\n.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nRoutine\n\n\nInitializes a new instance of the \nRoutine\n class.\n\n\n\n\n\n\nRun\n\n\nRun the routine with the specified OnUpdate and OnComplete callbacks.\n\n\n\n\n\n\nStop\n\n\nStop the routine.\n\n\n\n\n\n\n\n\n\n\ndelay\n\n\npublic float delay;\n\n\nDescription\n\n\nThe delay, in seconds, to wait before starting the routine after \nRun\n is called. \n\n\n\n\nduration\n\n\npublic float duration;\n\n\nDescription\n\n\nThe duration of the routine, in seconds. \n\n\n\n\nIsRunning\n\n\npublic bool IsRunning;\n\n\nDescription\n\n\nIs the routine running? \n\n\n\n\nupdateMode\n\n\npublic RoutineUpdateMode updateMode;\n\n\nDescription\n\n\nThe update mode of the routine. Can either be \nUnscaledTime\n or \nScaledTime\n. \n\n\n\n\nRoutine\n\n\npublic Routine(float duration = 1f,\n               float delay = 0f,\n               RoutineUpdateMode updateMode = RoutineUpdateMode.UnscaledTime);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nduration\n\n\nThe duration of the routine, in seconds.\n\n\n\n\n\n\ndelay\n\n\nThe delay, in seconds, to wait before starting the routine after  is called.\n\n\n\n\n\n\nupdateMode\n\n\nThe update mode of the routine. Can either be UnscaledTime or ScaledTime.\n\n\n\n\n\n\n\n\nDescription\n\n\nInitializes a new instance of the \nRoutine\n class. \n\n\n\n\nRun\n\n\npublic void Run(System.Action\nfloat\n OnUpdate = null,\n                      System.Action OnComplete = null);\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nOnUpdate\n\n\nThe OnUpdate action. This will be called every frame with a progress value for the routine's duration.\n\n\n\n\n\n\nOnComplete\n\n\nThe OnComplete action. This will be called once when the routine has reached its duration.\n\n\n\n\n\n\n\n\nDescription\n\n\nRun the routine with the specified OnUpdate and OnComplete callbacks. \n\n\n\n\nStop\n\n\npublic void Stop();\n\n\nReturns\n\n\nDescription\n\n\nStop the routine.", 
+            "title": "Routine"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#routine", 
+            "text": "public class Routine;", 
+            "title": "Routine"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#description", 
+            "text": "The Routine class is a convenience class for easily executing a Unity coroutine with progress callbacks. This can be helpful when animating an object over a duration, for example.   To use the routine class, create an instance of it and call  Run  like so:   // Create a routine lasting  duration  seconds.\n Routine animation = new Routine(duration);  // Execute the routine.\n animation.Run(OnUpdate: (progress01) = \n {\n     // The update action is called every frame for the routine's duration,\n     // passing in a progress01 value.\n     // e.g. Vector3.LerpUnclamped(startPos, endPos, progress01);\n }, OnComplete: () = \n {\n     // The completion action is called after  duration  seconds.\n });   The Routine class will instantiate a game object to execute the coroutine, and destroy it upon completion.      Properties       delay  The delay, in seconds, to wait before starting the routine after  Run  is called.    duration  The duration of the routine, in seconds.    IsRunning  Is the routine running?    updateMode  The update mode of the routine. Can either be  UnscaledTime  or  ScaledTime .        Methods       Routine  Initializes a new instance of the  Routine  class.    Run  Run the routine with the specified OnUpdate and OnComplete callbacks.    Stop  Stop the routine.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#delay", 
+            "text": "public float delay;", 
+            "title": "delay"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#description_1", 
+            "text": "The delay, in seconds, to wait before starting the routine after  Run  is called.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#duration", 
+            "text": "public float duration;", 
+            "title": "duration"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#description_2", 
+            "text": "The duration of the routine, in seconds.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#isrunning", 
+            "text": "public bool IsRunning;", 
+            "title": "IsRunning"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#description_3", 
+            "text": "Is the routine running?", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#updatemode", 
+            "text": "public RoutineUpdateMode updateMode;", 
+            "title": "updateMode"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#description_4", 
+            "text": "The update mode of the routine. Can either be  UnscaledTime  or  ScaledTime .", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#routine_1", 
+            "text": "public Routine(float duration = 1f,\n               float delay = 0f,\n               RoutineUpdateMode updateMode = RoutineUpdateMode.UnscaledTime);", 
+            "title": "Routine"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#parameters", 
+            "text": "Name  Description      duration  The duration of the routine, in seconds.    delay  The delay, in seconds, to wait before starting the routine after  is called.    updateMode  The update mode of the routine. Can either be UnscaledTime or ScaledTime.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#description_5", 
+            "text": "Initializes a new instance of the  Routine  class.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#run", 
+            "text": "public void Run(System.Action float  OnUpdate = null,\n                      System.Action OnComplete = null);", 
+            "title": "Run"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#returns_1", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#parameters_1", 
+            "text": "Name  Description      OnUpdate  The OnUpdate action. This will be called every frame with a progress value for the routine's duration.    OnComplete  The OnComplete action. This will be called once when the routine has reached its duration.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#description_6", 
+            "text": "Run the routine with the specified OnUpdate and OnComplete callbacks.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#stop", 
+            "text": "public void Stop();", 
+            "title": "Stop"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#returns_2", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/routine/Routine/#description_7", 
+            "text": "Stop the routine.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/", 
+            "text": "DynamicObjectExtensions\n\n\npublic static class DynamicObjectExtensions;\n\n\nDescription\n\n\nDynamic property lookup for classes and structs. \n\n\nThis class uses reflection to dynamically lookup a class or struct property. To use it, include its namespace: \nP7.CanvasFlow.DynamicObjectExtensions\n. \n\n\nCanvas Flow's Scale And Fade Background transition animator uses the \nGetField\n extension method to dynamically find the \ncontentToScalePropertyName\n specified in the animator's inspector. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nGetField\nT\n\n\nGet the class' field with the specified name and type using reflection.\n\n\n\n\n\n\nGetValueField\nT\n\n\nGet the struct's field with the specified name and type using reflection.\n\n\n\n\n\n\n\n\n\n\nGetField\nT\n\n\npublic static T GetField\nT\n(this Object obj, string fieldName)\n    where T : class;\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type of the field.\n\n\n\n\n\n\nfieldName\n\n\nThe name of the field.\n\n\n\n\n\n\n\n\nDescription\n\n\nGet the class' field with the specified name and type using reflection. \n\n\n\n\nGetValueField\nT\n\n\npublic static T? GetValueField\nT\n(this Object obj, string fieldName)\n    where T : struct;\n\n\nReturns\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type of the field.\n\n\n\n\n\n\nfieldName\n\n\nThe name of the field.\n\n\n\n\n\n\n\n\nDescription\n\n\nGet the struct's field with the specified name and type using reflection.", 
+            "title": "DynamicObjectExtensions"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#dynamicobjectextensions", 
+            "text": "public static class DynamicObjectExtensions;", 
+            "title": "DynamicObjectExtensions"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#description", 
+            "text": "Dynamic property lookup for classes and structs.   This class uses reflection to dynamically lookup a class or struct property. To use it, include its namespace:  P7.CanvasFlow.DynamicObjectExtensions .   Canvas Flow's Scale And Fade Background transition animator uses the  GetField  extension method to dynamically find the  contentToScalePropertyName  specified in the animator's inspector.      Properties       None         Methods       GetField T  Get the class' field with the specified name and type using reflection.    GetValueField T  Get the struct's field with the specified name and type using reflection.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#getfieldt", 
+            "text": "public static T GetField T (this Object obj, string fieldName)\n    where T : class;", 
+            "title": "GetField&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#parameters", 
+            "text": "Name  Description      T  The type of the field.    fieldName  The name of the field.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#description_1", 
+            "text": "Get the class' field with the specified name and type using reflection.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#getvaluefieldt", 
+            "text": "public static T? GetValueField T (this Object obj, string fieldName)\n    where T : struct;", 
+            "title": "GetValueField&lt;T&gt;"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#returns_1", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#parameters_1", 
+            "text": "Name  Description      T  The type of the field.    fieldName  The name of the field.", 
+            "title": "Parameters"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/DynamicObjectExtensions/#description_2", 
+            "text": "Get the struct's field with the specified name and type using reflection.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/RectTransformExtensions/", 
+            "text": "RectTransformExtensions\n\n\npublic static class RectTransformExtensions;\n\n\nDescription\n\n\nRect transform extension methods. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nNone\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nFillParent\n\n\nMake a rect transform fill its parent.\n\n\n\n\n\n\n\n\n\n\nFillParent\n\n\npublic static void FillParent(this RectTransform rectTransform);\n\n\nReturns\n\n\nDescription\n\n\nMake a rect transform fill its parent.", 
+            "title": "RectTransformExtensions"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/RectTransformExtensions/#recttransformextensions", 
+            "text": "public static class RectTransformExtensions;", 
+            "title": "RectTransformExtensions"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/RectTransformExtensions/#description", 
+            "text": "Rect transform extension methods.      Properties       None         Methods       FillParent  Make a rect transform fill its parent.", 
+            "title": "Description"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/RectTransformExtensions/#fillparent", 
+            "text": "public static void FillParent(this RectTransform rectTransform);", 
+            "title": "FillParent"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/RectTransformExtensions/#returns", 
+            "text": "", 
+            "title": "Returns"
+        }, 
+        {
+            "location": "/scripting-reference/extensions/RectTransformExtensions/#description_1", 
+            "text": "Make a rect transform fill its parent.", 
+            "title": "Description"
         }
     ]
 }

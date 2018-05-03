@@ -158,8 +158,96 @@
   </li>
                         </ul>
                     </li>
-                    <li >
-                        <a href="../../../scripting-reference/overview/">Scripting Reference</a>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Scripting Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../scripting-reference/contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasController/">CanvasController</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerExtensions/">CanvasController Extensions</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerPresentationMode/">CanvasControllerPresentationMode</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitionContext/">CanvasControllerTransitionContext</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerTransitioningAnimator/">CanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/">ICanvasControllerTransitioningAnimatorVendor</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/hooks/StoryboardHook/">StoryboardHook</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransition/">StoryboardTransition</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransitionDirection/">StoryboardTransitionDirection</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardTransitionEvent/">StoryboardTransitionEvent</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Extensions And Convenience</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../scripting-reference/routine/Routine/">Routine</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/extensions/DynamicObjectExtensions/">DynamicObjectExtensions</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/extensions/RectTransformExtensions/">RectTransformExtensions</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
                     </li>
                 </ul>
 
@@ -224,7 +312,7 @@
 
 <h2 id="using-directly-with-canvas-controllers">Using Directly With Canvas Controllers</h2>
 <p>To use a transition animator instance when presenting and dismissing canvas controllers from script, you must provide, or <em>vend</em>, the animator instance to Canvas Flow when the transition is about to be performed. This process is as follows:</p>
-<p>When a transition is to be performed, the target canvas controller's<sup>1</sup> <a href="../../scripting-reference/Canvas Controllers/cavas-controller.md#transitioningAnimatorVendor">transitioningAnimatorVendor</a> will be asked to provide an animator for the transition. You should therefore specify the target canvas controller's <a href="../../scripting-reference/Canvas Controllers/cavas-controller.md#transitioningAnimatorVendor">transitioningAnimatorVendor</a> and return your animator instance in the <a href="../../scripting-reference/Canvas Controllers/icanvascontrollertransitioninganimatorvendor.md#transitioninganimatorforcontext">TransitioningAnimatorForContext</a> method.</p>
+<p>When a transition is to be performed, the target canvas controller's<sup>1</sup> <a href="../../../scripting-reference/canvas-controller/CanvasController/#transitioningAnimatorVendor">transitioningAnimatorVendor</a> will be asked to provide an animator for the transition. You should therefore specify the target canvas controller's <a href="../../../scripting-reference/canvas-controller/CanvasController/#transitioningAnimatorVendor">transitioningAnimatorVendor</a> and return your animator instance in the <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/#transitioninganimatorforcontext">TransitioningAnimatorForContext</a> method.</p>
 <p><sup>1. The target canvas controller is the canvas controller being acted upon - i.e. the canvas controler being presented or being dismissed. Therefore, in a presentation, this will be the transition context's <code>destinationCanvasController</code>, whereas in a dismissal, this will be the transition context's <code>sourceCanvasController</code>.</sup></p>
 <p>For example, in Canvas Flow's Transitions example, the menu screen sets itself as the <code>transitioningAnimatorVendor</code> when presenting a canvas controller. This is done in the configuration action, as shown below.</p>
 <pre><code class="csharp">PresentCanvasController&lt;TEFadeTransitionCanvasController&gt;(
@@ -234,7 +322,7 @@
 });
 </code></pre>
 
-<p>Then the menu screen implements the required <a href="../../scripting-reference/Canvas Controllers/icanvascontrollertransitioninganimatorvendor.md#transitioninganimatorforcontext">TransitioningAnimatorForContext</a> method, returning the appropriate transition animator based upon the context.</p>
+<p>Then the menu screen implements the required <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/#transitioninganimatorforcontext">TransitioningAnimatorForContext</a> method, returning the appropriate transition animator based upon the context.</p>
 <pre><code class="csharp">// Set in the inspector.
 public CanvasControllerTransitioningAnimator fadeTransitionAnimator;
 
