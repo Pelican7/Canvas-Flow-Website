@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the Canvas Flow Online Documentation.\n\n    \n\n    \n\n    \n\n\n\n\n\n\n\nIntroduction\n\n\nCanvas Flow is a user-interface presentation and storyboarding tool for Unity.\n\n\n\n\nMove between screens easily by presenting and dismissing canvases.\n\n\nVisually create your user interface's flow with Storyboards.\n\n\nA range of built-in transition animations or build your own.\n\n\n\n\nContents\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nChange Log\n\n\n\n\n\n\n\n\n\n\nv1.0\n\n\nMay 8th 2018\n\n\nInitial release", 
+            "text": "Welcome to the Canvas Flow Online Documentation.\n\n    \n\n    \n\n        \n\n    \n\n\n\n\n\n\n\nIntroduction\n\n\nCanvas Flow is a user-interface presentation and storyboarding tool for Unity.\n\n\n\n\nMove between screens easily by presenting and dismissing canvases.\n\n\nVisually create your user interface's flow with Storyboards.\n\n\nA range of built-in transition animations or build your own.\n\n\n\n\nQuick Start\n\n\n\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nChange Log\n\n\n\n\n\n\n\n\n\n\nv1.0\n\n\nMay 8th 2018\n\n\nInitial release", 
             "title": "Home"
         }, 
         {
@@ -11,9 +11,9 @@
             "title": "Introduction"
         }, 
         {
-            "location": "/#contents", 
-            "text": "Manual  Scripting Reference", 
-            "title": "Contents"
+            "location": "/#quick-start", 
+            "text": "", 
+            "title": "Quick Start"
         }, 
         {
             "location": "/#version-history", 
