@@ -142,13 +142,18 @@
         }, 
         {
             "location": "/manual/storyboards/creating-a-storyboard/", 
-            "text": "Creating A Storyboard\n\n\nTo create a new storyboard, open Unity's \nCreate\n menu - by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting \nCreate/Canvas Flow/Storyboard\n. Enter a name and a directory for your new storyboard.\n\n\nThis will create a new storyboard file at the specified location and open it in the Storyboard Editor window.\n\n\n\n    \n\n    \nA newly-created, empty storyboard.", 
+            "text": "Creating A Storyboard\n\n\nTo create a new storyboard, open Unity's \nCreate\n menu - by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting \nCreate/Canvas Flow/Storyboard\n. Enter a name and a directory for your new storyboard.\n\n\nThis will create a new storyboard file at the specified location and open it in the Storyboard Editor window.\n\n\n\n    \n\n    \nA newly-created, empty storyboard.\n\n\n\n\n\nBasic Controls\n\n\nTo \npan the storyboard editor window\n, you can either:\n\n\n\n\nScroll.\n\n\nClick and drag.\n\n\n\n\nTo \nzoom the storyboard editor window\n in and out, you can either:\n\n\n\n\nHold the \nALT\n key and scroll.\n\n\nUse the \nzoom\n buttons in the lower-left corner of the window.\n\n\n\n\nTo \nmove a \nstoryboard node\n:\n\n\n\n\nClick \n drag\n its title bar.\n\n\n\n\nTo \nmove an entry or exit node\n:\n\n\n\n\nClick \n drag\n it.", 
             "title": "Creating A Storyboard"
         }, 
         {
             "location": "/manual/storyboards/creating-a-storyboard/#creating-a-storyboard", 
             "text": "To create a new storyboard, open Unity's  Create  menu - by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting  Create/Canvas Flow/Storyboard . Enter a name and a directory for your new storyboard.  This will create a new storyboard file at the specified location and open it in the Storyboard Editor window.  \n     \n     A newly-created, empty storyboard.", 
             "title": "Creating A Storyboard"
+        }, 
+        {
+            "location": "/manual/storyboards/creating-a-storyboard/#basic-controls", 
+            "text": "To  pan the storyboard editor window , you can either:   Scroll.  Click and drag.   To  zoom the storyboard editor window  in and out, you can either:   Hold the  ALT  key and scroll.  Use the  zoom  buttons in the lower-left corner of the window.   To  move a  storyboard node :   Click   drag  its title bar.   To  move an entry or exit node :   Click   drag  it.", 
+            "title": "Basic Controls"
         }, 
         {
             "location": "/manual/storyboards/storyboard-nodes/", 
