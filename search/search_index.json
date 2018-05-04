@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the Canvas Flow Online Documentation.\n\n    \n\n    \n\n    \n\n\n\n\n\n\n\nIntroduction\n\n\nCanvas Flow is a user-interface presentation and storyboarding tool for Unity.\n\n\n\n\nMove between screens easily by presenting and dismissing canvases.\n\n\nVisually create your user interface's flow with Storyboards.\n\n\nA range of built-in transition animations or build your own.\n\n\n\n\nContents\n\n\n\n\nManual\n\n\nScripting Reference", 
+            "text": "Welcome to the Canvas Flow Online Documentation.\n\n    \n\n    \n\n    \n\n\n\n\n\n\n\nIntroduction\n\n\nCanvas Flow is a user-interface presentation and storyboarding tool for Unity.\n\n\n\n\nMove between screens easily by presenting and dismissing canvases.\n\n\nVisually create your user interface's flow with Storyboards.\n\n\nA range of built-in transition animations or build your own.\n\n\n\n\nContents\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nChange Log\n\n\n\n\n\n\n\n\n\n\nv1.0\n\n\nMay 8th 2018\n\n\nInitial release", 
             "title": "Home"
         }, 
         {
@@ -16,8 +16,13 @@
             "title": "Contents"
         }, 
         {
+            "location": "/#version-history", 
+            "text": "Version  Date  Change Log      v1.0  May 8th 2018  Initial release", 
+            "title": "Version History"
+        }, 
+        {
             "location": "/manual/contents/", 
-            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nIntroduction\n\n\nCreating A Canvas Controller\n\n\nCanvas Controller Scenes\n\n\nPresentation \n Dismissal\n\n\nCanvas Controller Life Cycle\n\n\n\n\nStoryboards\n\n\n\n\nIntroduction\n\n\nCreating A Storyboard\n\n\nStoryboard Nodes\n\n\nStoryboard Transitions\n\n\nPresenting A Storyboard\n\n\nCustom Storyboard Hooks\n\n\n\n\nTransition Animators\n\n\n\n\nIntroduction\n\n\nDefault Transition Animators\n\n\nDefault Transition Animator\n\n\nFade To Color Transition Animator\n\n\nSlide Transition Animator\n\n\nScale Transition Animator\n\n\nScale And Fade Background Transition Animator\n\n\n\n\n\n\nUsing A Transition Animator\n\n\nCustom Transition Animators\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nChange Log\n\n\n\n\n\n\n\n\n\n\nv1.0\n\n\nMay 8th 2018\n\n\nInitial release", 
+            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nIntroduction\n\n\nCreating A Canvas Controller\n\n\nCanvas Controller Scenes\n\n\nPresentation \n Dismissal\n\n\nCanvas Controller Life Cycle\n\n\n\n\nStoryboards\n\n\n\n\nIntroduction\n\n\nCreating A Storyboard\n\n\nStoryboard Nodes\n\n\nStoryboard Transitions\n\n\nPresenting A Storyboard\n\n\nCustom Storyboard Hooks\n\n\n\n\nTransition Animators\n\n\n\n\nIntroduction\n\n\nDefault Transition Animators\n\n\nDefault Transition Animator\n\n\nFade To Color Transition Animator\n\n\nSlide Transition Animator\n\n\nScale Transition Animator\n\n\nScale And Fade Background Transition Animator\n\n\n\n\n\n\nUsing A Transition Animator\n\n\nCustom Transition Animators", 
             "title": "Contents"
         }, 
         {
@@ -39,11 +44,6 @@
             "location": "/manual/contents/#transition-animators", 
             "text": "Introduction  Default Transition Animators  Default Transition Animator  Fade To Color Transition Animator  Slide Transition Animator  Scale Transition Animator  Scale And Fade Background Transition Animator    Using A Transition Animator  Custom Transition Animators", 
             "title": "Transition Animators"
-        }, 
-        {
-            "location": "/manual/contents/#version-history", 
-            "text": "Version  Date  Change Log      v1.0  May 8th 2018  Initial release", 
-            "title": "Version History"
         }, 
         {
             "location": "/manual/canvas-controllers/introduction/", 
