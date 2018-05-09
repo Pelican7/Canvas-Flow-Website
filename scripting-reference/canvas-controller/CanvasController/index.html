@@ -281,6 +281,7 @@
             <li><a href="#backgroundimage">backgroundImage</a></li>
             <li><a href="#camera">camera</a></li>
             <li><a href="#canvas">canvas</a></li>
+            <li><a href="#childcanvascontrollers">ChildCanvasControllers</a></li>
             <li><a href="#content">content</a></li>
             <li><a href="#contentactive">ContentActive</a></li>
             <li><a href="#contentposition">ContentPosition</a></li>
@@ -295,6 +296,9 @@
             <li><a href="#scene">scene</a></li>
             <li><a href="#storyboard">Storyboard</a></li>
             <li><a href="#transitioninganimatorvendor">transitioningAnimatorVendor</a></li>
+            <li><a href="#addchildcanvascontroller">AddChildCanvasController</a></li>
+            <li><a href="#addchildcanvascontrollert">AddChildCanvasController&lt;T&gt;</a></li>
+            <li><a href="#addchildcanvascontrollert_1">AddChildCanvasController&lt;T&gt;</a></li>
             <li><a href="#awake">Awake</a></li>
             <li><a href="#canvasdidappear">CanvasDidAppear</a></li>
             <li><a href="#canvasdiddisappear">CanvasDidDisappear</a></li>
@@ -310,6 +314,7 @@
             <li><a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a></li>
             <li><a href="#presentinitialcanvascontrollert">PresentInitialCanvasController&lt;T&gt;</a></li>
             <li><a href="#presentinitialcanvascontrollert_1">PresentInitialCanvasController&lt;T&gt;</a></li>
+            <li><a href="#removeandunloadchildcanvascontroller">RemoveAndUnloadChildCanvasController</a></li>
             <li><a href="#start">Start</a></li>
     </ul>
 </div></div>
@@ -342,6 +347,10 @@
 <tr>
 <td><a href="#canvas">canvas</a></td>
 <td>The canvas controller's main canvas.</td>
+</tr>
+<tr>
+<td><a href="#childcanvascontrollers">ChildCanvasControllers</a></td>
+<td>Get the canvas controller's children.</td>
 </tr>
 <tr>
 <td><a href="#content">content</a></td>
@@ -410,6 +419,18 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#addchildcanvascontroller">AddChildCanvasController</a></td>
+<td>Load the specified canvas controller and add it as a child.</td>
+</tr>
+<tr>
+<td><a href="#addchildcanvascontrollert">AddChildCanvasController&lt;T&gt;</a></td>
+<td>Load the specified canvas controller and add it as a child.</td>
+</tr>
+<tr>
+<td><a href="#addchildcanvascontrollert">AddChildCanvasController&lt;T&gt;</a></td>
+<td>Load the specified canvas controller and add it as a child.</td>
+</tr>
+<tr>
 <td><a href="#awake">Awake</a></td>
 <td>Awake is called when the canvas controller is loaded.</td>
 </tr>
@@ -470,6 +491,10 @@
 <td>Present an initial canvas controller, specifying a type and a name.</td>
 </tr>
 <tr>
+<td><a href="#removeandunloadchildcanvascontroller">RemoveAndUnloadChildCanvasController</a></td>
+<td>Remove and unload a child canvas controller.</td>
+</tr>
+<tr>
 <td><a href="#start">Start</a></td>
 <td>Start is called on the frame when the canvas controller is loaded, after <a href="#awake">Awake</a>.</td>
 </tr>
@@ -491,129 +516,100 @@
 <h3 id="description_3">Description</h3>
 <p>The canvas controller's main canvas. </p>
 <hr />
+<h2 id="childcanvascontrollers">ChildCanvasControllers</h2>
+<p><code>public ReadOnlyCollection&lt;CanvasController&gt; ChildCanvasControllers;</code></p>
+<h3 id="description_4">Description</h3>
+<p>Get the canvas controller's children. </p>
+<p>Use the <a href="#addchildcanvascontroller">AddChildCanvasController</a> and <a href="#removeandunloadchildcanvascontroller">RemoveAndUnloadChildCanvasController</a> methods to add and remove child canvas controllers. </p>
+<hr />
 <h2 id="content">content</h2>
 <p><code>public RectTransform content;</code></p>
-<h3 id="description_4">Description</h3>
+<h3 id="description_5">Description</h3>
 <p>The canvas controller's content transform. </p>
 <p>All content should be placed under the content transform. </p>
 <hr />
 <h2 id="contentactive">ContentActive</h2>
 <p><code>public bool ContentActive;</code></p>
-<h3 id="description_5">Description</h3>
+<h3 id="description_6">Description</h3>
 <p>Enable/disable the canvas contoller's content. This is equivalent to calling <code>content.gameObject.activeSelf</code> and <code>content.gameObject.SetActive</code>. </p>
 <p>If you intend to hide the canvas controller completely, use the <a href="#hidden">Hidden</a> property as this will disable the canvas' camera as well as the content. </p>
 <hr />
 <h2 id="contentposition">ContentPosition</h2>
 <p><code>public Vector3 ContentPosition;</code></p>
-<h3 id="description_6">Description</h3>
+<h3 id="description_7">Description</h3>
 <p>Get/set the position of the canvas controller's content. This is equivalent to calling <code>content.localPosition</code>. </p>
 <hr />
 <h2 id="contentscale">ContentScale</h2>
 <p><code>public Vector3 ContentScale;</code></p>
-<h3 id="description_7">Description</h3>
+<h3 id="description_8">Description</h3>
 <p>Get/set the scale of the canvas controller's content. This is equivalent to calling <code>content.localScale</code>. </p>
 <hr />
 <h2 id="hidden">Hidden</h2>
 <p><code>public bool Hidden;</code></p>
-<h3 id="description_8">Description</h3>
+<h3 id="description_9">Description</h3>
 <p>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>. </p>
 <hr />
 <h2 id="isbeingdismissed">IsBeingDismissed</h2>
 <p><code>public bool IsBeingDismissed;</code></p>
-<h3 id="description_9">Description</h3>
+<h3 id="description_10">Description</h3>
 <p>Is the canvas controller currently being dismissed? </p>
 <p>Will return true if the canvas controller is currently involved in a transition in which it is being dismissed. </p>
 <hr />
 <h2 id="isbeingpresented">IsBeingPresented</h2>
 <p><code>public bool IsBeingPresented;</code></p>
-<h3 id="description_10">Description</h3>
+<h3 id="description_11">Description</h3>
 <p>Is the canvas controller currently being presented? </p>
 <p>Will return true if the canvas controller is currently involved in a transition in which it is being presented. </p>
 <hr />
 <h2 id="istransitioning">IsTransitioning</h2>
 <p><code>public bool IsTransitioning;</code></p>
-<h3 id="description_11">Description</h3>
+<h3 id="description_12">Description</h3>
 <p>Is the canvas controller currently transitioning? </p>
 <p>This returns true on both canvas controllers involved in a transition whilst that transition is executing. </p>
 <hr />
 <h2 id="presentationmode">presentationMode</h2>
 <p><code>public CanvasControllerPresentationMode presentationMode =
     CanvasControllerPresentationMode.HidePresenter;</code></p>
-<h3 id="description_12">Description</h3>
+<h3 id="description_13">Description</h3>
 <p>The canvas controller's presentation mode. </p>
 <p>See also: </p>
 <p><a href="../canvascontrollerpresentationmode">CanvasControllerPresentationMode</a> </p>
 <hr />
 <h2 id="presentedcanvascontroller">PresentedCanvasController</h2>
 <p><code>public CanvasController PresentedCanvasController;</code></p>
-<h3 id="description_13">Description</h3>
+<h3 id="description_14">Description</h3>
 <p>Get the presented canvas controller. </p>
 <p>If this canvas controller has not presented a canvas controller then the presented canvas controller will be null. </p>
 <hr />
 <h2 id="presentingcanvascontroller">PresentingCanvasController</h2>
 <p><code>public CanvasController PresentingCanvasController;</code></p>
-<h3 id="description_14">Description</h3>
+<h3 id="description_15">Description</h3>
 <p>Get the presenting canvas controller - the canvas controller's presenter. </p>
 <p>If no canvas controller presented this canvas controller then the presenting canvas controller will be null. This is true for initial canvas controllers - canvas controllers presented from a storyboard entry transition or using <a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a>. </p>
 <hr />
 <h2 id="scene">scene</h2>
 <p><code>protected Scene scene;</code></p>
-<h3 id="description_15">Description</h3>
+<h3 id="description_16">Description</h3>
 <p>The canvas controller's scene. </p>
 <hr />
 <h2 id="storyboard">Storyboard</h2>
 <p><code>public Storyboard Storyboard;</code></p>
-<h3 id="description_16">Description</h3>
+<h3 id="description_17">Description</h3>
 <p>Get the canvas controller's storyboard. </p>
 <p>When a canvas controller is presented from a storyboard, this property will be set to the storyboard whom presented it. Otherwise, it will be null. </p>
 <hr />
 <h2 id="transitioninganimatorvendor">transitioningAnimatorVendor</h2>
 <p><code>public ICanvasControllerTransitioningAnimatorVendor transitioningAnimatorVendor;</code></p>
-<h3 id="description_17">Description</h3>
+<h3 id="description_18">Description</h3>
 <p>The canvas controller's 'transitioning animator' vendor. </p>
 <p>When a canvas controller is about to be presented or dismissed, it will ask its <code>transitioningAnimatorVendor</code> for an animator to animate the transition. Specify a vendor to supply transition animators to a transitioning canvas controller. </p>
 <hr />
-<h2 id="awake">Awake</h2>
-<p><code>protected virtual void Awake();</code></p>
-<h3 id="description_18">Description</h3>
-<p>Awake is called when the canvas controller is loaded. </p>
-<p>If you override Awake, always call <code>base.Awake()</code> in your derived class's implementation. </p>
-<hr />
-<h2 id="canvasdidappear">CanvasDidAppear</h2>
-<p><code>protected virtual void CanvasDidAppear();</code></p>
-<h3 id="description_19">Description</h3>
-<p>Override this method in your canvas controller to be notified just after the canvas has transitioned on screen. This could be because it has just been presented or has just dismissed its <a href="#presentedcanvascontroller">PresentedCanvasController</a>. </p>
-<p>See also: </p>
-<p><a href="#isbeingpresented">IsBeingPresented</a> </p>
-<p><a href="#isbeingdismissed">IsBeingDismissed</a> </p>
-<hr />
-<h2 id="canvasdiddisappear">CanvasDidDisappear</h2>
-<p><code>protected virtual void CanvasDidDisappear();</code></p>
-<h3 id="description_20">Description</h3>
-<p>Override this method in your canvas controller to be notified just after the canvas has transitioned off screen. This could be because it has just been dismissed or has just presented a canvas controller. </p>
-<p>See also: </p>
-<p><a href="#isbeingpresented">IsBeingPresented</a> </p>
-<p><a href="#isbeingdismissed">IsBeingDismissed</a> </p>
-<hr />
-<h2 id="canvaswillappear">CanvasWillAppear</h2>
-<p><code>protected virtual void CanvasWillAppear();</code></p>
-<h3 id="description_21">Description</h3>
-<p>Override this method in your canvas controller to be notified just before the canvas is about to transition on screen. This could be because it is about to be presented or about to dismiss its <a href="#presentedcanvascontroller">PresentedCanvasController</a>. </p>
-<p>See also: </p>
-<p><a href="#isbeingpresented">IsBeingPresented</a> </p>
-<p><a href="#isbeingdismissed">IsBeingDismissed</a> </p>
-<hr />
-<h2 id="canvaswilldisappear">CanvasWillDisappear</h2>
-<p><code>protected virtual void CanvasWillDisappear();</code></p>
-<h3 id="description_22">Description</h3>
-<p>Override this method in your canvas controller to be notified just before the canvas is about to transition off screen. This could be because it is about to be dismissed or about to present a canvas controller. </p>
-<p>See also: </p>
-<p><a href="#isbeingpresented">IsBeingPresented</a> </p>
-<p><a href="#isbeingdismissed">IsBeingDismissed</a> </p>
-<hr />
-<h2 id="dismissallcanvascontrollers">DismissAllCanvasControllers</h2>
-<p><code>public void DismissAllCanvasControllers(bool animated = true,
-                                        System.Action completion = null);</code></p>
+<h2 id="addchildcanvascontroller">AddChildCanvasController</h2>
+<p><code>public void AddChildCanvasController(string canvasControllerName,
+                                     RectTransform childContainer = null,
+                                     System.Action&lt;CanvasController&gt; configuration = null,
+                                     System.Action&lt;CanvasController&gt; completion = null,
+                                     bool loadAsynchronously = true);</code></p>
 <h3 id="parameters">Parameters</h3>
 <table>
 <thead>
@@ -624,22 +620,160 @@
 </thead>
 <tbody>
 <tr>
-<td>animated</td>
-<td>Is the transition animated?</td>
+<td>canvasControllerName</td>
+<td>The name of the canvas controller to add.</td>
+</tr>
+<tr>
+<td>childContainer</td>
+<td>The parent's rect transform under which the child should be added.</td>
+</tr>
+<tr>
+<td>configuration</td>
+<td>A configuration action, called after the canvas controller has been loaded but before it has been added as a child.</td>
 </tr>
 <tr>
 <td>completion</td>
-<td>A completion action, called after the canvas controller has been dismissed.</td>
+<td>A completion action, called after the canvas controller has been added as a child.</td>
+</tr>
+<tr>
+<td>loadAsynchronously</td>
+<td>Should the child canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
 </tr>
 </tbody>
 </table>
-<h3 id="description_23">Description</h3>
-<p>Dismisses all canvas controllers in the current hierarchy. </p>
-<p>This method dismisses all canvas controllers in the current presentation stack. Only the top-most canvas controller will be animated in the transition. All canvas controllers in the stack will be unloaded. </p>
+<h3 id="description_19">Description</h3>
+<p>Load the specified canvas controller and add it as a child. </p>
+<p>This method will load the specified canvas controller and add it as a child of the receiving canvas controller. This causes the child canvas controller to be added to the parent's hierarchy under the specified transform. The child canvas controller's camera will be disabled and it will now be rendered by its parent's camera. </p>
 <hr />
-<h2 id="dismisscanvascontroller">DismissCanvasController</h2>
-<p><code>public void DismissCanvasController(bool animated = true, System.Action completion = null);</code></p>
+<h2 id="addchildcanvascontrollert">AddChildCanvasController&lt;T&gt;</h2>
+<p><code>public void AddChildCanvasController&lt;T&gt;(RectTransform childContainer = null,
+                                        System.Action&lt;T&gt; configuration = null,
+                                        System.Action&lt;T&gt; completion = null,
+                                        bool loadAsynchronously = true)
+    where T : CanvasController;</code></p>
 <h3 id="parameters_1">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T</td>
+<td>The type of the canvas controller to add.</td>
+</tr>
+<tr>
+<td>childContainer</td>
+<td>The parent's rect transform under which the child should be added.</td>
+</tr>
+<tr>
+<td>configuration</td>
+<td>A configuration action, called after the canvas controller has been loaded but before it has been added as a child.</td>
+</tr>
+<tr>
+<td>completion</td>
+<td>A completion action, called after the canvas controller has been added as a child.</td>
+</tr>
+<tr>
+<td>loadAsynchronously</td>
+<td>Should the child canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_20">Description</h3>
+<p>Load the specified canvas controller and add it as a child. </p>
+<p>This method will load the specified canvas controller and add it as a child of the receiving canvas controller. This causes the child canvas controller to be added to the parent's hierarchy under the specified transform. The child canvas controller's camera will be disabled and it will now be rendered by its parent's camera. </p>
+<hr />
+<h2 id="addchildcanvascontrollert_1">AddChildCanvasController&lt;T&gt;</h2>
+<p><code>public void AddChildCanvasController&lt;T&gt;(string canvasControllerName,
+                                        RectTransform childContainer = null,
+                                        System.Action&lt;T&gt; configuration = null,
+                                        System.Action&lt;T&gt; completion = null,
+                                        bool loadAsynchronously = true)
+    where T : CanvasController;</code></p>
+<h3 id="parameters_2">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T</td>
+<td>The type of the canvas controller to add.</td>
+</tr>
+<tr>
+<td>canvasControllerName</td>
+<td>The name of the canvas controller to add.</td>
+</tr>
+<tr>
+<td>childContainer</td>
+<td>The parent's rect transform under which the child should be added.</td>
+</tr>
+<tr>
+<td>configuration</td>
+<td>A configuration action, called after the canvas controller has been loaded but before it has been added as a child.</td>
+</tr>
+<tr>
+<td>completion</td>
+<td>A completion action, called after the canvas controller has been added as a child.</td>
+</tr>
+<tr>
+<td>loadAsynchronously</td>
+<td>Should the child canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_21">Description</h3>
+<p>Load the specified canvas controller and add it as a child. </p>
+<p>This method will load the specified canvas controller and add it as a child of the receiving canvas controller. This causes the child canvas controller to be added to the parent's hierarchy under the specified transform. The child canvas controller's camera will be disabled and it will now be rendered by its parent's camera. </p>
+<hr />
+<h2 id="awake">Awake</h2>
+<p><code>protected virtual void Awake();</code></p>
+<h3 id="description_22">Description</h3>
+<p>Awake is called when the canvas controller is loaded. </p>
+<p>If you override Awake, always call <code>base.Awake()</code> in your derived class's implementation. </p>
+<hr />
+<h2 id="canvasdidappear">CanvasDidAppear</h2>
+<p><code>protected virtual void CanvasDidAppear();</code></p>
+<h3 id="description_23">Description</h3>
+<p>Override this method in your canvas controller to be notified just after the canvas has transitioned on screen. This could be because it has just been presented or has just dismissed its <a href="#presentedcanvascontroller">PresentedCanvasController</a>. </p>
+<p>See also: </p>
+<p><a href="#isbeingpresented">IsBeingPresented</a> </p>
+<p><a href="#isbeingdismissed">IsBeingDismissed</a> </p>
+<hr />
+<h2 id="canvasdiddisappear">CanvasDidDisappear</h2>
+<p><code>protected virtual void CanvasDidDisappear();</code></p>
+<h3 id="description_24">Description</h3>
+<p>Override this method in your canvas controller to be notified just after the canvas has transitioned off screen. This could be because it has just been dismissed or has just presented a canvas controller. </p>
+<p>See also: </p>
+<p><a href="#isbeingpresented">IsBeingPresented</a> </p>
+<p><a href="#isbeingdismissed">IsBeingDismissed</a> </p>
+<hr />
+<h2 id="canvaswillappear">CanvasWillAppear</h2>
+<p><code>protected virtual void CanvasWillAppear();</code></p>
+<h3 id="description_25">Description</h3>
+<p>Override this method in your canvas controller to be notified just before the canvas is about to transition on screen. This could be because it is about to be presented or about to dismiss its <a href="#presentedcanvascontroller">PresentedCanvasController</a>. </p>
+<p>See also: </p>
+<p><a href="#isbeingpresented">IsBeingPresented</a> </p>
+<p><a href="#isbeingdismissed">IsBeingDismissed</a> </p>
+<hr />
+<h2 id="canvaswilldisappear">CanvasWillDisappear</h2>
+<p><code>protected virtual void CanvasWillDisappear();</code></p>
+<h3 id="description_26">Description</h3>
+<p>Override this method in your canvas controller to be notified just before the canvas is about to transition off screen. This could be because it is about to be dismissed or about to present a canvas controller. </p>
+<p>See also: </p>
+<p><a href="#isbeingpresented">IsBeingPresented</a> </p>
+<p><a href="#isbeingdismissed">IsBeingDismissed</a> </p>
+<hr />
+<h2 id="dismissallcanvascontrollers">DismissAllCanvasControllers</h2>
+<p><code>public void DismissAllCanvasControllers(bool animated = true,
+                                        System.Action completion = null);</code></p>
+<h3 id="parameters_3">Parameters</h3>
 <table>
 <thead>
 <tr>
@@ -658,7 +792,32 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_24">Description</h3>
+<h3 id="description_27">Description</h3>
+<p>Dismisses all canvas controllers in the current hierarchy. </p>
+<p>This method dismisses all canvas controllers in the current presentation stack. Only the top-most canvas controller will be animated in the transition. All canvas controllers in the stack will be unloaded. </p>
+<hr />
+<h2 id="dismisscanvascontroller">DismissCanvasController</h2>
+<p><code>public void DismissCanvasController(bool animated = true, System.Action completion = null);</code></p>
+<h3 id="parameters_4">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>animated</td>
+<td>Is the transition animated?</td>
+</tr>
+<tr>
+<td>completion</td>
+<td>A completion action, called after the canvas controller has been dismissed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_28">Description</h3>
 <p>Dismiss a canvas controller. </p>
 <p>This method dismisses the canvas controller's top-most <a href="#presentedcanvascontroller">PresentedCanvasController</a> - i.e. its PresentedCanvasController's PresentedCanvasController's... etc. If any intermediary canvas controllers exist between this canvas controller and the top-most presented one, they will be unloaded. Only the top-most canvas controller and this canvas controller will be animated during the transition. </p>
 <p>If this canvas controller has no <a href="#presentedcanvascontroller">PresentedCanvasController</a>, it will be dismissed by its <a href="#presentingcanvascontroller">PresentingCanvasController</a>. </p>
@@ -666,7 +825,7 @@
 <hr />
 <h2 id="performtransitionwithidentifier">PerformTransitionWithIdentifier</h2>
 <p><code>public void PerformTransitionWithIdentifier(string identifier);</code></p>
-<h3 id="parameters_2">Parameters</h3>
+<h3 id="parameters_5">Parameters</h3>
 <table>
 <thead>
 <tr>
@@ -681,13 +840,13 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_25">Description</h3>
+<h3 id="description_29">Description</h3>
 <p>Perform the storyboard transition with this identifier. </p>
 <p>If a canvas controller has been loaded from a storyboard, its storyboard transitions can be triggered with this method. The identifier specified must be set on the transition in the storyboard editor. If a canvas controller has not been loaded from a storyboard, its <a href="#storyboard">Storyboard</a> property will be <code>null</code>. </p>
 <hr />
 <h2 id="prepareforstoryboardtransition">PrepareForStoryboardTransition</h2>
 <p><code>public virtual void PrepareForStoryboardTransition(StoryboardTransition transition);</code></p>
-<h3 id="parameters_3">Parameters</h3>
+<h3 id="parameters_6">Parameters</h3>
 <table>
 <thead>
 <tr>
@@ -702,7 +861,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_26">Description</h3>
+<h3 id="description_30">Description</h3>
 <p>Override this method to be notified when the canvas controller is about to be involved in a storyboard transition. </p>
 <p>When a transition occurs in a storyboard, the transition's source canvas controller will have its <code>PrepareForStoryboardTransition</code> method called. This gives an opportunity to pass data between canvas controllers. </p>
 <p>This method will only be called on a canvas controller whom has been loaded from a storyboard. </p>
@@ -714,150 +873,6 @@
                                     System.Action&lt;CanvasController&gt; completion = null,
                                     Vector3? canvasWorldPositionOverride = null,
                                     bool loadAsynchronously = true);</code></p>
-<h3 id="parameters_4">Parameters</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>canvasControllerName</td>
-<td>The name of the canvas controller to present.</td>
-</tr>
-<tr>
-<td>animated</td>
-<td>Is the transition animated?</td>
-</tr>
-<tr>
-<td>configuration</td>
-<td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
-</tr>
-<tr>
-<td>completion</td>
-<td>A completion action, called after the canvas controller has been presented.</td>
-</tr>
-<tr>
-<td>canvasWorldPositionOverride</td>
-<td>A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.</td>
-</tr>
-<tr>
-<td>loadAsynchronously</td>
-<td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="description_27">Description</h3>
-<p>Present a canvas controller, specifying a name. </p>
-<p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
-<hr />
-<h2 id="presentcanvascontrollert">PresentCanvasController&lt;T&gt;</h2>
-<p><code>public void PresentCanvasController&lt;T&gt;(bool animated = true,
-                                       System.Action&lt;T&gt; configuration = null,
-                                       System.Action&lt;T&gt; completion = null,
-                                       Vector3? canvasWorldPositionOverride = null,
-                                       bool loadAsynchronously = true)
-    where T : CanvasController;</code></p>
-<h3 id="parameters_5">Parameters</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>T</td>
-<td>The type of the canvas controller to present.</td>
-</tr>
-<tr>
-<td>animated</td>
-<td>Is the transition animated?</td>
-</tr>
-<tr>
-<td>configuration</td>
-<td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
-</tr>
-<tr>
-<td>completion</td>
-<td>A completion action, called after the canvas controller has been presented.</td>
-</tr>
-<tr>
-<td>canvasWorldPositionOverride</td>
-<td>A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.</td>
-</tr>
-<tr>
-<td>loadAsynchronously</td>
-<td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="description_28">Description</h3>
-<p>Present a canvas controller, specifying a type. </p>
-<p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
-<hr />
-<h2 id="presentcanvascontrollert_1">PresentCanvasController&lt;T&gt;</h2>
-<p><code>public void PresentCanvasController&lt;T&gt;(string canvasControllerName,
-                                       bool animated = true,
-                                       System.Action&lt;T&gt; configuration = null,
-                                       System.Action&lt;T&gt; completion = null,
-                                       Vector3? canvasWorldPositionOverride = null,
-                                       bool loadAsynchronously = true)
-    where T : CanvasController;</code></p>
-<h3 id="parameters_6">Parameters</h3>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>T</td>
-<td>The type of the canvas controller to present.</td>
-</tr>
-<tr>
-<td>canvasControllerName</td>
-<td>The name of the canvas controller to present.</td>
-</tr>
-<tr>
-<td>animated</td>
-<td>Is the transition animated?</td>
-</tr>
-<tr>
-<td>configuration</td>
-<td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
-</tr>
-<tr>
-<td>completion</td>
-<td>A completion action, called after the canvas controller has been presented.</td>
-</tr>
-<tr>
-<td>canvasWorldPositionOverride</td>
-<td>A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.</td>
-</tr>
-<tr>
-<td>loadAsynchronously</td>
-<td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
-</tr>
-</tbody>
-</table>
-<h3 id="description_29">Description</h3>
-<p>Present a canvas controller, specifying a type and a name. </p>
-<p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
-<hr />
-<h2 id="presentinitialcanvascontroller">PresentInitialCanvasController</h2>
-<p><code>public static void PresentInitialCanvasController(
-    string canvasControllerName,
-    System.Action&lt;CanvasController&gt; configuration = null,
-    System.Action&lt;CanvasController&gt; completion = null,
-    bool animated = true,
-    Vector3? canvasWorldPositionOverride = null,
-    bool loadAsynchronously = true);</code></p>
 <h3 id="parameters_7">Parameters</h3>
 <table>
 <thead>
@@ -872,16 +887,16 @@
 <td>The name of the canvas controller to present.</td>
 </tr>
 <tr>
+<td>animated</td>
+<td>Is the transition animated?</td>
+</tr>
+<tr>
 <td>configuration</td>
 <td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
 </tr>
 <tr>
 <td>completion</td>
 <td>A completion action, called after the canvas controller has been presented.</td>
-</tr>
-<tr>
-<td>animated</td>
-<td>Is the transition animated?</td>
 </tr>
 <tr>
 <td>canvasWorldPositionOverride</td>
@@ -893,17 +908,16 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_30">Description</h3>
-<p>Present an initial canvas controller, specifying a name. </p>
-<p>This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods can be used. </p>
+<h3 id="description_31">Description</h3>
+<p>Present a canvas controller, specifying a name. </p>
+<p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
 <hr />
-<h2 id="presentinitialcanvascontrollert">PresentInitialCanvasController&lt;T&gt;</h2>
-<p><code>public static void PresentInitialCanvasController&lt;T&gt;(
-    System.Action&lt;T&gt; configuration = null,
-    System.Action&lt;T&gt; completion = null,
-    bool animated = true,
-    Vector3? canvasWorldPositionOverride = null,
-    bool loadAsynchronously = true)
+<h2 id="presentcanvascontrollert">PresentCanvasController&lt;T&gt;</h2>
+<p><code>public void PresentCanvasController&lt;T&gt;(bool animated = true,
+                                       System.Action&lt;T&gt; configuration = null,
+                                       System.Action&lt;T&gt; completion = null,
+                                       Vector3? canvasWorldPositionOverride = null,
+                                       bool loadAsynchronously = true)
     where T : CanvasController;</code></p>
 <h3 id="parameters_8">Parameters</h3>
 <table>
@@ -919,16 +933,16 @@
 <td>The type of the canvas controller to present.</td>
 </tr>
 <tr>
+<td>animated</td>
+<td>Is the transition animated?</td>
+</tr>
+<tr>
 <td>configuration</td>
 <td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
 </tr>
 <tr>
 <td>completion</td>
 <td>A completion action, called after the canvas controller has been presented.</td>
-</tr>
-<tr>
-<td>animated</td>
-<td>Is the transition animated?</td>
 </tr>
 <tr>
 <td>canvasWorldPositionOverride</td>
@@ -940,18 +954,17 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_31">Description</h3>
-<p>Present an initial canvas controller, specifying a type. </p>
-<p>This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods can be used. </p>
+<h3 id="description_32">Description</h3>
+<p>Present a canvas controller, specifying a type. </p>
+<p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
 <hr />
-<h2 id="presentinitialcanvascontrollert_1">PresentInitialCanvasController&lt;T&gt;</h2>
-<p><code>public static void PresentInitialCanvasController&lt;T&gt;(
-    string canvasControllerName,
-    System.Action&lt;T&gt; configuration = null,
-    System.Action&lt;T&gt; completion = null,
-    bool animated = true,
-    Vector3? canvasWorldPositionOverride = null,
-    bool loadAsynchronously = true)
+<h2 id="presentcanvascontrollert_1">PresentCanvasController&lt;T&gt;</h2>
+<p><code>public void PresentCanvasController&lt;T&gt;(string canvasControllerName,
+                                       bool animated = true,
+                                       System.Action&lt;T&gt; configuration = null,
+                                       System.Action&lt;T&gt; completion = null,
+                                       Vector3? canvasWorldPositionOverride = null,
+                                       bool loadAsynchronously = true)
     where T : CanvasController;</code></p>
 <h3 id="parameters_9">Parameters</h3>
 <table>
@@ -971,6 +984,53 @@
 <td>The name of the canvas controller to present.</td>
 </tr>
 <tr>
+<td>animated</td>
+<td>Is the transition animated?</td>
+</tr>
+<tr>
+<td>configuration</td>
+<td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
+</tr>
+<tr>
+<td>completion</td>
+<td>A completion action, called after the canvas controller has been presented.</td>
+</tr>
+<tr>
+<td>canvasWorldPositionOverride</td>
+<td>A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.</td>
+</tr>
+<tr>
+<td>loadAsynchronously</td>
+<td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_33">Description</h3>
+<p>Present a canvas controller, specifying a type and a name. </p>
+<p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
+<hr />
+<h2 id="presentinitialcanvascontroller">PresentInitialCanvasController</h2>
+<p><code>public static void PresentInitialCanvasController(
+    string canvasControllerName,
+    System.Action&lt;CanvasController&gt; configuration = null,
+    System.Action&lt;CanvasController&gt; completion = null,
+    bool animated = true,
+    Vector3? canvasWorldPositionOverride = null,
+    bool loadAsynchronously = true);</code></p>
+<h3 id="parameters_10">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvasControllerName</td>
+<td>The name of the canvas controller to present.</td>
+</tr>
+<tr>
 <td>configuration</td>
 <td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
 </tr>
@@ -992,13 +1052,132 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_32">Description</h3>
+<h3 id="description_34">Description</h3>
+<p>Present an initial canvas controller, specifying a name. </p>
+<p>This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods can be used. </p>
+<hr />
+<h2 id="presentinitialcanvascontrollert">PresentInitialCanvasController&lt;T&gt;</h2>
+<p><code>public static void PresentInitialCanvasController&lt;T&gt;(
+    System.Action&lt;T&gt; configuration = null,
+    System.Action&lt;T&gt; completion = null,
+    bool animated = true,
+    Vector3? canvasWorldPositionOverride = null,
+    bool loadAsynchronously = true)
+    where T : CanvasController;</code></p>
+<h3 id="parameters_11">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T</td>
+<td>The type of the canvas controller to present.</td>
+</tr>
+<tr>
+<td>configuration</td>
+<td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
+</tr>
+<tr>
+<td>completion</td>
+<td>A completion action, called after the canvas controller has been presented.</td>
+</tr>
+<tr>
+<td>animated</td>
+<td>Is the transition animated?</td>
+</tr>
+<tr>
+<td>canvasWorldPositionOverride</td>
+<td>A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.</td>
+</tr>
+<tr>
+<td>loadAsynchronously</td>
+<td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_35">Description</h3>
+<p>Present an initial canvas controller, specifying a type. </p>
+<p>This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods can be used. </p>
+<hr />
+<h2 id="presentinitialcanvascontrollert_1">PresentInitialCanvasController&lt;T&gt;</h2>
+<p><code>public static void PresentInitialCanvasController&lt;T&gt;(
+    string canvasControllerName,
+    System.Action&lt;T&gt; configuration = null,
+    System.Action&lt;T&gt; completion = null,
+    bool animated = true,
+    Vector3? canvasWorldPositionOverride = null,
+    bool loadAsynchronously = true)
+    where T : CanvasController;</code></p>
+<h3 id="parameters_12">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>T</td>
+<td>The type of the canvas controller to present.</td>
+</tr>
+<tr>
+<td>canvasControllerName</td>
+<td>The name of the canvas controller to present.</td>
+</tr>
+<tr>
+<td>configuration</td>
+<td>A configuration action, called after the canvas controller has been loaded but before it has been presented.</td>
+</tr>
+<tr>
+<td>completion</td>
+<td>A completion action, called after the canvas controller has been presented.</td>
+</tr>
+<tr>
+<td>animated</td>
+<td>Is the transition animated?</td>
+</tr>
+<tr>
+<td>canvasWorldPositionOverride</td>
+<td>A position in world space at which to place the loaded canvas controller. If no override is specified, the canvas controller will be positioned next to the presenting canvas controller.</td>
+</tr>
+<tr>
+<td>loadAsynchronously</td>
+<td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_36">Description</h3>
 <p>Present an initial canvas controller, specifying a type and a name. </p>
 <p>This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods can be used. </p>
 <hr />
+<h2 id="removeandunloadchildcanvascontroller">RemoveAndUnloadChildCanvasController</h2>
+<p><code>public void RemoveAndUnloadChildCanvasController(CanvasController canvasController);</code></p>
+<h3 id="parameters_13">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>canvasController</td>
+<td>The child canvas controller to remove and unload.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="description_37">Description</h3>
+<p>Remove and unload a child canvas controller. </p>
+<hr />
 <h2 id="start">Start</h2>
 <p><code>protected virtual void Start();</code></p>
-<h3 id="description_33">Description</h3>
+<h3 id="description_38">Description</h3>
 <p>Start is called on the frame when the canvas controller is loaded, after <a href="#awake">Awake</a>. </p>
 <hr /></div>
         </div>
