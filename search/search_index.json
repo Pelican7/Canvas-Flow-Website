@@ -2,13 +2,13 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Welcome to the Canvas Flow Online Documentation.\n\n    \n\n    \n\n        \n\n    \n\n\n\n\n\n\n\nIntroduction\n\n\nCanvas Flow is a user-interface presentation and storyboarding tool for Unity.\n\n\n\n\nMove between screens easily by presenting and dismissing canvases.\n\n\nVisually create your user interface's flow with Storyboards.\n\n\nA range of built-in transition animations or build your own.\n\n\n\n\nQuick Start\n\n\n\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nChange Log\n\n\n\n\n\n\n\n\n\n\nv1.0\n\n\nMay 8th 2018\n\n\nInitial release", 
+            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\n\n\nDocumentation\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nChange Log\n\n\n\n\n\n\n\n\n\n\nv1.0\n\n\nMay 9th 2018\n\n\nInitial release", 
             "title": "Home"
         }, 
         {
-            "location": "/#introduction", 
-            "text": "Canvas Flow is a user-interface presentation and storyboarding tool for Unity.   Move between screens easily by presenting and dismissing canvases.  Visually create your user interface's flow with Storyboards.  A range of built-in transition animations or build your own.", 
-            "title": "Introduction"
+            "location": "/#overview", 
+            "text": "Canvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.   Easily present   dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.  Storyboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.  Customize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.", 
+            "title": "Overview"
         }, 
         {
             "location": "/#quick-start", 
@@ -16,8 +16,23 @@
             "title": "Quick Start"
         }, 
         {
+            "location": "/#documentation", 
+            "text": "", 
+            "title": "Documentation"
+        }, 
+        {
+            "location": "/#manual", 
+            "text": "", 
+            "title": "Manual"
+        }, 
+        {
+            "location": "/#scripting-reference", 
+            "text": "", 
+            "title": "Scripting Reference"
+        }, 
+        {
             "location": "/#version-history", 
-            "text": "Version  Date  Change Log      v1.0  May 8th 2018  Initial release", 
+            "text": "Version  Date  Change Log      v1.0  May 9th 2018  Initial release", 
             "title": "Version History"
         }, 
         {

@@ -30,19 +30,20 @@ video
   margin-bottom:12px;
 }
 
-.video-embed-container
+.videoWrapper
 {
-  position: relative;
-  width: 100%;
-  height: 0;
-  padding-bottom: 56.25%;
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	padding-top: 0px;
+	height: 0;
 }
-.video-embed {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+.videoWrapper iframe
+{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 }
 
 .navbar
