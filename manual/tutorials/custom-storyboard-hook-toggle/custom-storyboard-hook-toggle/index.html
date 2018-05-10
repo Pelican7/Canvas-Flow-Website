@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../../../../favicon.ico">
         
-        <title>Scale And Fade Background Transition Animator - Canvas Flow</title>
+        <title>Creating a Custom Storyboard Hook For UI.Toggle - Canvas Flow</title>
         <link href="../../../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../../../css/base.css" rel="stylesheet">
@@ -128,7 +128,7 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../../introduction/">Introduction</a>
+    <a href="../../../transition-animators/introduction/">Introduction</a>
 </li>
             
   <li class="dropdown-submenu">
@@ -136,33 +136,33 @@
     <ul class="dropdown-menu">
             
 <li >
-    <a href="../transition-animator-default/">Default Transition Animator</a>
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-default/">Default Transition Animator</a>
 </li>
             
 <li >
-    <a href="../transition-animator-fade-to-color/">Fade To Color Transition Animator</a>
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-fade-to-color/">Fade To Color Transition Animator</a>
 </li>
             
 <li >
-    <a href="../transition-animator-slide/">Slide Transition Animator</a>
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-slide/">Slide Transition Animator</a>
 </li>
             
 <li >
-    <a href="../transition-animator-scale/">Scale Transition Animator</a>
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-scale/">Scale Transition Animator</a>
 </li>
             
-<li class="active">
-    <a href="./">Scale And Fade Background Transition Animator</a>
+<li >
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-scale-and-fade/">Scale And Fade Background Transition Animator</a>
 </li>
     </ul>
   </li>
             
 <li >
-    <a href="../../using-a-transition-animator/">Using A Transition Animator</a>
+    <a href="../../../transition-animators/using-a-transition-animator/">Using A Transition Animator</a>
 </li>
             
 <li >
-    <a href="../../custom-transition-animators/">Custom Transition Animators</a>
+    <a href="../../../transition-animators/custom-transition-animators/">Custom Transition Animators</a>
 </li>
     </ul>
   </li>
@@ -181,8 +181,8 @@
     <a href="#">Tutorials</a>
     <ul class="dropdown-menu">
             
-<li >
-    <a href="../../../tutorials/custom-storyboard-hook-toggle/custom-storyboard-hook-toggle/">Creating a Custom Storyboard Hook For UI.Toggle</a>
+<li class="active">
+    <a href="./">Creating a Custom Storyboard Hook For UI.Toggle</a>
 </li>
     </ul>
   </li>
@@ -288,12 +288,12 @@
                     </a>
                 </li>
                     <li >
-                        <a rel="next" href="../transition-animator-scale/">
+                        <a rel="next" href="../../../miscellaneous/preferences/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../../using-a-transition-animator/">
+                        <a rel="prev" href="../../../../scripting-reference/contents/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -305,80 +305,118 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#scale-and-fade-background-transition-animator">Scale And Fade Background Transition Animator</a></li>
-            <li><a href="#description">Description</a></li>
-            <li><a href="#configuration">Configuration</a></li>
+        <li class="main active"><a href="#creating-a-custom-storyboard-hook-for-uitoggle">Creating a Custom Storyboard Hook For UI.Toggle</a></li>
+            <li><a href="#create-a-new-storyboard-hook">Create a new storyboard hook</a></li>
+            <li><a href="#specify-the-auto-add-type">Specify the Auto-Add type</a></li>
+            <li><a href="#implement-the-reset-connect-methods">Implement the Reset &amp; Connect methods</a></li>
+            <li><a href="#use-it">Use it</a></li>
+            <li><a href="#source">Source</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h1 id="scale-and-fade-background-transition-animator">Scale And Fade Background Transition Animator</h1>
-<blockquote>
-<p>To use a transition animator, you first create an instance of it, as described in <a href="../../using-a-transition-animator">Using A Transition Animator</a>.</p>
-</blockquote>
-<h2 id="description">Description</h2>
-<p>The 'scale and fade background' transition animator presents content by scaling it up from the center of the screen, whilst fading in the backgroundImage property. It dismisses content by performing the reverse - scaling content down and fading out the backgroundImage property.</p>
-<p>The <code>contentToScalePropertyName</code> field allows you to specify what content gets scaled in your transition. You can set this to the name of any <code>RectTransform</code> property on your canvas controller. If none is specified or the property does not exist, the canvas controller's 'content' transform will be scaled.</p>
-<p>The <code>reverseScaleCurveOnUpstream</code> and <code>reverseFadeCurveOnUpstream</code> flags cause the relevant animation curves to be evaluated backwards on upstream transitions.</p>
+<h1 id="creating-a-custom-storyboard-hook-for-uitoggle">Creating a Custom Storyboard Hook For UI.Toggle</h1>
+<p>In this tutorial, we will add support for Toggles in storyboards, which will allow us to use a toggle in a storyboard to trigger a transition to another canvas controller. This is done by creating a <a href="../../../storyboards/custom-storyboard-hooks/">Custom Storyboard Hook</a> and should hopefully serve as a good example for creating custom storyboard hooks for other components, such as custom button types, too.</p>
+<p>To illustrate, the transition shown below was configured in a storyboard and is being triggered by a <code>UI.Toggle</code> being switched on.</p>
 <div id="centered">
-    <video controls controlsList="nodownload" width="400px" name="Transition Animator Example" src="../vid/transition-animator-scale-and-fade.mov" style="margin-bottom:0px"></video>
-    <p><i>A scale transition animator.</i></p>
+    <video controls controlsList="nodownload" width="600px" name="Toggle Example" src="../vid/storyboard-toggle.mov" style="margin-bottom:0px"></video>
     <br>
 </div>
 
-<h2 id="configuration">Configuration</h2>
+<hr />
+<h2 id="create-a-new-storyboard-hook">Create a new storyboard hook</h2>
+<p>Begin by creating a new storyboard hook script. This is done by selecting <em>Create/Canvas Flow/Storyboard Hook</em> in Unity's Create menu, found in the menu bar at <em>Assets/Create</em> or by right-clicking in the project window.</p>
+<p>This will create a new script at the specified location, with three methods for us to implement.</p>
+<h2 id="specify-the-auto-add-type">Specify the Auto-Add type</h2>
+<p>Firstly, let's implement the <code>AutoAddComponentType</code> method. We want our hook to be automatically added to any Toggles in our UI, so we can return the Toggle type here, like so:</p>
+<pre><code class="csharp">public override System.Type AutoAddComponentType
+{
+    get
+    {
+        return typeof(UnityEngine.UI.Toggle);
+    }
+}
+</code></pre>
+
+<h2 id="implement-the-reset-connect-methods">Implement the Reset &amp; Connect methods</h2>
+<p>We now have two remaining methods left to implement - <code>Connect</code> and <code>Reset</code>. In our <code>Connect</code> method, we need to connect the provided <code>invokeTransition</code> action to our toggle so that when the toggle is switched on, the storyboard transition is triggered. Therefore, we first need a reference to our Toggle component. We can obtain this reference in the <code>Reset</code> method and store it in a public field on our component (so it gets serialized by Unity), like so:</p>
+<pre><code class="csharp">public UnityEngine.UI.Toggle toggle;
+
+protected override void Reset()
+{
+    // Always call base.Reset() when overriding Reset() in a custom hook.
+    base.Reset();
+
+    toggle = GetComponent&lt;UnityEngine.UI.Toggle&gt;();
+}
+</code></pre>
+
+<p>Great, so now let's write the code to attach the transition callback to the toggle in the <code>Connect</code> method.</p>
+<pre><code class="csharp">public override void Connect(System.Action&lt;StoryboardHook&gt; invokeTransition)
+{
+    toggle.onValueChanged.AddListener((isOn) =&gt;
+    {
+        if (isOn)
+        {
+            invokeTransition(this);
+        }
+    });
+}
+</code></pre>
+
+<p>Here we attach a callback to our toggle's <code>onValueChanged</code> event. Notice here how we are observing the toggle's <code>isOn</code> property. If the toggle has been switched on, we will invoke the storyboard transition. Otherwise, if it has been switched off, we will ignore it.</p>
+<p>And that's it!</p>
+<h2 id="use-it">Use it</h2>
+<p>Now, if we add a toggle element in a canvas controller, like so…</p>
+<p><img alt="" src="../img/toggle.png" /></p>
+<p>… the toggle is available to use in a storyboard!</p>
+<p><img alt="" src="../img/toggle-storyboard.png" /></p>
+<p>Which, when connected, causes our transition to be invoked when the toggle is switched on but not off, like so:</p>
 <div id="centered">
-    <img src="../img/transition-animator-scale-and-fade.png" style="margin:0px; width:593px" id="noborder"/>
-    <p><i>The configurable properties of a scale and fade background transition animator.</i></p>
-    <br><br>
+    <video controls controlsList="nodownload" width="600px" name="Toggle Example" src="../vid/storyboard-toggle.mov" style="margin-bottom:0px"></video>
+    <br>
 </div>
 
-<table>
-<thead>
-<tr>
-<th>Name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Duration</td>
-<td>The duration of the transition.</td>
-</tr>
-<tr>
-<td><strong>Scale Settings</strong></td>
-<td></td>
-</tr>
-<tr>
-<td>Scale Curve</td>
-<td>The animation curve for the scaling animation of the transition.</td>
-</tr>
-<tr>
-<td>Content To Scale Property Name</td>
-<td>The property name of the content to be scaled.</td>
-</tr>
-<tr>
-<td>Reverse Scale Curve On Upstream</td>
-<td>Reverse the scale animation curve for upstream transitions.</td>
-</tr>
-<tr>
-<td><strong>Fade Settings</strong></td>
-<td></td>
-</tr>
-<tr>
-<td>Fade Curve</td>
-<td>The animation curve for the fading animation of the transition.</td>
-</tr>
-<tr>
-<td>Reverse Fade Curve On Upstream</td>
-<td>Reverse the fade animation curve for upstream transitions.</td>
-</tr>
-<tr>
-<td>Use Scaled Time</td>
-<td>Animate with scaled time. By default this transition uses unscaled time - i.e. it won't be affected by changes to 'Time.timeScale'. This allows it to animate when the game is paused, for example. Enable this if you want the transition to be affected by changes to 'Time.timeScale'.</td>
-</tr>
-</tbody>
-</table></div>
+<blockquote>
+<p>The above video uses the built-in Scale And Fade animator, as well as the <code>KeepPresenterVisible</code> setting on the transition.</p>
+</blockquote>
+<p>And that's all that is required to implement a custom hook for UI.Toggle!</p>
+<h2 id="source">Source</h2>
+<p>For reference, the entire storyboard hook file we just created looks like this:</p>
+<pre><code class="c#">using P7.CanvasFlow;
+
+public class ToggleStoryboardHook : StoryboardHook
+{
+    public UnityEngine.UI.Toggle toggle;
+
+    protected override void Reset()
+    {
+        // Always call base.Reset() when overriding Reset() in a custom hook.
+        base.Reset();
+
+        toggle = GetComponent&lt;UnityEngine.UI.Toggle&gt;();
+    }
+
+    public override System.Type AutoAddComponentType
+    {
+        get
+        {
+            return typeof(UnityEngine.UI.Toggle);
+        }
+    }
+
+    public override void Connect(System.Action&lt;StoryboardHook&gt; invokeTransition)
+    {
+        toggle.onValueChanged.AddListener((isOn) =&gt;
+        {
+            if (isOn)
+            {
+                invokeTransition(this);
+            }
+        });
+    }
+}
+</code></pre></div>
         </div>
 
         <footer class="col-md-12">
