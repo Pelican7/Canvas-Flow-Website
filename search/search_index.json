@@ -37,7 +37,7 @@
         }, 
         {
             "location": "/manual/contents/", 
-            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nIntroduction\n\n\nCreating A Canvas Controller\n\n\nCanvas Controller Scenes\n\n\nPresentation \n Dismissal\n\n\nCanvas Controller Life Cycle\n\n\n\n\nStoryboards\n\n\n\n\nIntroduction\n\n\nCreating A Storyboard\n\n\nStoryboard Nodes\n\n\nStoryboard Transitions\n\n\nPresenting A Storyboard\n\n\nCustom Storyboard Hooks\n\n\n\n\nTransition Animators\n\n\n\n\nIntroduction\n\n\nDefault Transition Animators\n\n\nDefault Transition Animator\n\n\nFade To Color Transition Animator\n\n\nSlide Transition Animator\n\n\nScale Transition Animator\n\n\nScale And Fade Background Transition Animator\n\n\n\n\n\n\nUsing A Transition Animator\n\n\nCustom Transition Animators", 
+            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nIntroduction\n\n\nCreating A Canvas Controller\n\n\nCanvas Controller Scenes\n\n\nPresentation \n Dismissal\n\n\nCanvas Controller Life Cycle\n\n\n\n\nStoryboards\n\n\n\n\nIntroduction\n\n\nCreating A Storyboard\n\n\nStoryboard Nodes\n\n\nStoryboard Transitions\n\n\nPresenting A Storyboard\n\n\nCustom Storyboard Hooks\n\n\n\n\nTransition Animators\n\n\n\n\nIntroduction\n\n\nDefault Transition Animators\n\n\nDefault Transition Animator\n\n\nFade To Color Transition Animator\n\n\nSlide Transition Animator\n\n\nScale Transition Animator\n\n\nScale And Fade Background Transition Animator\n\n\n\n\n\n\nUsing A Transition Animator\n\n\nCustom Transition Animators\n\n\n\n\nMiscellaneous\n\n\n\n\nPreferences", 
             "title": "Contents"
         }, 
         {
@@ -59,6 +59,11 @@
             "location": "/manual/contents/#transition-animators", 
             "text": "Introduction  Default Transition Animators  Default Transition Animator  Fade To Color Transition Animator  Slide Transition Animator  Scale Transition Animator  Scale And Fade Background Transition Animator    Using A Transition Animator  Custom Transition Animators", 
             "title": "Transition Animators"
+        }, 
+        {
+            "location": "/manual/contents/#miscellaneous", 
+            "text": "Preferences", 
+            "title": "Miscellaneous"
         }, 
         {
             "location": "/manual/canvas-controllers/introduction/", 
@@ -474,6 +479,31 @@
             "location": "/manual/transition-animators/custom-transition-animators/#5-use-your-custom-transition-animator", 
             "text": "Once your custom transition animator is complete, it will be available to select in Unity's  Create  menu. Please refer to  Using A Transition Animator  to create an instance of your custom animator.", 
             "title": "5. Use Your Custom Transition Animator"
+        }, 
+        {
+            "location": "/manual/miscellaneous/preferences/", 
+            "text": "Preferences\n\n\nThe Canvas Flow preferences window is located in the Unity menu-bar at \nUnity, Preferences, Canvas Flow\n.\n\n\n\n    \n\n    \nThe Canvas Flow preferences window.\n\n\n\n\n\nStoryboards\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nStoryboard Scroll Direction\n\n\nSet the direction that storyboard content will move when scrolling.\n\n\n\n\n\n\n\n\nCanvas Controllers\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nAuto-Add Hooks On Scene Save\n\n\nWhen saving a Canvas Controller scene, Canvas Flow can automatically add storyboard hooks to the appropriate game objects. This will allow the objects to be \nhookable\n in the storyboard editor window. You may want to disable this if you are not working with storyboards.\n\n\n\n\n\n\nCanvas Scaler Reference Resolution\n\n\nSet the Canvas Scaler component's default reference resolution for new canvas controllers. This should be set to the resolution at which you are designing your UI. In addition to the Canvas Scaler, this will affect the proportions of the canvas controller in the storyboard editor.\n\n\n\n\n\n\n\n\nCanvas Controller Play-Mode Adjustments\n\n\nIt can be useful to run a canvas controller scene directly in the editor to preview changes quickly. Canvas Flow will make the following temporary adjustments when you enter play-mode from a canvas controller scene directly to make this process simpler. \nNote that these adjustments are only applied in the editor when entering play-mode from a canvas controller scene \ndirectly\n and are discarded once play-mode is exited.\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nCamera Clear Flags\n\n\nEnable this to set the canvas controller's Camera Clear Flags to 'SolidColor' when running the scene directly in the editor. By default, canvas controllers have their clear flags set to 'Depth'. This allows them to be transparent over your game's content. However, when running directly in the editor, your game's main camera will not be present to clear the screen.\n\n\n\n\n\n\nCreate EventSystem (If Necessary)\n\n\nEnable this to create an EventSystem (if one doesn't exist) when running the scene directly in the editor. By default, canvas controllers have no EventSystem, expecting one to be present elsewhere in your game. However, when running directly in the editor, your main EventSystem will not be present to accept input events.", 
+            "title": "Preferences"
+        }, 
+        {
+            "location": "/manual/miscellaneous/preferences/#preferences", 
+            "text": "The Canvas Flow preferences window is located in the Unity menu-bar at  Unity, Preferences, Canvas Flow .  \n     \n     The Canvas Flow preferences window.", 
+            "title": "Preferences"
+        }, 
+        {
+            "location": "/manual/miscellaneous/preferences/#storyboards", 
+            "text": "Name  Description      Storyboard Scroll Direction  Set the direction that storyboard content will move when scrolling.", 
+            "title": "Storyboards"
+        }, 
+        {
+            "location": "/manual/miscellaneous/preferences/#canvas-controllers", 
+            "text": "Name  Description      Auto-Add Hooks On Scene Save  When saving a Canvas Controller scene, Canvas Flow can automatically add storyboard hooks to the appropriate game objects. This will allow the objects to be  hookable  in the storyboard editor window. You may want to disable this if you are not working with storyboards.    Canvas Scaler Reference Resolution  Set the Canvas Scaler component's default reference resolution for new canvas controllers. This should be set to the resolution at which you are designing your UI. In addition to the Canvas Scaler, this will affect the proportions of the canvas controller in the storyboard editor.", 
+            "title": "Canvas Controllers"
+        }, 
+        {
+            "location": "/manual/miscellaneous/preferences/#canvas-controller-play-mode-adjustments", 
+            "text": "It can be useful to run a canvas controller scene directly in the editor to preview changes quickly. Canvas Flow will make the following temporary adjustments when you enter play-mode from a canvas controller scene directly to make this process simpler.  Note that these adjustments are only applied in the editor when entering play-mode from a canvas controller scene  directly  and are discarded once play-mode is exited.     Name  Description      Camera Clear Flags  Enable this to set the canvas controller's Camera Clear Flags to 'SolidColor' when running the scene directly in the editor. By default, canvas controllers have their clear flags set to 'Depth'. This allows them to be transparent over your game's content. However, when running directly in the editor, your game's main camera will not be present to clear the screen.    Create EventSystem (If Necessary)  Enable this to create an EventSystem (if one doesn't exist) when running the scene directly in the editor. By default, canvas controllers have no EventSystem, expecting one to be present elsewhere in your game. However, when running directly in the editor, your main EventSystem will not be present to accept input events.", 
+            "title": "Canvas Controller Play-Mode Adjustments"
         }, 
         {
             "location": "/scripting-reference/contents/", 
