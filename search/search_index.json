@@ -37,7 +37,7 @@
         }, 
         {
             "location": "/manual/contents/", 
-            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nIntroduction\n\n\nCreating A Canvas Controller\n\n\nCanvas Controller Scenes\n\n\nPresentation \n Dismissal\n\n\nCanvas Controller Life Cycle\n\n\n\n\nStoryboards\n\n\n\n\nIntroduction\n\n\nCreating A Storyboard\n\n\nStoryboard Nodes\n\n\nStoryboard Transitions\n\n\nPresenting A Storyboard\n\n\nCustom Storyboard Hooks\n\n\n\n\nTransition Animators\n\n\n\n\nIntroduction\n\n\nDefault Transition Animators\n\n\nDefault Transition Animator\n\n\nFade To Color Transition Animator\n\n\nSlide Transition Animator\n\n\nScale Transition Animator\n\n\nScale And Fade Background Transition Animator\n\n\n\n\n\n\nUsing A Transition Animator\n\n\nCustom Transition Animators\n\n\n\n\nMiscellaneous\n\n\n\n\nPreferences", 
+            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nIntroduction\n\n\nCreating A Canvas Controller\n\n\nCanvas Controller Scenes\n\n\nPresentation \n Dismissal\n\n\nCanvas Controller Life Cycle\n\n\n\n\nStoryboards\n\n\n\n\nIntroduction\n\n\nCreating A Storyboard\n\n\nStoryboard Nodes\n\n\nStoryboard Transitions\n\n\nPresenting A Storyboard\n\n\nCustom Storyboard Hooks\n\n\n\n\nTransition Animators\n\n\n\n\nIntroduction\n\n\nDefault Transition Animators\n\n\nDefault Transition Animator\n\n\nFade To Color Transition Animator\n\n\nSlide Transition Animator\n\n\nScale Transition Animator\n\n\nScale And Fade Background Transition Animator\n\n\n\n\n\n\nUsing A Transition Animator\n\n\nCustom Transition Animators\n\n\n\n\nMiscellaneous\n\n\n\n\nPreferences\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle", 
             "title": "Contents"
         }, 
         {
@@ -64,6 +64,11 @@
             "location": "/manual/contents/#miscellaneous", 
             "text": "Preferences", 
             "title": "Miscellaneous"
+        }, 
+        {
+            "location": "/manual/contents/#tutorials", 
+            "text": "Creating a Custom Storyboard Hook For UI.Toggle", 
+            "title": "Tutorials"
         }, 
         {
             "location": "/manual/canvas-controllers/introduction/", 
