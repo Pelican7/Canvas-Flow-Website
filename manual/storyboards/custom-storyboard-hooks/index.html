@@ -321,6 +321,9 @@
 
 <h1 id="custom-storyboard-hooks">Custom Storyboard Hooks</h1>
 <p>Custom <a href="../../../scripting-reference/storyboards/hooks/StoryboardHook">Storyboard Hooks</a> allow you to use your own button types in storyboards. They will show up in the canvas preview area as <em>hookable</em> elements, just as native UI Buttons do.</p>
+<blockquote>
+<p>See also: <a href="../../tutorials/custom-storyboard-hook-toggle/custom-storyboard-hook-toggle/">Creating a Custom Storyboard Hook For UI.Toggle</a></p>
+</blockquote>
 <h2 id="overview">Overview</h2>
 <p>A storyboard hook is a component that is attached to game objects in your canvas controller's scene. Any game object in the canvas controller's scene with a <code>StoryboardHook</code> component will become <em>hookable</em> in a storyboard.</p>
 <p>You do not use the <code>StoryboardHook</code> component directly, however. Instead, a subclass is created that adds support for a single target component type - the component that you wish to make <em>hookable</em>. It is this <code>StoryboardHook</code> subclass that is then added to any game objects with the target component type. Additionally, the process of adding <code>StoryboardHook</code> subclasses to their relevant game objects can be performed automatically for you by Canvas Flow, each time a canvas controller's scene is saved.</p>
