@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\nDocumentation\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\n\n\nSupport\n\n\nCan't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)\n\n\n\n\nEmail\n\n\nForum\n\n\nTwitter\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nChange Log\n\n\n\n\n\n\n\n\n\n\nv1.0\n\n\nMay 9th 2018\n\n\nInitial release", 
+            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\nDocumentation\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\n\n\nSupport\n\n\nCan't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)\n\n\n\n\nEmail\n\n\nTwitter\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nChange Log\n\n\n\n\n\n\n\n\n\n\nv1.0\n\n\nMay 9th 2018\n\n\nInitial release", 
             "title": "Home"
         }, 
         {
@@ -27,7 +27,7 @@
         }, 
         {
             "location": "/#support", 
-            "text": "Can't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)   Email  Forum  Twitter", 
+            "text": "Can't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)   Email  Twitter", 
             "title": "Support"
         }, 
         {
