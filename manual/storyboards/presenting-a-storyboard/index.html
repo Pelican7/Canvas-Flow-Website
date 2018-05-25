@@ -328,7 +328,7 @@
 </blockquote>
 <h2 id="callbacks">Callbacks</h2>
 <p>As shown above, three <a href="https://docs.unity3d.com/Manual/UnityEvents.html">UnityEvent</a> callbacks are available on a <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard</a> component.</p>
-<p>These callbacks can be particularly useful for passing scene data to the user interface, such as references to scene objects. For example, Canvas Flow's Floaty Cube example uses the <code>StoryboardWillPresentInitialCanvasController</code> callback to pass a reference to the player object to the intial game overlay screen. This allows the game overlay screen to display the player's current height. It is implemented like so:</p>
+<p>These callbacks can be particularly useful for passing scene data to the user interface, such as references to scene objects. For example, Canvas Flow's Floaty Cube example uses the <code>StoryboardWillPresentInitialCanvasController</code> callback to pass a reference to the player object to the initial game overlay screen. This allows the game overlay screen to display the player's current height. It is implemented like so:</p>
 <pre><code class="csharp">public void OnGameStoryboardWillPresentInitialCanvasController(StoryboardTransition transition)
 {
     var gameOverlayCanvasController =

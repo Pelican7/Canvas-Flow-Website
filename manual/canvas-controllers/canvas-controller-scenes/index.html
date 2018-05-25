@@ -324,7 +324,7 @@
     <br>
 </div>
 
-<p>You should place your UI elements underneath the 'Content' game object, just as the canvas controller's 'Background Image' has been. This allows your UI elements to be clipped to the canvas' rect and ensures that they are compatible with the included transition animators<sup>1</sup>.</p>
+<p>You should place your UI elements underneath the 'Content' game object, just as the canvas controller's 'Background Image' has been. This ensures that your canvas controller is compatible with the included transition animators<sup>1</sup>.</p>
 <div id="centered">
     <img src="../img/canvas-controller-creating.png" style="margin:0px" id="noborder"/>
     <p><i>Creating a canvas controller's content.</i></p>
@@ -332,7 +332,6 @@
 </div>
 
 <p><sub>1. The included transition animators animate the 'Content' game object. If you place elements outside of the canvas controller's content, it won't be animated by the included transition animators. You could, however, animate it with a <link>custom transition animator.</sub></p>
-<p>TODO presentationMode</p>
 <hr />
 <h2 id="root-canvas-controller-object">Root Canvas Controller Object</h2>
 <p>The top-level game object contains a single component - your canvas controller's script. Here you can see any properties that you declare in your canvas controller and configure any UI elements, such as button callbacks. <strong>You must always keep this object in the root of your canvas controller's scene.</strong></p>
@@ -351,7 +350,7 @@
     <br>
 </div>
 
-<p>The Canvas Scaler's reference resolution should be set to the resolution that you are designing your UI at. If the screen resolution is larger, the UI will be scaled up, and if it’s smaller, the UI will be scaled down. Note that you can change the default value for new canvas controllers in Canvas Flow's preferences, which can be found in the Unity menu at <em>Unity/Preferences/Canvas Flow</em></p>
+<p>The Canvas Scaler's reference resolution should be set to the resolution that you are designing your UI at. If the screen resolution is larger, the UI will be scaled up, and if it’s smaller, the UI will be scaled down. Note that you can change the default value for new canvas controllers in Canvas Flow's preferences, which can be found in the Unity menu at <em>Unity/Preferences/Canvas Flow</em>.</p>
 <div id="centered">
     <img src="../img/canvas-controller-canvas-ref-res-prefs.png" style="margin:0px; width:534px;" id="noborder"/>
     <p><i>Set the reference resolution for new canvas controllers in the editor preferences window.</i></p>
