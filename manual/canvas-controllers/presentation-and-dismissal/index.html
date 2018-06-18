@@ -225,6 +225,10 @@
 </li>
             
 <li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerWorldSpaceContainer/">CanvasControllerWorldSpaceContainer</a>
+</li>
+            
+<li >
     <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
 </li>
             
@@ -244,6 +248,10 @@
             
 <li >
     <a href="../../../scripting-reference/storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardPresentationSpace/">StoryboardPresentationSpace</a>
 </li>
             
 <li >
@@ -283,6 +291,19 @@
   </li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Releases <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../release-notes/1.1/">1.1</a>
+</li>
+                            
+<li >
+    <a href="../../../release-notes/1.0/">1.0</a>
+</li>
+                        </ul>
+                    </li>
                 </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -312,6 +333,7 @@
         <li class="main active"><a href="#presentation-dismissal">Presentation &amp; Dismissal</a></li>
             <li><a href="#presenting-from-a-canvas-controller">Presenting From A Canvas Controller</a></li>
             <li><a href="#presenting-from-a-scene">Presenting From A Scene</a></li>
+            <li><a href="#presenting-in-world-space">Presenting In World Space</a></li>
             <li><a href="#configuring-a-to-be-presented-canvas-controller">Configuring A (To-Be) Presented Canvas Controller</a></li>
     </ul>
 </div></div>
@@ -359,6 +381,18 @@
 <p>The game overlay screen could then use the <code>PresentCanvasController&lt;T&gt;()</code> and <code>DismissCanvasController()</code> methods described above, perhaps presenting pause or game-over screens, as required.</p>
 <blockquote>
 <p>Note: A single <a href="https://docs.unity3d.com/Manual/EventSystem.html">Unity EventSystem</a> is required to be present for canvases to receive input events. Therefore, depending on your game's structure, you may wish to place an Event System (<em>Game Object/UI/Event System</em>) in the scene presenting your initial canvas controller.</p>
+</blockquote>
+<hr />
+<h2 id="presenting-in-world-space">Presenting In World Space</h2>
+<p>By default, canvas controllers are presented in screen space. To present a canvas controller in world space, you specify a <a href="../../../scripting-reference/canvas-controller/CanvasControllerWorldSpaceContainer">CanvasControllerWorldSpaceContainer</a> component when calling the aforementioned <code>CanvasController.PresentInitialCanvasController&lt;T&gt;()</code> method.</p>
+<p>First, create a new GameObject in the scene and add a <code>CanvasControllerWorldSpaceContainer</code> component to it. This will give you a world space canvas that you can position freely in your scene.</p>
+<p>Then, when calling <code>CanvasController.PresentInitialCanvasController&lt;T&gt;()</code>, pass in the world space container like so:</p>
+<pre><code class="c#">CanvasController.PresentInitialCanvasController&lt;GameOverlayCanvasController&gt;(worldSpaceContainer: yourWorldSpaceContainer)
+</code></pre>
+
+<p>This will cause the canvas controller to be presented in world space and embedded within the specified container.</p>
+<blockquote>
+<p>Note that any subsequent calls to <code>PresentCanvasController&lt;T&gt;()</code> will automatically detect whether they should be presented in world space or screen space. If the presenting canvas controller is in world space, the presented canvas controller will also be in world space. Likewise, if the presenting canvas controller is in screen space, the presented canvas controller will also be in screen space.</p>
 </blockquote>
 <hr />
 <h2 id="configuring-a-to-be-presented-canvas-controller">Configuring A (To-Be) Presented Canvas Controller</h2>

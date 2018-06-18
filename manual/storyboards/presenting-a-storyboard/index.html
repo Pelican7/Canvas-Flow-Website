@@ -225,6 +225,10 @@
 </li>
             
 <li >
+    <a href="../../../scripting-reference/canvas-controller/CanvasControllerWorldSpaceContainer/">CanvasControllerWorldSpaceContainer</a>
+</li>
+            
+<li >
     <a href="../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
 </li>
             
@@ -244,6 +248,10 @@
             
 <li >
     <a href="../../../scripting-reference/storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../../scripting-reference/storyboards/StoryboardPresentationSpace/">StoryboardPresentationSpace</a>
 </li>
             
 <li >
@@ -283,6 +291,19 @@
   </li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Releases <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../release-notes/1.1/">1.1</a>
+</li>
+                            
+<li >
+    <a href="../../../release-notes/1.0/">1.0</a>
+</li>
+                        </ul>
+                    </li>
                 </ul>
 
             <ul class="nav navbar-nav navbar-right">
@@ -310,6 +331,7 @@
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
         <li class="main active"><a href="#presenting-a-storyboard">Presenting A Storyboard</a></li>
+            <li><a href="#presenting-in-world-space">Presenting In World Space</a></li>
             <li><a href="#callbacks">Callbacks</a></li>
     </ul>
 </div></div>
@@ -325,6 +347,16 @@
 
 <blockquote>
 <p>Note: A single <a href="https://docs.unity3d.com/Manual/EventSystem.html">Unity EventSystem</a> is required to be present for canvases to receive input events. Therefore, depending on your game's structure, you may wish to place an Event System (<em>Game Object/UI/Event System</em>) in the scene presenting your storyboard.</p>
+</blockquote>
+<h2 id="presenting-in-world-space">Presenting In World Space</h2>
+<p>By default, storyboards are presented in screen space. To present a storyboard in world space, simply select the storyboard component in the scene and change its <a href="../../../scripting-reference/storyboards/StoryboardPresentationSpace">presentation space</a> to <code>World Space</code>. This will cause the storyboard to be presented in world space and embedded within the specified container.</p>
+<div id="centered">
+    <img src="../img/storyboard-component-world.png" style="margin:0px; width:736px;" id="noborder"/>
+    <p><i>Presenting a storyboard in world space.</i></p>
+</div>
+
+<blockquote>
+<p>Note that any subsequent storyboard transitions, as well as manual calls to <code>PresentCanvasController&lt;T&gt;()</code>, will automatically detect whether they should be presented in world space or screen space. If the presenting canvas controller is in world space, the presented canvas controller will also be in world space. Likewise, if the presenting canvas controller is in screen space, the presented canvas controller will also be in screen space.</p>
 </blockquote>
 <h2 id="callbacks">Callbacks</h2>
 <p>As shown above, three <a href="https://docs.unity3d.com/Manual/UnityEvents.html">UnityEvent</a> callbacks are available on a <a href="../../../scripting-reference/storyboards/Storyboard/">Storyboard</a> component.</p>

@@ -225,6 +225,10 @@
 </li>
             
 <li >
+    <a href="../CanvasControllerWorldSpaceContainer/">CanvasControllerWorldSpaceContainer</a>
+</li>
+            
+<li >
     <a href="../ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
 </li>
             
@@ -244,6 +248,10 @@
             
 <li >
     <a href="../../storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../storyboards/StoryboardPresentationSpace/">StoryboardPresentationSpace</a>
 </li>
             
 <li >
@@ -281,6 +289,19 @@
 </li>
     </ul>
   </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Releases <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../release-notes/1.1/">1.1</a>
+</li>
+                            
+<li >
+    <a href="../../../release-notes/1.0/">1.0</a>
+</li>
                         </ul>
                     </li>
                 </ul>
@@ -322,6 +343,7 @@
             <li><a href="#hidden">Hidden</a></li>
             <li><a href="#isbeingdismissed">IsBeingDismissed</a></li>
             <li><a href="#isbeingpresented">IsBeingPresented</a></li>
+            <li><a href="#isembeddedinworldspacecontainer">IsEmbeddedInWorldSpaceContainer</a></li>
             <li><a href="#istransitioning">IsTransitioning</a></li>
             <li><a href="#presentationmode">presentationMode</a></li>
             <li><a href="#presentedcanvascontroller">PresentedCanvasController</a></li>
@@ -329,6 +351,7 @@
             <li><a href="#scene">scene</a></li>
             <li><a href="#storyboard">Storyboard</a></li>
             <li><a href="#transitioninganimatorvendor">transitioningAnimatorVendor</a></li>
+            <li><a href="#worldspacecontainer">WorldSpaceContainer</a></li>
             <li><a href="#addchildcanvascontroller">AddChildCanvasController</a></li>
             <li><a href="#addchildcanvascontrollert">AddChildCanvasController&lt;T&gt;</a></li>
             <li><a href="#addchildcanvascontrollert_1">AddChildCanvasController&lt;T&gt;</a></li>
@@ -358,9 +381,10 @@
 <h2 id="description">Description</h2>
 <p>A canvas controller represents a single screen in your user interface. Canvas controllers can present and dismiss other canvas controllers, or screens, allowing you to easily build a user interface flow, presenting and dismissing screens as required. A canvas controller automatically manages the presentation hierarchy, as well as loading and unloading itself as it is presented or dismissed. </p>
 <p>Canvas controllers should be created with Unity's <em>Create</em> menu - found by either right-clicking in the Project window or selecting Assets in the menu bar - and selecting <em>Create/Canvas Flow/Canvas Controller</em>. </p>
-<p>Present and dismiss canvas controllers with the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods. To present or dismiss an initial canvas controller use the <a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a> and  <a href="# dismissallcanvascontrollers"> DismissAllCanvasControllers</a> methods. </p>
+<p>Present and dismiss canvas controllers with the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods. To present or dismiss an initial canvas controller use the <a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a> and <a href="# dismissallcanvascontrollers"> DismissAllCanvasControllers</a> methods. </p>
 <p>A canvas controller can override its appearance methods to be notified of the appearance events <a href="#canvaswillappear">CanvasWillAppear</a>, <a href="#canvasdidappear">CanvasDidAppear</a>, <a href="#canvaswilldisappear">CanvasWillDisappear</a>, and <a href="#canvasdiddisappear">CanvasDidDisappear</a>. </p>
 <p>Canvas controllers can be used with storyboards to visually define the presentation flow. When working with storyboards, data can be passed between canvas controllers by overriding the <a href="#prepareforstoryboardtransition">PrepareForStoryboardTransition</a> method. Additionally, storyboard transitions can be triggered from a canvas controller using the <a href="#performtransitionwithidentifier">PerformTransitionWithIdentifier</a> method. </p>
+<p>Canvas controllers can be presented in world space by either setting a storyboard's <a href="../storyboardpresentationspace">StoryboardPresentationSpace</a> to <code>WorldSpace</code>, or by passing a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a> to <a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a>. Canvas controllers presented from a world space canvas controller will also be presented in world space and contained within the presenter's container. </p>
 <table>
 <thead>
 <tr>
@@ -403,7 +427,7 @@
 </tr>
 <tr>
 <td><a href="#hidden">Hidden</a></td>
-<td>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>.</td>
+<td>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>. Note that if the canvas controller is container within a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a>, only its content will be affected.</td>
 </tr>
 <tr>
 <td><a href="#isbeingdismissed">IsBeingDismissed</a></td>
@@ -412,6 +436,10 @@
 <tr>
 <td><a href="#isbeingpresented">IsBeingPresented</a></td>
 <td>Is the canvas controller currently being presented?</td>
+</tr>
+<tr>
+<td><a href="#isembeddedinworldspacecontainer">IsEmbeddedInWorldSpaceContainer</a></td>
+<td>Is the canvas controller embedded in a world space container?</td>
 </tr>
 <tr>
 <td><a href="#istransitioning">IsTransitioning</a></td>
@@ -440,6 +468,10 @@
 <tr>
 <td><a href="#transitioninganimatorvendor">transitioningAnimatorVendor</a></td>
 <td>The canvas controller's 'transitioning animator' vendor.</td>
+</tr>
+<tr>
+<td><a href="#worldspacecontainer">WorldSpaceContainer</a></td>
+<td>Get the canvas controller's world space container.</td>
 </tr>
 </tbody>
 </table>
@@ -580,7 +612,7 @@
 <h2 id="hidden">Hidden</h2>
 <p><code>public bool Hidden;</code></p>
 <h3 id="description_9">Description</h3>
-<p>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>. </p>
+<p>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>. Note that if the canvas controller is container within a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a>, only its content will be affected. </p>
 <hr />
 <h2 id="isbeingdismissed">IsBeingDismissed</h2>
 <p><code>public bool IsBeingDismissed;</code></p>
@@ -594,48 +626,60 @@
 <p>Is the canvas controller currently being presented? </p>
 <p>Will return true if the canvas controller is currently involved in a transition in which it is being presented. </p>
 <hr />
+<h2 id="isembeddedinworldspacecontainer">IsEmbeddedInWorldSpaceContainer</h2>
+<p><code>public bool IsEmbeddedInWorldSpaceContainer;</code></p>
+<h3 id="description_12">Description</h3>
+<p>Is the canvas controller embedded in a world space container? </p>
+<p>When a canvas controller is presented in world space, it is contained within a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a>. </p>
+<hr />
 <h2 id="istransitioning">IsTransitioning</h2>
 <p><code>public bool IsTransitioning;</code></p>
-<h3 id="description_12">Description</h3>
+<h3 id="description_13">Description</h3>
 <p>Is the canvas controller currently transitioning? </p>
 <p>This returns true on both canvas controllers involved in a transition whilst that transition is executing. </p>
 <hr />
 <h2 id="presentationmode">presentationMode</h2>
 <p><code>public CanvasControllerPresentationMode presentationMode =
     CanvasControllerPresentationMode.HidePresenter;</code></p>
-<h3 id="description_13">Description</h3>
+<h3 id="description_14">Description</h3>
 <p>The canvas controller's presentation mode. </p>
 <p>See also: </p>
 <p><a href="../canvascontrollerpresentationmode">CanvasControllerPresentationMode</a> </p>
 <hr />
 <h2 id="presentedcanvascontroller">PresentedCanvasController</h2>
 <p><code>public CanvasController PresentedCanvasController;</code></p>
-<h3 id="description_14">Description</h3>
+<h3 id="description_15">Description</h3>
 <p>Get the presented canvas controller. </p>
 <p>If this canvas controller has not presented a canvas controller then the presented canvas controller will be null. </p>
 <hr />
 <h2 id="presentingcanvascontroller">PresentingCanvasController</h2>
 <p><code>public CanvasController PresentingCanvasController;</code></p>
-<h3 id="description_15">Description</h3>
+<h3 id="description_16">Description</h3>
 <p>Get the presenting canvas controller - the canvas controller's presenter. </p>
 <p>If no canvas controller presented this canvas controller then the presenting canvas controller will be null. This is true for initial canvas controllers - canvas controllers presented from a storyboard entry transition or using <a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a>. </p>
 <hr />
 <h2 id="scene">scene</h2>
 <p><code>protected Scene scene;</code></p>
-<h3 id="description_16">Description</h3>
+<h3 id="description_17">Description</h3>
 <p>The canvas controller's scene. </p>
 <hr />
 <h2 id="storyboard">Storyboard</h2>
 <p><code>public Storyboard Storyboard;</code></p>
-<h3 id="description_17">Description</h3>
+<h3 id="description_18">Description</h3>
 <p>Get the canvas controller's storyboard. </p>
 <p>When a canvas controller is presented from a storyboard, this property will be set to the storyboard whom presented it. Otherwise, it will be null. </p>
 <hr />
 <h2 id="transitioninganimatorvendor">transitioningAnimatorVendor</h2>
 <p><code>public ICanvasControllerTransitioningAnimatorVendor transitioningAnimatorVendor;</code></p>
-<h3 id="description_18">Description</h3>
+<h3 id="description_19">Description</h3>
 <p>The canvas controller's 'transitioning animator' vendor. </p>
 <p>When a canvas controller is about to be presented or dismissed, it will ask its <code>transitioningAnimatorVendor</code> for an animator to animate the transition. Specify a vendor to supply transition animators to a transitioning canvas controller. </p>
+<hr />
+<h2 id="worldspacecontainer">WorldSpaceContainer</h2>
+<p><code>public CanvasControllerWorldSpaceContainer WorldSpaceContainer;</code></p>
+<h3 id="description_20">Description</h3>
+<p>Get the canvas controller's world space container. </p>
+<p>When a canvas controller is presented in world space, it is contained within a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a>. In this scenario, this property will be set to the container. Otherwise, it will be null. </p>
 <hr />
 <h2 id="addchildcanvascontroller">AddChildCanvasController</h2>
 <p><code>public void AddChildCanvasController(string canvasControllerName,
@@ -674,7 +718,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_19">Description</h3>
+<h3 id="description_21">Description</h3>
 <p>Load the specified canvas controller and add it as a child. </p>
 <p>This method will load the specified canvas controller and add it as a child of the receiving canvas controller. This causes the child canvas controller to be added to the parent's hierarchy under the specified transform. The child canvas controller's camera will be disabled and it will now be rendered by its parent's camera. </p>
 <hr />
@@ -715,7 +759,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_20">Description</h3>
+<h3 id="description_22">Description</h3>
 <p>Load the specified canvas controller and add it as a child. </p>
 <p>This method will load the specified canvas controller and add it as a child of the receiving canvas controller. This causes the child canvas controller to be added to the parent's hierarchy under the specified transform. The child canvas controller's camera will be disabled and it will now be rendered by its parent's camera. </p>
 <hr />
@@ -761,19 +805,19 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_21">Description</h3>
+<h3 id="description_23">Description</h3>
 <p>Load the specified canvas controller and add it as a child. </p>
 <p>This method will load the specified canvas controller and add it as a child of the receiving canvas controller. This causes the child canvas controller to be added to the parent's hierarchy under the specified transform. The child canvas controller's camera will be disabled and it will now be rendered by its parent's camera. </p>
 <hr />
 <h2 id="awake">Awake</h2>
 <p><code>protected virtual void Awake();</code></p>
-<h3 id="description_22">Description</h3>
+<h3 id="description_24">Description</h3>
 <p>Awake is called when the canvas controller is loaded. </p>
 <p>If you override Awake, always call <code>base.Awake()</code> in your derived class's implementation. </p>
 <hr />
 <h2 id="canvasdidappear">CanvasDidAppear</h2>
 <p><code>protected virtual void CanvasDidAppear();</code></p>
-<h3 id="description_23">Description</h3>
+<h3 id="description_25">Description</h3>
 <p>Override this method in your canvas controller to be notified just after the canvas has transitioned on screen. This could be because it has just been presented or has just dismissed its <a href="#presentedcanvascontroller">PresentedCanvasController</a>. </p>
 <p>See also: </p>
 <p><a href="#isbeingpresented">IsBeingPresented</a> </p>
@@ -781,7 +825,7 @@
 <hr />
 <h2 id="canvasdiddisappear">CanvasDidDisappear</h2>
 <p><code>protected virtual void CanvasDidDisappear();</code></p>
-<h3 id="description_24">Description</h3>
+<h3 id="description_26">Description</h3>
 <p>Override this method in your canvas controller to be notified just after the canvas has transitioned off screen. This could be because it has just been dismissed or has just presented a canvas controller. </p>
 <p>See also: </p>
 <p><a href="#isbeingpresented">IsBeingPresented</a> </p>
@@ -789,7 +833,7 @@
 <hr />
 <h2 id="canvaswillappear">CanvasWillAppear</h2>
 <p><code>protected virtual void CanvasWillAppear();</code></p>
-<h3 id="description_25">Description</h3>
+<h3 id="description_27">Description</h3>
 <p>Override this method in your canvas controller to be notified just before the canvas is about to transition on screen. This could be because it is about to be presented or about to dismiss its <a href="#presentedcanvascontroller">PresentedCanvasController</a>. </p>
 <p>See also: </p>
 <p><a href="#isbeingpresented">IsBeingPresented</a> </p>
@@ -797,7 +841,7 @@
 <hr />
 <h2 id="canvaswilldisappear">CanvasWillDisappear</h2>
 <p><code>protected virtual void CanvasWillDisappear();</code></p>
-<h3 id="description_26">Description</h3>
+<h3 id="description_28">Description</h3>
 <p>Override this method in your canvas controller to be notified just before the canvas is about to transition off screen. This could be because it is about to be dismissed or about to present a canvas controller. </p>
 <p>See also: </p>
 <p><a href="#isbeingpresented">IsBeingPresented</a> </p>
@@ -825,7 +869,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_27">Description</h3>
+<h3 id="description_29">Description</h3>
 <p>Dismisses all canvas controllers in the current hierarchy. </p>
 <p>This method dismisses all canvas controllers in the current presentation stack. Only the top-most canvas controller will be animated in the transition. All canvas controllers in the stack will be unloaded. </p>
 <hr />
@@ -850,7 +894,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_28">Description</h3>
+<h3 id="description_30">Description</h3>
 <p>Dismiss a canvas controller. </p>
 <p>This method dismisses the canvas controller's top-most <a href="#presentedcanvascontroller">PresentedCanvasController</a> - i.e. its PresentedCanvasController's PresentedCanvasController's... etc. If any intermediary canvas controllers exist between this canvas controller and the top-most presented one, they will be unloaded. Only the top-most canvas controller and this canvas controller will be animated during the transition. </p>
 <p>If this canvas controller has no <a href="#presentedcanvascontroller">PresentedCanvasController</a>, it will be dismissed by its <a href="#presentingcanvascontroller">PresentingCanvasController</a>. </p>
@@ -873,7 +917,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_29">Description</h3>
+<h3 id="description_31">Description</h3>
 <p>Perform the storyboard transition with this identifier. </p>
 <p>If a canvas controller has been loaded from a storyboard, its storyboard transitions can be triggered with this method. The identifier specified must be set on the transition in the storyboard editor. If a canvas controller has not been loaded from a storyboard, its <a href="#storyboard">Storyboard</a> property will be <code>null</code>. </p>
 <hr />
@@ -894,7 +938,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_30">Description</h3>
+<h3 id="description_32">Description</h3>
 <p>Override this method to be notified when the canvas controller is about to be involved in a storyboard transition. </p>
 <p>When a transition occurs in a storyboard, the transition's source canvas controller will have its <code>PrepareForStoryboardTransition</code> method called. This gives an opportunity to pass data between canvas controllers. </p>
 <p>This method will only be called on a canvas controller whom has been loaded from a storyboard. </p>
@@ -941,7 +985,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_31">Description</h3>
+<h3 id="description_33">Description</h3>
 <p>Present a canvas controller, specifying a name. </p>
 <p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
 <hr />
@@ -987,7 +1031,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_32">Description</h3>
+<h3 id="description_34">Description</h3>
 <p>Present a canvas controller, specifying a type. </p>
 <p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
 <hr />
@@ -1038,7 +1082,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_33">Description</h3>
+<h3 id="description_35">Description</h3>
 <p>Present a canvas controller, specifying a type and a name. </p>
 <p>The specified canvas controller's scene will be loaded and subsequently presented by this canvas controller. </p>
 <hr />
@@ -1049,7 +1093,8 @@
     System.Action&lt;CanvasController&gt; completion = null,
     bool animated = true,
     Vector3? canvasWorldPositionOverride = null,
-    bool loadAsynchronously = true);</code></p>
+    bool loadAsynchronously = true,
+    CanvasControllerWorldSpaceContainer worldSpaceContainer = null);</code></p>
 <h3 id="parameters_10">Parameters</h3>
 <table>
 <thead>
@@ -1083,9 +1128,13 @@
 <td>loadAsynchronously</td>
 <td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
 </tr>
+<tr>
+<td>worldSpaceContainer</td>
+<td>Specify a world space container to present this canvas controller in world space.</td>
+</tr>
 </tbody>
 </table>
-<h3 id="description_34">Description</h3>
+<h3 id="description_36">Description</h3>
 <p>Present an initial canvas controller, specifying a name. </p>
 <p>This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods can be used. </p>
 <hr />
@@ -1095,7 +1144,8 @@
     System.Action&lt;T&gt; completion = null,
     bool animated = true,
     Vector3? canvasWorldPositionOverride = null,
-    bool loadAsynchronously = true)
+    bool loadAsynchronously = true,
+    CanvasControllerWorldSpaceContainer worldSpaceContainer = null)
     where T : CanvasController;</code></p>
 <h3 id="parameters_11">Parameters</h3>
 <table>
@@ -1130,9 +1180,13 @@
 <td>loadAsynchronously</td>
 <td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
 </tr>
+<tr>
+<td>worldSpaceContainer</td>
+<td>Specify a world space container to present this canvas controller in world space.</td>
+</tr>
 </tbody>
 </table>
-<h3 id="description_35">Description</h3>
+<h3 id="description_37">Description</h3>
 <p>Present an initial canvas controller, specifying a type. </p>
 <p>This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods can be used. </p>
 <hr />
@@ -1143,7 +1197,8 @@
     System.Action&lt;T&gt; completion = null,
     bool animated = true,
     Vector3? canvasWorldPositionOverride = null,
-    bool loadAsynchronously = true)
+    bool loadAsynchronously = true,
+    CanvasControllerWorldSpaceContainer worldSpaceContainer = null)
     where T : CanvasController;</code></p>
 <h3 id="parameters_12">Parameters</h3>
 <table>
@@ -1182,9 +1237,13 @@
 <td>loadAsynchronously</td>
 <td>Should the canvas controller be loaded asynchronously? By default, all canvas controllers are loaded asynchronously.</td>
 </tr>
+<tr>
+<td>worldSpaceContainer</td>
+<td>Specify a world space container to present this canvas controller in world space.</td>
+</tr>
 </tbody>
 </table>
-<h3 id="description_36">Description</h3>
+<h3 id="description_38">Description</h3>
 <p>Present an initial canvas controller, specifying a type and a name. </p>
 <p>This method is used to present an initial canvas controller - the first canvas controller in the hierarchy. From there, the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods can be used. </p>
 <hr />
@@ -1205,12 +1264,12 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_37">Description</h3>
+<h3 id="description_39">Description</h3>
 <p>Remove and unload a child canvas controller. </p>
 <hr />
 <h2 id="start">Start</h2>
 <p><code>protected virtual void Start();</code></p>
-<h3 id="description_38">Description</h3>
+<h3 id="description_40">Description</h3>
 <p>Start is called on the frame when the canvas controller is loaded, after <a href="#awake">Awake</a>. </p>
 <hr /></div>
         </div>
