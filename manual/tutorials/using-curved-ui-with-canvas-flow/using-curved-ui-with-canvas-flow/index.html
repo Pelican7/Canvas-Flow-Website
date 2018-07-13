@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../../favicon.ico">
+        
+        <title>Using Curved UI with Canvas Flow - Canvas Flow</title>
+        <link href="../../../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../../../css/highlight.css">
+        <link href="../../../../css/extra.css" rel="stylesheet">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        <script src="../../../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../../../js/highlight.pack.js"></script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-57773606-3', 'canvasflow.xyz');
+            ga('send', 'pageview');
+        </script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="../../../..">Canvas Flow</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="../../../..">Home</a>
+                    </li>
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Manual <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../canvas-controllers/introduction/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../../canvas-controllers/creating-a-canvas-controller/">Creating A Canvas Controller</a>
+</li>
+            
+<li >
+    <a href="../../../canvas-controllers/canvas-controller-scenes/">Canvas Controller Scenes</a>
+</li>
+            
+<li >
+    <a href="../../../canvas-controllers/presentation-and-dismissal/">Presentation & Dismissal</a>
+</li>
+            
+<li >
+    <a href="../../../canvas-controllers/canvas-controller-life-cycle/">Canvas Controller Life Cycle</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../storyboards/introduction/">Introduction</a>
+</li>
+            
+<li >
+    <a href="../../../storyboards/creating-a-storyboard/">Creating A Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../storyboards/storyboard-nodes/">Storyboard Nodes</a>
+</li>
+            
+<li >
+    <a href="../../../storyboards/storyboard-transitions/">Storyboard Transitions</a>
+</li>
+            
+<li >
+    <a href="../../../storyboards/presenting-a-storyboard/">Presenting A Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../storyboards/custom-storyboard-hooks/">Custom Storyboard Hooks</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Transition Animators</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../transition-animators/introduction/">Introduction</a>
+</li>
+            
+  <li class="dropdown-submenu">
+    <a href="#">Default Transition Animators</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-default/">Default Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-fade-to-color/">Fade To Color Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-slide/">Slide Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-scale/">Scale Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../transition-animators/default-transition-animators/transition-animator-scale-and-fade/">Scale And Fade Background Transition Animator</a>
+</li>
+    </ul>
+  </li>
+            
+<li >
+    <a href="../../../transition-animators/using-a-transition-animator/">Using A Transition Animator</a>
+</li>
+            
+<li >
+    <a href="../../../transition-animators/custom-transition-animators/">Custom Transition Animators</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Miscellaneous</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../miscellaneous/preferences/">Preferences</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Tutorials</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../custom-storyboard-hook-toggle/custom-storyboard-hook-toggle/">Creating a Custom Storyboard Hook For UI.Toggle</a>
+</li>
+            
+<li >
+    <a href="../../custom-transition-animator-dotween/custom-transition-animator-dotween/">Creating A Custom Transition Animator Using DOTween</a>
+</li>
+            
+<li class="active">
+    <a href="./">Using Curved UI with Canvas Flow</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Scripting Reference <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../../scripting-reference/contents/">Contents</a>
+</li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Canvas Controllers</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../../scripting-reference/canvas-controller/CanvasController/">CanvasController</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/canvas-controller/CanvasControllerExtensions/">CanvasController Extensions</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/canvas-controller/CanvasControllerPresentationMode/">CanvasControllerPresentationMode</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/canvas-controller/CanvasControllerTransitionContext/">CanvasControllerTransitionContext</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/canvas-controller/CanvasControllerTransitioningAnimator/">CanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/canvas-controller/CanvasControllerWorldSpaceContainer/">CanvasControllerWorldSpaceContainer</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimator/">ICanvasControllerTransitioningAnimator</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/canvas-controller/ICanvasControllerTransitioningAnimatorVendor/">ICanvasControllerTransitioningAnimatorVendor</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Storyboards</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../../scripting-reference/storyboards/Storyboard/">Storyboard</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/storyboards/StoryboardData/">StoryboardData</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/storyboards/StoryboardPresentationSpace/">StoryboardPresentationSpace</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/storyboards/hooks/StoryboardHook/">StoryboardHook</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/storyboards/StoryboardTransition/">StoryboardTransition</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/storyboards/StoryboardTransitionDirection/">StoryboardTransitionDirection</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/storyboards/StoryboardTransitionEvent/">StoryboardTransitionEvent</a>
+</li>
+    </ul>
+  </li>
+                            
+  <li class="dropdown-submenu">
+    <a href="#">Extensions And Convenience</a>
+    <ul class="dropdown-menu">
+            
+<li >
+    <a href="../../../../scripting-reference/routine/Routine/">Routine</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/extensions/DynamicObjectExtensions/">DynamicObjectExtensions</a>
+</li>
+            
+<li >
+    <a href="../../../../scripting-reference/extensions/RectTransformExtensions/">RectTransformExtensions</a>
+</li>
+    </ul>
+  </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Releases <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            
+<li >
+    <a href="../../../../release-notes/1.1/">1.1</a>
+</li>
+                            
+<li >
+    <a href="../../../../release-notes/1.0/">1.0</a>
+</li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="../../custom-transition-animator-dotween/custom-transition-animator-dotween/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../../../scripting-reference/contents/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#using-curved-ui-with-canvas-flow">Using Curved UI with Canvas Flow</a></li>
+            <li><a href="#example-overview">Example Overview</a></li>
+            <li><a href="#curve-the-canvas">Curve The Canvas</a></li>
+            <li><a href="#additional-considerations">Additional Considerations</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="using-curved-ui-with-canvas-flow">Using Curved UI with Canvas Flow</h1>
+<div id="centered"><br><iframe src="https://api.assetstore.unity3d.com/affiliate/embed/package/53258/widget-wide?aid=1100l44G6&pubref=canvasflow" style="width:600px; height:130px; border:0px;"></iframe><br><br></div>
+
+<p>Curved world-space user interfaces are becoming increasingly common with the growth of XR games and applications. With this growth, the <a href="https://www.assetstore.unity3d.com/#!/content/53258?aid=1100l44G6&amp;pubref=canvasflow">Curved UI asset on the Asset Store</a> has emerged as a popular tool for achieving this effect by allowing you to bend/wrap a Unity Canvas.</p>
+<p>Like Canvas Flow, Curved UI is also built atop Unity Canvas. As such it can be used with Canvas Flow to create not just a single curved canvas, but an entire user-interface flow that is curved in world-space. In this tutorial, we will demonstrate how to use the two assets together by modifying the <em>World Space UI</em> example included with Canvas Flow to have a curved canvas, as shown below.</p>
+<div id="centered"><video controls controlsList="nodownload" width="512px" name="Curved UI Example" src="../vid/curved-ui-demo.mov" style="margin-bottom:0px"></video><br></div>
+
+<hr />
+<p>Firstly, if you haven't done so already, make sure Curved UI is imported into your project in the usual way.</p>
+<h2 id="example-overview">Example Overview</h2>
+<p>Open the <strong>WSExample</strong> scene (or duplicate it if you don't want to modify the example), located in <em>Canvas Flow/Examples/3. World Space UI Example/Scenes</em>. In this example our scene contains a cube object, which can have both its color and transform customized from the user-interface. The scene therefore also contains a storyboard, which consists of three screens (canvas controllers):</p>
+<ul>
+<li>a menu screen to select the customization option.</li>
+<li>a color-control screen to change the cube's color.</li>
+<li>a transform-control screen to change the cube's position and scale.</li>
+</ul>
+<p><img alt="" src="../img/curved-ui-storyboard.png" /></p>
+<p>This storyboard is being presented in <em>World Space</em> and has been positioned slightly in front of the cube object to give the impression of a control panel.</p>
+<h2 id="curve-the-canvas">Curve The Canvas</h2>
+<p>To make the storyboard's world canvas curved, select the <em>Storyboard</em> game object, which has the world canvas, and add a <em>CurvedUISettings</em> component to it. You'll notice that Curved UI will immediately curve your world canvas. However, if you run the scene at this point, any presented canvas controllers will not be curved. This is because Curved UI <a href="https://docs.google.com/document/d/10hNcvOMissNbGgjyFyV1MS7HwkXXE6270A6Ul8h8pnQ/edit#heading=h.7f3yp68gfhzl">requires instantiated elements to have a <em>CurvedUIVertexEffect</em> component</a>.</p>
+<blockquote>
+<p>Note: If you enter play-mode at this point, it may appear that your canvases are in fact being curved correctly. This is likely because you have the <em>CurvedUISettings</em> game object selected, which causes the Curved UI editor to automatically add the required <em>CurvedUIVertexEffect</em> for you. If you deselect the game object or create a build, you'll likely see that the presented canvases are not curved and why the following step is necessary.</p>
+</blockquote>
+<p>Conveniently, Curved UI provides a helper function, <code>AddEffectToChildren()</code>, to add the <em>CurvedUIVertexEffect</em> to all necessary components for us at runtime. This means that we don't have to modify any of our canvas controllers to make them curved, ensuring that they can still be used in other storyboards that perhaps aren't curved, such as a screen-space interface flow.</p>
+<p>To implement this, we will use the storyboard's events to be notified each time it presents a canvas controller. In response, we can call the <code>AddEffectToChildren()</code> function to ensure the presented canvas, and all its elements, will be curved. Therefore, create the following script, add it to a new game object in the scene, and drag your CurvedUISettings component that we added earlier onto the <em>curvedUISettings</em> field.</p>
+<pre><code class="csharp">using CurvedUI;
+using P7.CanvasFlow;
+using UnityEngine;
+
+public class AddCurvedUIEffectOnTransition : MonoBehaviour
+{
+    public CurvedUISettings curvedUISettings;
+
+    public void OnStoryboardWillPresentInitialTransition(StoryboardTransition transition)
+    {
+        curvedUISettings.AddEffectToChildren();
+    }
+
+    public void OnStoryboardWillPerformTransition(StoryboardTransition transition)
+    {
+        // Is the transition downstream (a presentation)?
+        if (transition.direction == StoryboardTransitionDirection.Downstream)
+        {
+            curvedUISettings.AddEffectToChildren();
+        }
+    }
+}
+</code></pre>
+
+<p>Add these functions to the relevant storyboard events, as shown below…</p>
+<div id="centered">
+    <img src="../img/curved-ui-storyboard-events.png" style="margin:0px; width:700px;" id="noborder"/>
+</div>
+
+<p>…and now each time the storyboard presents a canvas, Curved UI will ensure all the necessary elements are curved. And with that we have a curved, world-space, user-interface flow!</p>
+<div id="centered"><video controls controlsList="nodownload" width="512px" name="Curved UI Example" src="../vid/curved-ui-demo.mov" style="margin-bottom:0px"></video><br></div>
+
+<hr />
+<h2 id="additional-considerations">Additional Considerations</h2>
+<h3 id="preserve-aspect">Preserve Aspect</h3>
+<p>Depending on the design of your interface, as well as the type of transition animator you are using, you may want to disable the <em>CurvedUISettings</em> component's <em>Preserve Aspect</em> property. If <em>Preserve Aspect</em> is selected, the world canvas will be resized to maintain its aspect-ratio after accounting for the curvature. This can sometimes cause canvas controllers to not be clipped exactly to the containing world canvas' rect due to the <em>Mask2D</em> component operating on the two-dimensional rect.</p>
+<p>To illustrate, consider the two following images, showing a horizontal slide transition in progress. The first image is with <em>Preserve Aspect</em> enabled. You can see how the world canvas is slightly smaller than its two-dimensional rect to preserve the aspect-ratio when curved, causing the child canvases to be clipped incorrectly during transition. In contrast the second image is with <em>Preserve Aspect</em> disabled. You can see how the curved world canvas now fills the two-dimensional rect, causing the child canvases to be clipped correctly.</p>
+<table>
+<thead>
+<tr>
+<th><center><em>Preserve Aspect</em> enabled</center></th>
+<th><center><em>Preserve Aspect</em> disabled</center></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img alt="" src="../img/curved-ui-preserve-aspect-on.png" /></td>
+<td><img alt="" src="../img/curved-ui-preserve-aspect-off.png" /></td>
+</tr>
+</tbody>
+</table>
+<h3 id="one-frame-flicker">One-frame flicker</h3>
+<p>If you see a one-frame flicker when animating, this is likely due to the curvature calculation happening one frame after the animation has moved the canvas. The developer of Curved UI is addressing this issue in a future update, so in the meantime you can easily fix this yourself by changing the <em>CurvedUIVertexEffect</em>'s <code>Update()</code> method to <code>LateUpdate()</code>.</p>
+<hr />
+<p><sup>Disclosure: This post may contain affiliate links, which means I may receive a commission if you click a link and purchase something that I have recommended. While clicking these links won't cost you any money, they will help me fund my development projects while recommending great assets!</sup></p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>© 2018 <a href="https://www.pelican7.com/" target="_blank">Pelican 7 LTD</a>. All rights reserved.</p>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '../../../..';</script>
+        <script src="../../../../js/base.js"></script>
+        <script src="../../../../search/require.js"></script>
+        <script src="../../../../search/search.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="Keyboard Shortcuts Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Keyboard Shortcuts</h4>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&larr;</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>&rarr;</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+    </body>
+</html>
