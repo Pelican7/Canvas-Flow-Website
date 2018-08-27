@@ -300,6 +300,10 @@
                         <ul class="dropdown-menu">
                             
 <li >
+    <a href="../../../release-notes/1.1.1/">1.1.1</a>
+</li>
+                            
+<li >
     <a href="../../../release-notes/1.1/">1.1</a>
 </li>
                             
@@ -388,7 +392,7 @@
 <p>Present and dismiss canvas controllers with the <a href="#presentcanvascontroller">PresentCanvasController</a> and <a href="#dismisscanvascontroller">DismissCanvasController</a> methods. To present or dismiss an initial canvas controller use the <a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a> and <a href="# dismissallcanvascontrollers"> DismissAllCanvasControllers</a> methods. </p>
 <p>A canvas controller can override its appearance methods to be notified of the appearance events <a href="#canvaswillappear">CanvasWillAppear</a>, <a href="#canvasdidappear">CanvasDidAppear</a>, <a href="#canvaswilldisappear">CanvasWillDisappear</a>, and <a href="#canvasdiddisappear">CanvasDidDisappear</a>. </p>
 <p>Canvas controllers can be used with storyboards to visually define the presentation flow. When working with storyboards, data can be passed between canvas controllers by overriding the <a href="#prepareforstoryboardtransition">PrepareForStoryboardTransition</a> method. Additionally, storyboard transitions can be triggered from a canvas controller using the <a href="#performtransitionwithidentifier">PerformTransitionWithIdentifier</a> method. </p>
-<p>Canvas controllers can be presented in world space by either setting a storyboard's <a href="../storyboardpresentationspace">StoryboardPresentationSpace</a> to <code>WorldSpace</code>, or by passing a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a> to <a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a>. Canvas controllers presented from a world space canvas controller will also be presented in world space and contained within the presenter's container. </p>
+<p>Canvas controllers can be presented in world space by either setting a storyboard's <a href="../../storyboards/StoryboardPresentationSpace">StoryboardPresentationSpace</a> to <code>WorldSpace</code>, or by passing a <a href="../CanvasControllerWorldSpaceContainer">CanvasControllerWorldSpaceContainer</a> to <a href="#presentinitialcanvascontroller">PresentInitialCanvasController</a>. Canvas controllers presented from a world space canvas controller will also be presented in world space and contained within the presenter's container. </p>
 <table>
 <thead>
 <tr>
@@ -431,7 +435,7 @@
 </tr>
 <tr>
 <td><a href="#hidden">Hidden</a></td>
-<td>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>. Note that if the canvas controller is container within a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a>, only its content will be affected.</td>
+<td>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>. Note that if the canvas controller is container within a <a href="../CanvasControllerWorldSpaceContainer">CanvasControllerWorldSpaceContainer</a>, only its content will be affected.</td>
 </tr>
 <tr>
 <td><a href="#isbeingdismissed">IsBeingDismissed</a></td>
@@ -616,7 +620,7 @@
 <h2 id="hidden">Hidden</h2>
 <p><code>public bool Hidden;</code></p>
 <h3 id="description_9">Description</h3>
-<p>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>. Note that if the canvas controller is container within a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a>, only its content will be affected. </p>
+<p>Hide/show the canvas controller. This will enable/disable both the canvas controller's <a href="#camera">camera</a> and <a href="#content">content</a>. Note that if the canvas controller is container within a <a href="../CanvasControllerWorldSpaceContainer">CanvasControllerWorldSpaceContainer</a>, only its content will be affected. </p>
 <hr />
 <h2 id="isbeingdismissed">IsBeingDismissed</h2>
 <p><code>public bool IsBeingDismissed;</code></p>
@@ -634,7 +638,7 @@
 <p><code>public bool IsEmbeddedInWorldSpaceContainer;</code></p>
 <h3 id="description_12">Description</h3>
 <p>Is the canvas controller embedded in a world space container? </p>
-<p>When a canvas controller is presented in world space, it is contained within a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a>. </p>
+<p>When a canvas controller is presented in world space, it is contained within a <a href="../CanvasControllerWorldSpaceContainer">CanvasControllerWorldSpaceContainer</a>. </p>
 <hr />
 <h2 id="istransitioning">IsTransitioning</h2>
 <p><code>public bool IsTransitioning;</code></p>
@@ -648,7 +652,7 @@
 <h3 id="description_14">Description</h3>
 <p>The canvas controller's presentation mode. </p>
 <p>See also: </p>
-<p><a href="../canvascontrollerpresentationmode">CanvasControllerPresentationMode</a> </p>
+<p><a href="../CanvasControllerPresentationMode">CanvasControllerPresentationMode</a> </p>
 <hr />
 <h2 id="presentedcanvascontroller">PresentedCanvasController</h2>
 <p><code>public CanvasController PresentedCanvasController;</code></p>
@@ -683,7 +687,7 @@
 <p><code>public CanvasControllerWorldSpaceContainer WorldSpaceContainer;</code></p>
 <h3 id="description_20">Description</h3>
 <p>Get the canvas controller's world space container. </p>
-<p>When a canvas controller is presented in world space, it is contained within a <a href="../canvascontrollerworldspacecontainer">CanvasControllerWorldSpaceContainer</a>. In this scenario, this property will be set to the container. Otherwise, it will be null. </p>
+<p>When a canvas controller is presented in world space, it is contained within a <a href="../CanvasControllerWorldSpaceContainer">CanvasControllerWorldSpaceContainer</a>. In this scenario, this property will be set to the container. Otherwise, it will be null. </p>
 <hr />
 <h2 id="addchildcanvascontroller">AddChildCanvasController</h2>
 <p><code>public void AddChildCanvasController(string canvasControllerName,

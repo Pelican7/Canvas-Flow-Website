@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\nDocumentation\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\nUsing Curved UI with Canvas Flow\n\n\n\n\nSupport\n\n\nCan't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)\n\n\n\n\nEmail\n\n\nForum\n\n\nTwitter\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nRelease Notes\n\n\n\n\n\n\n\n\n\n\nv1.1\n\n\nJune 19th 2018\n\n\n1.1 Release Notes\n\n\n\n\n\n\nv1.0\n\n\nJune 1st 2018\n\n\nInitial release", 
+            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\nDocumentation\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\nUsing Curved UI with Canvas Flow\n\n\n\n\nSupport\n\n\nCan't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)\n\n\n\n\nEmail\n\n\nForum\n\n\nTwitter\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nRelease Notes\n\n\n\n\n\n\n\n\n\n\nv1.1.1\n\n\nAugust 30th 2018\n\n\n1.1.1 Release Notes\n\n\n\n\n\n\nv1.1\n\n\nJune 19th 2018\n\n\n1.1 Release Notes\n\n\n\n\n\n\nv1.0\n\n\nJune 1st 2018\n\n\nInitial release", 
             "title": "Home"
         }, 
         {
@@ -32,12 +32,12 @@
         }, 
         {
             "location": "/#version-history", 
-            "text": "Version  Date  Release Notes      v1.1  June 19th 2018  1.1 Release Notes    v1.0  June 1st 2018  Initial release", 
+            "text": "Version  Date  Release Notes      v1.1.1  August 30th 2018  1.1.1 Release Notes    v1.1  June 19th 2018  1.1 Release Notes    v1.0  June 1st 2018  Initial release", 
             "title": "Version History"
         }, 
         {
             "location": "/manual/contents/", 
-            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nIntroduction\n\n\nCreating A Canvas Controller\n\n\nCanvas Controller Scenes\n\n\nPresentation \n Dismissal\n\n\nCanvas Controller Life Cycle\n\n\n\n\nStoryboards\n\n\n\n\nIntroduction\n\n\nCreating A Storyboard\n\n\nStoryboard Nodes\n\n\nStoryboard Transitions\n\n\nPresenting A Storyboard\n\n\nCustom Storyboard Hooks\n\n\n\n\nTransition Animators\n\n\n\n\nIntroduction\n\n\nDefault Transition Animators\n\n\nDefault Transition Animator\n\n\nFade To Color Transition Animator\n\n\nSlide Transition Animator\n\n\nScale Transition Animator\n\n\nScale And Fade Background Transition Animator\n\n\n\n\n\n\nUsing A Transition Animator\n\n\nCustom Transition Animators\n\n\n\n\nMiscellaneous\n\n\n\n\nPreferences\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween", 
+            "text": "Contents\n\n\nCanvas Controllers\n\n\n\n\nIntroduction\n\n\nCreating A Canvas Controller\n\n\nCanvas Controller Scenes\n\n\nPresentation \n Dismissal\n\n\nCanvas Controller Life Cycle\n\n\n\n\nStoryboards\n\n\n\n\nIntroduction\n\n\nCreating A Storyboard\n\n\nStoryboard Nodes\n\n\nStoryboard Transitions\n\n\nPresenting A Storyboard\n\n\nCustom Storyboard Hooks\n\n\n\n\nTransition Animators\n\n\n\n\nIntroduction\n\n\nDefault Transition Animators\n\n\nDefault Transition Animator\n\n\nFade To Color Transition Animator\n\n\nSlide Transition Animator\n\n\nScale Transition Animator\n\n\nScale And Fade Background Transition Animator\n\n\n\n\n\n\nUsing A Transition Animator\n\n\nCustom Transition Animators\n\n\n\n\nMiscellaneous\n\n\n\n\nPreferences\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\nUsing Curved UI with Canvas Flow", 
             "title": "Contents"
         }, 
         {
@@ -67,7 +67,7 @@
         }, 
         {
             "location": "/manual/contents/#tutorials", 
-            "text": "Creating a Custom Storyboard Hook For UI.Toggle  Creating A Custom Transition Animator Using DOTween", 
+            "text": "Creating a Custom Storyboard Hook For UI.Toggle  Creating A Custom Transition Animator Using DOTween  Using Curved UI with Canvas Flow", 
             "title": "Tutorials"
         }, 
         {
@@ -1732,7 +1732,7 @@
         }, 
         {
             "location": "/scripting-reference/storyboards/StoryboardTransition/", 
-            "text": "StoryboardTransition\n\n\npublic class StoryboardTransition;\n\n\nDescription\n\n\nA \nStoryboardTransition\n object is created at runtime when a transition in a storyboard is invoked. This object can be used to infer information about the transition, such as the canvas controllers involved, the \ndirection\n of the transition, whether the transition is \nanimated\n, as well as the \ninvokedHook\n that triggered the transition. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\ndirection\n\n\nThe direction of the transition.\n\n\n\n\n\n\ninvokedHook\n\n\nThe \nStoryboardHook\n that triggered this transition.\n\n\n\n\n\n\npresentationMode\n\n\nThe presentation mode of the presented canvas controller.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nDestinationCanvasController\n\n\nThe transition's destination canvas controller.\n\n\n\n\n\n\nDestinationCanvasController\nT\n\n\nThe transition's destination canvas controller, if it is of type T.\n\n\n\n\n\n\nSourceCanvasController\n\n\nThe transition's source canvas controller.\n\n\n\n\n\n\nSourceCanvasController\nT\n\n\nThe transition's source canvas controller, if it is of type T.\n\n\n\n\n\n\n\n\n\n\nanimated\n\n\npublic readonly bool animated;\n\n\nDescription\n\n\nIs the transition animated? \n\n\n\n\ndirection\n\n\npublic readonly StoryboardTransitionDirection direction;\n\n\nDescription\n\n\nThe direction of the transition. \n\n\n\n\ninvokedHook\n\n\npublic readonly StoryboardHook invokedHook;\n\n\nDescription\n\n\nThe \nStoryboardHook\n that triggered this transition. \n\n\nIf the transition was invoked manually with \nCanvasController.PerformTransitionWithIdentifier\n, this will be null. \n\n\n\n\npresentationMode\n\n\npublic readonly CanvasControllerPresentationMode presentationMode;\n\n\nDescription\n\n\nThe presentation mode of the presented canvas controller. \n\n\n\n\nDestinationCanvasController\n\n\npublic CanvasController DestinationCanvasController();\n\n\nDescription\n\n\nThe transition's destination canvas controller. \n\n\n\n\nDestinationCanvasController\nT\n\n\npublic T DestinationCanvasController\nT\n()\n    where T : CanvasController;\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type to cast the destination canvas controller to.\n\n\n\n\n\n\n\n\nDescription\n\n\nThe transition's destination canvas controller, if it is of type T. \n\n\n\n\nSourceCanvasController\n\n\npublic CanvasController SourceCanvasController();\n\n\nDescription\n\n\nThe transition's source canvas controller. \n\n\n\n\nSourceCanvasController\nT\n\n\npublic T SourceCanvasController\nT\n()\n    where T : CanvasController;\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type to cast the source canvas controller to.\n\n\n\n\n\n\n\n\nDescription\n\n\nThe transition's source canvas controller, if it is of type T.", 
+            "text": "StoryboardTransition\n\n\npublic class StoryboardTransition;\n\n\nDescription\n\n\nA \nStoryboardTransition\n object is created at runtime when a transition in a storyboard is invoked. This object can be used to infer information about the transition, such as the canvas controllers involved, the \ndirection\n of the transition, whether the transition is \nanimated\n, as well as the \ninvokedHook\n that triggered the transition. \n\n\n\n\n\n\n\n\nProperties\n\n\n\n\n\n\n\n\n\n\n\n\nanimated\n\n\nIs the transition animated?\n\n\n\n\n\n\ndirection\n\n\nThe direction of the transition.\n\n\n\n\n\n\ninvokedHook\n\n\nThe \nStoryboardHook\n that triggered this transition.\n\n\n\n\n\n\npresentationMode\n\n\nThe presentation mode of the presented canvas controller.\n\n\n\n\n\n\nuserIdentifier\n\n\nThe user identifier associated with the transition.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMethods\n\n\n\n\n\n\n\n\n\n\n\n\nDestinationCanvasController\n\n\nThe transition's destination canvas controller.\n\n\n\n\n\n\nDestinationCanvasController\nT\n\n\nThe transition's destination canvas controller, if it is of type T.\n\n\n\n\n\n\nSourceCanvasController\n\n\nThe transition's source canvas controller.\n\n\n\n\n\n\nSourceCanvasController\nT\n\n\nThe transition's source canvas controller, if it is of type T.\n\n\n\n\n\n\n\n\n\n\nanimated\n\n\npublic readonly bool animated;\n\n\nDescription\n\n\nIs the transition animated? \n\n\n\n\ndirection\n\n\npublic readonly StoryboardTransitionDirection direction;\n\n\nDescription\n\n\nThe direction of the transition. \n\n\n\n\ninvokedHook\n\n\npublic readonly StoryboardHook invokedHook;\n\n\nDescription\n\n\nThe \nStoryboardHook\n that triggered this transition. \n\n\nIf the transition was invoked manually with \nCanvasController.PerformTransitionWithIdentifier\n,  this will be null. \n\n\n\n\npresentationMode\n\n\npublic readonly CanvasControllerPresentationMode presentationMode;\n\n\nDescription\n\n\nThe presentation mode of the presented canvas controller. \n\n\n\n\nuserIdentifier\n\n\npublic readonly string userIdentifier;\n\n\nDescription\n\n\nThe user identifier associated with the transition. \n\n\n\n\nDestinationCanvasController\n\n\npublic CanvasController DestinationCanvasController();\n\n\nDescription\n\n\nThe transition's destination canvas controller. \n\n\n\n\nDestinationCanvasController\nT\n\n\npublic T DestinationCanvasController\nT\n()\n    where T : CanvasController;\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type to cast the destination canvas controller to.\n\n\n\n\n\n\n\n\nDescription\n\n\nThe transition's destination canvas controller, if it is of type T. \n\n\n\n\nSourceCanvasController\n\n\npublic CanvasController SourceCanvasController();\n\n\nDescription\n\n\nThe transition's source canvas controller. \n\n\n\n\nSourceCanvasController\nT\n\n\npublic T SourceCanvasController\nT\n()\n    where T : CanvasController;\n\n\nParameters\n\n\n\n\n\n\n\n\nName\n\n\nDescription\n\n\n\n\n\n\n\n\n\n\nT\n\n\nThe type to cast the source canvas controller to.\n\n\n\n\n\n\n\n\nDescription\n\n\nThe transition's source canvas controller, if it is of type T.", 
             "title": "StoryboardTransition"
         }, 
         {
@@ -1742,7 +1742,7 @@
         }, 
         {
             "location": "/scripting-reference/storyboards/StoryboardTransition/#description", 
-            "text": "A  StoryboardTransition  object is created at runtime when a transition in a storyboard is invoked. This object can be used to infer information about the transition, such as the canvas controllers involved, the  direction  of the transition, whether the transition is  animated , as well as the  invokedHook  that triggered the transition.      Properties       animated  Is the transition animated?    direction  The direction of the transition.    invokedHook  The  StoryboardHook  that triggered this transition.    presentationMode  The presentation mode of the presented canvas controller.        Methods       DestinationCanvasController  The transition's destination canvas controller.    DestinationCanvasController T  The transition's destination canvas controller, if it is of type T.    SourceCanvasController  The transition's source canvas controller.    SourceCanvasController T  The transition's source canvas controller, if it is of type T.", 
+            "text": "A  StoryboardTransition  object is created at runtime when a transition in a storyboard is invoked. This object can be used to infer information about the transition, such as the canvas controllers involved, the  direction  of the transition, whether the transition is  animated , as well as the  invokedHook  that triggered the transition.      Properties       animated  Is the transition animated?    direction  The direction of the transition.    invokedHook  The  StoryboardHook  that triggered this transition.    presentationMode  The presentation mode of the presented canvas controller.    userIdentifier  The user identifier associated with the transition.        Methods       DestinationCanvasController  The transition's destination canvas controller.    DestinationCanvasController T  The transition's destination canvas controller, if it is of type T.    SourceCanvasController  The transition's source canvas controller.    SourceCanvasController T  The transition's source canvas controller, if it is of type T.", 
             "title": "Description"
         }, 
         {
@@ -1772,7 +1772,7 @@
         }, 
         {
             "location": "/scripting-reference/storyboards/StoryboardTransition/#description_3", 
-            "text": "The  StoryboardHook  that triggered this transition.   If the transition was invoked manually with  CanvasController.PerformTransitionWithIdentifier , this will be null.", 
+            "text": "The  StoryboardHook  that triggered this transition.   If the transition was invoked manually with  CanvasController.PerformTransitionWithIdentifier ,  this will be null.", 
             "title": "Description"
         }, 
         {
@@ -1786,12 +1786,22 @@
             "title": "Description"
         }, 
         {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#useridentifier", 
+            "text": "public readonly string userIdentifier;", 
+            "title": "userIdentifier"
+        }, 
+        {
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_5", 
+            "text": "The user identifier associated with the transition.", 
+            "title": "Description"
+        }, 
+        {
             "location": "/scripting-reference/storyboards/StoryboardTransition/#destinationcanvascontroller", 
             "text": "public CanvasController DestinationCanvasController();", 
             "title": "DestinationCanvasController"
         }, 
         {
-            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_5", 
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_6", 
             "text": "The transition's destination canvas controller.", 
             "title": "Description"
         }, 
@@ -1806,7 +1816,7 @@
             "title": "Parameters"
         }, 
         {
-            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_6", 
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_7", 
             "text": "The transition's destination canvas controller, if it is of type T.", 
             "title": "Description"
         }, 
@@ -1816,7 +1826,7 @@
             "title": "SourceCanvasController"
         }, 
         {
-            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_7", 
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_8", 
             "text": "The transition's source canvas controller.", 
             "title": "Description"
         }, 
@@ -1831,7 +1841,7 @@
             "title": "Parameters"
         }, 
         {
-            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_8", 
+            "location": "/scripting-reference/storyboards/StoryboardTransition/#description_9", 
             "text": "The transition's source canvas controller, if it is of type T.", 
             "title": "Description"
         }, 
@@ -2051,13 +2061,33 @@
             "title": "Description"
         }, 
         {
+            "location": "/release-notes/1.1.1/", 
+            "text": "1.1.1 Release Notes\n\n\nAugust 30th 2018\n\n\nChanges\n\n\n\n\nLog to the console when 'Make storyboard entry point' is selected for a node that is already the storyboard's entry point.\n\n\nAllow for a canvas controller to have a null camera (for use with Overlay mode).\n\n\nYou can now access a \nStoryboardTransition\n's user identifier via the \nuserIdentifier\n property.\n\n\nLog an error when a storyboard cannot perform a transition.\n\n\nCanvas controller appearance methods are now called in the same order relative to Awake and Start for both animated and un-animated transitions. The defined order for a standard canvas controller is \nAwake\n -\n \nStart\n -\n \nCanvasWillAppear\n (before transition) -\n \nCanvasDidAppear\n (after transition).\n\n\nA canvas controller's \nIsTransitioning\n flag will now be false in past-tense appearance methods - \nCanvasDidAppear\n \n \nCanvasDidDisappear\n.\n\n\nZooming in a storyboard with Alt + Scroll-Wheel now zooms in when scrolling up and zooms out when scrolling down.\n\n\nMoved the minimum supported Unity version to 2017.4.1f1 (from 2017.3).\n\n\n\n\nResolved Issues\n\n\n\n\nFixed an issue whereby an indirectly dismissed initial canvas controller would not have its completion handler invoked.\n\n\nFixed the following error being logged to the console in Unity 2018.2: \n\"ExecuteMenuItem failed because there is no menu named 'Window/Inspector[/Scene]'\"\n. This caused the Inspector window to not open automatically after selecting a storyboard transition, as well as the Scene window to not open automatically after selecting the \"Open canvas controller scene\" button.", 
+            "title": "1.1.1"
+        }, 
+        {
+            "location": "/release-notes/1.1.1/#111-release-notes", 
+            "text": "August 30th 2018", 
+            "title": "1.1.1 Release Notes"
+        }, 
+        {
+            "location": "/release-notes/1.1.1/#changes", 
+            "text": "Log to the console when 'Make storyboard entry point' is selected for a node that is already the storyboard's entry point.  Allow for a canvas controller to have a null camera (for use with Overlay mode).  You can now access a  StoryboardTransition 's user identifier via the  userIdentifier  property.  Log an error when a storyboard cannot perform a transition.  Canvas controller appearance methods are now called in the same order relative to Awake and Start for both animated and un-animated transitions. The defined order for a standard canvas controller is  Awake  -   Start  -   CanvasWillAppear  (before transition) -   CanvasDidAppear  (after transition).  A canvas controller's  IsTransitioning  flag will now be false in past-tense appearance methods -  CanvasDidAppear     CanvasDidDisappear .  Zooming in a storyboard with Alt + Scroll-Wheel now zooms in when scrolling up and zooms out when scrolling down.  Moved the minimum supported Unity version to 2017.4.1f1 (from 2017.3).", 
+            "title": "Changes"
+        }, 
+        {
+            "location": "/release-notes/1.1.1/#resolved-issues", 
+            "text": "Fixed an issue whereby an indirectly dismissed initial canvas controller would not have its completion handler invoked.  Fixed the following error being logged to the console in Unity 2018.2:  \"ExecuteMenuItem failed because there is no menu named 'Window/Inspector[/Scene]'\" . This caused the Inspector window to not open automatically after selecting a storyboard transition, as well as the Scene window to not open automatically after selecting the \"Open canvas controller scene\" button.", 
+            "title": "Resolved Issues"
+        }, 
+        {
             "location": "/release-notes/1.1/", 
-            "text": "1.1 Release Notes\n\n\nNew Features\n\n\n\n\nWorld Space Support\n\n\nStoryboards can now be presented in world space by changing their \npresentation space\n to \nWorld Space\n.\n\n\nCanvas Controllers can also be presented in world space from script by passing a \nCanvasControllerWorldSpaceContainer\n to \nCanvasController.PresentInitialCanvasController\nT\n()\n.\n\n\nThe Storyboard component now has a custom inspector.\n\n\nCreated a new example - \n3. World Space UI\n - to demonstrate presenting a storyboard in world space.\n\n\n\n\n\n\n\n\nResolved Issues\n\n\n\n\nFixed an issue that caused an error to be logged to the console when creating a new scene using the right-click menu.", 
+            "text": "1.1 Release Notes\n\n\nJune 19th 2018\n\n\nNew Features\n\n\n\n\nWorld Space Support\n\n\nStoryboards can now be presented in world space by changing their \npresentation space\n to \nWorld Space\n.\n\n\nCanvas Controllers can also be presented in world space from script by passing a \nCanvasControllerWorldSpaceContainer\n to \nCanvasController.PresentInitialCanvasController\nT\n()\n.\n\n\nThe Storyboard component now has a custom inspector.\n\n\nCreated a new example - \n3. World Space UI\n - to demonstrate presenting a storyboard in world space.\n\n\n\n\n\n\n\n\nResolved Issues\n\n\n\n\nFixed an issue that caused an error to be logged to the console when creating a new scene using the right-click menu.", 
             "title": 1.1
         }, 
         {
             "location": "/release-notes/1.1/#11-release-notes", 
-            "text": "", 
+            "text": "June 19th 2018", 
             "title": "1.1 Release Notes"
         }, 
         {
@@ -2072,12 +2102,12 @@
         }, 
         {
             "location": "/release-notes/1.0/", 
-            "text": "1.0 Release Notes\n\n\n\n\nInitial release.", 
+            "text": "1.0 Release Notes\n\n\nJune 1st 2018\n\n\n\n\nInitial release.", 
             "title": 1.0
         }, 
         {
             "location": "/release-notes/1.0/#10-release-notes", 
-            "text": "Initial release.", 
+            "text": "June 1st 2018   Initial release.", 
             "title": "1.0 Release Notes"
         }
     ]

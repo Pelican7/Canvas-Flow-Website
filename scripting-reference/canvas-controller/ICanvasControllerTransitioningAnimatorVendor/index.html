@@ -300,6 +300,10 @@
                         <ul class="dropdown-menu">
                             
 <li >
+    <a href="../../../release-notes/1.1.1/">1.1.1</a>
+</li>
+                            
+<li >
     <a href="../../../release-notes/1.1/">1.1</a>
 </li>
                             
@@ -345,10 +349,10 @@
 <p><code>public interface ICanvasControllerTransitioningAnimatorVendor;</code></p>
 <h2 id="description">Description</h2>
 <p>The <code>ICanvasControllerTransitioningAnimatorVendor</code> interface defines the methods required to supply transition animators to a transitioning canvas controller. </p>
-<p>When a canvas controller is about to be presented or dismissed, it will ask its <a href="../canvascontroller#transitioninganimatorvendor">CanvasController.transitioningAnimatorVendor</a> for an animator to animate the transition. The vendor returns an <a href="../icanvascontrollertransitioninganimator">ICanvasControllerTransitioningAnimator</a> object that will be used to animate the transition. Different animators may be returned depending on the values of the <a href="../canvascontrollertransitioncontext">CanvasControllerTransitionContext</a> parameter. The vendor may return <code>null</code> to have the transition be animated by the default animator. </p>
+<p>When a canvas controller is about to be presented or dismissed, it will ask its <a href="../CanvasController#transitioninganimatorvendor">CanvasController.transitioningAnimatorVendor</a> for an animator to animate the transition. The vendor returns an <a href="../ICanvasControllerTransitioningAnimator">ICanvasControllerTransitioningAnimator</a> object that will be used to animate the transition. Different animators may be returned depending on the values of the <a href="../CanvasControllerTransitionContext">CanvasControllerTransitionContext</a> parameter. The vendor may return <code>null</code> to have the transition be animated by the default animator. </p>
 <p>See also: </p>
-<p><a href="../icanvascontrollertransitioninganimator">ICanvasControllerTransitioningAnimator</a> </p>
-<p><a href="../canvascontrollertransitioncontext">CanvasControllerTransitionContext</a> </p>
+<p><a href="../ICanvasControllerTransitioningAnimator">ICanvasControllerTransitioningAnimator</a> </p>
+<p><a href="../CanvasControllerTransitionContext">CanvasControllerTransitionContext</a> </p>
 <table>
 <thead>
 <tr>

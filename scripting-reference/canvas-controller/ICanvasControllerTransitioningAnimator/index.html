@@ -300,6 +300,10 @@
                         <ul class="dropdown-menu">
                             
 <li >
+    <a href="../../../release-notes/1.1.1/">1.1.1</a>
+</li>
+                            
+<li >
     <a href="../../../release-notes/1.1/">1.1</a>
 </li>
                             
@@ -345,17 +349,17 @@
 <h1 id="icanvascontrollertransitioninganimator">ICanvasControllerTransitioningAnimator</h1>
 <p><code>public interface ICanvasControllerTransitioningAnimator;</code></p>
 <h2 id="description">Description</h2>
-<p>The <code>ICanvasControllerTransitioningAnimator</code> interface defines the methods required to perform a transition animation between two canvas controllers. To implement a custom transition animation, you create an object that implements this interface - a transition animator. You can then provide, or vend, this animator to Canvas Flow via the target canvas controller's <a href="../canvascontroller#transitioninganimatorvendor">CanvasController.transitioningAnimatorVendor</a> when the relevant transition is triggered. </p>
-<p>When a transition between canvas controllers is to be performed, Canvas Flow will ask the target canvas controller's<em> <a href="../canvascontroller#transitioninganimatorvendor">CanvasController.transitioningAnimatorVendor</a> for an animator. This is where you can return, or vend, your custom animator. Your animator will then have the appropriate <a href="#animatetransition">AnimateTransition</a> method called, where you can perform your transition animation. Please refer to the included transition animators' source code for examples of animating the transition. These can be found in </em>Canvas Flow/Transition Animators*. </p>
-<p>The recommended way to create a custom transition animator, as documented in the manual, is to use the menu item in the Unity Editor at <em>Assets/Create/Canvas Flow/Custom Transition Animator</em>. This creates a <a href="../canvascontrollertransitioninganimator">CanvasControllerTransitioningAnimator</a>, which is derived from <code>ScriptableObject</code> so it can be used in storyboards, be referenced in the Unity Editor, provide easily tweakable properties, and support having multiple instances. However, you may provide any object that implements this interface as an animator. </p>
-<p>Once your transition animator has completed its animation, you must call <a href="../canvascontrollertransitioncontext#completetransition">CanvasControllerTransitionContext.CompleteTransition</a> on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition. * The target canvas controller is the canvas controller being acted upon - i.e. the canvas controler being presented or being dismissed. Therefore, in a downstream transition - a presentation, this will be the <a href="../canvascontrollertransitioncontext#destinationcanvascontroller">CanvasControllerTransitionContext.destinationCanvasController</a> , whereas in an upstream transition - a dismissal, this will be the <a href="../canvascontrollertransitioncontext#sourcecanvascontroller">CanvasControllerTransitionContext.sourceCanvasController</a>. </p>
+<p>The <code>ICanvasControllerTransitioningAnimator</code> interface defines the methods required to perform a transition animation between two canvas controllers. To implement a custom transition animation, you create an object that implements this interface - a transition animator. You can then provide, or vend, this animator to Canvas Flow via the target canvas controller's <a href="../CanvasController#transitioninganimatorvendor">CanvasController.transitioningAnimatorVendor</a> when the relevant transition is triggered. </p>
+<p>When a transition between canvas controllers is to be performed, Canvas Flow will ask the target canvas controller's<em> <a href="../CanvasController#transitioninganimatorvendor">CanvasController.transitioningAnimatorVendor</a> for an animator. This is where you can return, or vend, your custom animator. Your animator will then have the appropriate <a href="#animatetransition">AnimateTransition</a> method called, where you can perform your transition animation. Please refer to the included transition animators' source code for examples of animating the transition. These can be found in </em>Canvas Flow/Transition Animators*. </p>
+<p>The recommended way to create a custom transition animator, as documented in the manual, is to use the menu item in the Unity Editor at <em>Assets/Create/Canvas Flow/Custom Transition Animator</em>. This creates a <a href="../CanvasControllerTransitioningAnimator">CanvasControllerTransitioningAnimator</a>, which is derived from <code>ScriptableObject</code> so it can be used in storyboards, be referenced in the Unity Editor, provide easily tweakable properties, and support having multiple instances. However, you may provide any object that implements this interface as an animator. </p>
+<p>Once your transition animator has completed its animation, you must call <a href="../CanvasControllerTransitionContext#completetransition">CanvasControllerTransitionContext.CompleteTransition</a> on the provided transition context. This tells Canvas Flow that the custom animation has been performed and to complete the transition. * The target canvas controller is the canvas controller being acted upon - i.e. the canvas controler being presented or being dismissed. Therefore, in a downstream transition - a presentation, this will be the <a href="../CanvasControllerTransitionContext#destinationcanvascontroller">CanvasControllerTransitionContext.destinationCanvasController</a> , whereas in an upstream transition - a dismissal, this will be the <a href="../CanvasControllerTransitionContext#sourcecanvascontroller">CanvasControllerTransitionContext.sourceCanvasController</a>. </p>
 <p>See also: </p>
-<p><a href="../canvascontrollertransitioninganimator">CanvasControllerTransitioningAnimator</a> </p>
-<p><a href="../canvascontrollertransitioncontext">CanvasControllerTransitionContext</a> </p>
-<p><a href="../canvascontroller#transitioninganimatorvendor">CanvasController.transitioningAnimatorVendor</a> </p>
-<p><a href="../routine">Routine</a> </p>
-<p><a href="../canvascontrollerextensions">CanvasControllerExtensions</a> </p>
-<p><a href="../dynamicobjectextensions">DynamicObjectExtensions</a> </p>
+<p><a href="../CanvasControllerTransitioningAnimator">CanvasControllerTransitioningAnimator</a> </p>
+<p><a href="../CanvasControllerTransitionContext">CanvasControllerTransitionContext</a> </p>
+<p><a href="../CanvasController#transitioninganimatorvendor">CanvasController.transitioningAnimatorVendor</a> </p>
+<p><a href="../../routine/Routine">Routine</a> </p>
+<p><a href="../CanvasControllerExtensions">CanvasControllerExtensions</a> </p>
+<p><a href="../../extensions/DynamicObjectExtensions">DynamicObjectExtensions</a> </p>
 <table>
 <thead>
 <tr>
@@ -408,7 +412,7 @@
 </table>
 <h3 id="description_1">Description</h3>
 <p>Perform your transition animation with the <code>transitionContext</code>'s canvas controllers. </p>
-<p>Note that you must call <a href="../canvascontrollertransitioncontext#completetransition">CanvasControllerTransitionContext.CompleteTransition</a> on the provided transition context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition. </p>
+<p>Note that you must call <a href="../CanvasControllerTransitionContext#completetransition">CanvasControllerTransitionContext.CompleteTransition</a> on the provided transition context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition. </p>
 <hr />
 <h2 id="animatetransitionforinitialcanvascontroller">AnimateTransitionForInitialCanvasController</h2>
 <p><code>void AnimateTransitionForInitialCanvasController(
@@ -430,8 +434,8 @@
 </table>
 <h3 id="description_2">Description</h3>
 <p>Perform your transition animation for an initial canvas controller. </p>
-<p>Canvas Flow will call this method on a transition animator instead of <a href="#animatetransition">AnimateTransition</a> when the transition is presenting or dismissing an initial canvas controller. An initial canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using <a href="../canvascontroller#presentinitialcanvascontroller">CanvasController.PresentInitialCanvasController</a>. The only  difference from the <a href="#animatetransition">AnimateTransition</a> method is that either the context's <code>sourceCanvasController</code> or <code>destinationCanvasController</code> will be null, depending on whether the transition is upstream - i.e. it is presenting/dismissing to 'nothing'. </p>
-<p>Note that you must call <a href="../canvascontrollertransitioncontext#completetransition">CanvasControllerTransitionContext.CompleteTransition</a> on the provided transition context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition. </p>
+<p>Canvas Flow will call this method on a transition animator instead of <a href="#animatetransition">AnimateTransition</a> when the transition is presenting or dismissing an initial canvas controller. An initial canvas controller is one with no presenter - i.e. it was the first canvas controller presented, perhaps from a storyboard entry transition or using <a href="../CanvasController#presentinitialcanvascontroller">CanvasController.PresentInitialCanvasController</a>. The only  difference from the <a href="#animatetransition">AnimateTransition</a> method is that either the context's <code>sourceCanvasController</code> or <code>destinationCanvasController</code> will be null, depending on whether the transition is upstream - i.e. it is presenting/dismissing to 'nothing'. </p>
+<p>Note that you must call <a href="../CanvasControllerTransitionContext#completetransition">CanvasControllerTransitionContext.CompleteTransition</a> on the provided transition context when your transition animator has completed its animation. This tells Canvas Flow that the custom animation has been performed and to complete the transition. </p>
 <hr /></div>
         </div>
 

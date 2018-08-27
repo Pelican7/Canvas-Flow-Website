@@ -300,6 +300,10 @@
                         <ul class="dropdown-menu">
                             
 <li >
+    <a href="../../../release-notes/1.1.1/">1.1.1</a>
+</li>
+                            
+<li >
     <a href="../../../release-notes/1.1/">1.1</a>
 </li>
                             
@@ -340,6 +344,7 @@
             <li><a href="#direction">direction</a></li>
             <li><a href="#invokedhook">invokedHook</a></li>
             <li><a href="#presentationmode">presentationMode</a></li>
+            <li><a href="#useridentifier">userIdentifier</a></li>
             <li><a href="#destinationcanvascontroller">DestinationCanvasController</a></li>
             <li><a href="#destinationcanvascontrollert">DestinationCanvasController&lt;T&gt;</a></li>
             <li><a href="#sourcecanvascontroller">SourceCanvasController</a></li>
@@ -370,11 +375,15 @@
 </tr>
 <tr>
 <td><a href="#invokedhook">invokedHook</a></td>
-<td>The <a href="../storyboardhook">StoryboardHook</a> that triggered this transition.</td>
+<td>The <a href="../../storyboards/hooks/StoryboardHook">StoryboardHook</a> that triggered this transition.</td>
 </tr>
 <tr>
 <td><a href="#presentationmode">presentationMode</a></td>
 <td>The presentation mode of the presented canvas controller.</td>
+</tr>
+<tr>
+<td><a href="#useridentifier">userIdentifier</a></td>
+<td>The user identifier associated with the transition.</td>
 </tr>
 </tbody>
 </table>
@@ -418,17 +427,22 @@
 <h2 id="invokedhook">invokedHook</h2>
 <p><code>public readonly StoryboardHook invokedHook;</code></p>
 <h3 id="description_3">Description</h3>
-<p>The <a href="../storyboardhook">StoryboardHook</a> that triggered this transition. </p>
-<p>If the transition was invoked manually with <a href="../canvascontroller#performtransitionwithidentifier">CanvasController.PerformTransitionWithIdentifier</a>, this will be null. </p>
+<p>The <a href="../../storyboards/hooks/StoryboardHook">StoryboardHook</a> that triggered this transition. </p>
+<p>If the transition was invoked manually with <a href="../../canvas-controller/CanvasController#performtransitionwithidentifier">CanvasController.PerformTransitionWithIdentifier</a>,  this will be null. </p>
 <hr />
 <h2 id="presentationmode">presentationMode</h2>
 <p><code>public readonly CanvasControllerPresentationMode presentationMode;</code></p>
 <h3 id="description_4">Description</h3>
 <p>The presentation mode of the presented canvas controller. </p>
 <hr />
+<h2 id="useridentifier">userIdentifier</h2>
+<p><code>public readonly string userIdentifier;</code></p>
+<h3 id="description_5">Description</h3>
+<p>The user identifier associated with the transition. </p>
+<hr />
 <h2 id="destinationcanvascontroller">DestinationCanvasController</h2>
 <p><code>public CanvasController DestinationCanvasController();</code></p>
-<h3 id="description_5">Description</h3>
+<h3 id="description_6">Description</h3>
 <p>The transition's destination canvas controller. </p>
 <hr />
 <h2 id="destinationcanvascontrollert">DestinationCanvasController&lt;T&gt;</h2>
@@ -449,12 +463,12 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_6">Description</h3>
+<h3 id="description_7">Description</h3>
 <p>The transition's destination canvas controller, if it is of type T. </p>
 <hr />
 <h2 id="sourcecanvascontroller">SourceCanvasController</h2>
 <p><code>public CanvasController SourceCanvasController();</code></p>
-<h3 id="description_7">Description</h3>
+<h3 id="description_8">Description</h3>
 <p>The transition's source canvas controller. </p>
 <hr />
 <h2 id="sourcecanvascontrollert">SourceCanvasController&lt;T&gt;</h2>
@@ -475,7 +489,7 @@
 </tr>
 </tbody>
 </table>
-<h3 id="description_8">Description</h3>
+<h3 id="description_9">Description</h3>
 <p>The transition's source canvas controller, if it is of type T. </p>
 <hr /></div>
         </div>
