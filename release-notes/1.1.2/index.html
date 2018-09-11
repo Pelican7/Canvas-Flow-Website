@@ -9,7 +9,7 @@
         
         <link rel="shortcut icon" href="../../favicon.ico">
         
-        <title>1.1 - Canvas Flow</title>
+        <title>1.1.2 - Canvas Flow</title>
         <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
         <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
         <link href="../../css/base.css" rel="stylesheet">
@@ -299,16 +299,16 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Releases <b class="caret"></b></a>
                         <ul class="dropdown-menu">
                             
-<li >
-    <a href="../1.1.2/">1.1.2</a>
+<li class="active">
+    <a href="./">1.1.2</a>
 </li>
                             
 <li >
     <a href="../1.1.1/">1.1.1</a>
 </li>
                             
-<li class="active">
-    <a href="./">1.1</a>
+<li >
+    <a href="../1.1/">1.1</a>
 </li>
                             
 <li >
@@ -325,12 +325,12 @@
                     </a>
                 </li>
                     <li >
-                        <a rel="next" href="../1.1.1/">
+                        <a rel="next" href="../../scripting-reference/extensions/RectTransformExtensions/">
                             <i class="fa fa-arrow-left"></i> Previous
                         </a>
                     </li>
                     <li >
-                        <a rel="prev" href="../1.0/">
+                        <a rel="prev" href="../1.1.1/">
                             Next <i class="fa fa-arrow-right"></i>
                         </a>
                     </li>
@@ -342,28 +342,17 @@
         <div class="container">
                 <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
     <ul class="nav bs-sidenav">
-        <li class="main active"><a href="#11-release-notes">1.1 Release Notes</a></li>
-            <li><a href="#new-features">New Features</a></li>
+        <li class="main active"><a href="#112-release-notes">1.1.2 Release Notes</a></li>
             <li><a href="#resolved-issues">Resolved Issues</a></li>
     </ul>
 </div></div>
                 <div class="col-md-9" role="main">
 
-<h2 id="11-release-notes">1.1 Release Notes</h2>
-<p><sup>June 19th 2018</sup></p>
-<h4 id="new-features">New Features</h4>
-<ul>
-<li>World Space Support<ul>
-<li>Storyboards can now be presented in world space by changing their <a href="../../../scripting-reference/storyboards/StoryboardPresentationSpace">presentation space</a> to <code>World Space</code>.</li>
-<li>Canvas Controllers can also be presented in world space from script by passing a <a href="../../scripting-reference/canvas-controller/CanvasControllerWorldSpaceContainer">CanvasControllerWorldSpaceContainer</a> to <code>CanvasController.PresentInitialCanvasController&lt;T&gt;()</code>.</li>
-<li>The Storyboard component now has a custom inspector.</li>
-<li>Created a new example - <em>3. World Space UI</em> - to demonstrate presenting a storyboard in world space.</li>
-</ul>
-</li>
-</ul>
+<h2 id="112-release-notes">1.1.2 Release Notes</h2>
+<p><sup>September 13th 2018</sup></p>
 <h4 id="resolved-issues">Resolved Issues</h4>
 <ul>
-<li>Fixed an issue that caused an error to be logged to the console when creating a new scene using the right-click menu.</li>
+<li>Fixed a regression caused in version 1.1.1 whereby newly-loaded screens could flicker on-screen for a frame before transitioning.</li>
 </ul></div>
         </div>
 
