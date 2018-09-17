@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\nDocumentation\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\nUsing Curved UI with Canvas Flow\n\n\n\n\nSupport\n\n\nCan't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)\n\n\n\n\nEmail\n\n\nForum\n\n\nTwitter\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nRelease Notes\n\n\n\n\n\n\n\n\n\n\nv1.1.2\n\n\nSeptember 13th 2018\n\n\n1.1.2 Release Notes\n\n\n\n\n\n\nv1.1.1\n\n\nAugust 30th 2018\n\n\n1.1.1 Release Notes\n\n\n\n\n\n\nv1.1\n\n\nJune 19th 2018\n\n\n1.1 Release Notes\n\n\n\n\n\n\nv1.0\n\n\nJune 1st 2018\n\n\nInitial release", 
+            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\nDocumentation\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\nUsing Curved UI with Canvas Flow\n\n\n\n\nSupport\n\n\nCan't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)\n\n\n\n\nEmail\n\n\nForum\n\n\nTwitter\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nRelease Notes\n\n\n\n\n\n\n\n\n\n\nv1.1.3\n\n\nSeptember 18th 2018\n\n\n1.1.3 Release Notes\n\n\n\n\n\n\nv1.1.2\n\n\nSeptember 12th 2018\n\n\n1.1.2 Release Notes\n\n\n\n\n\n\nv1.1.1\n\n\nAugust 30th 2018\n\n\n1.1.1 Release Notes\n\n\n\n\n\n\nv1.1\n\n\nJune 19th 2018\n\n\n1.1 Release Notes\n\n\n\n\n\n\nv1.0\n\n\nJune 1st 2018\n\n\nInitial release", 
             "title": "Home"
         }, 
         {
@@ -32,7 +32,7 @@
         }, 
         {
             "location": "/#version-history", 
-            "text": "Version  Date  Release Notes      v1.1.2  September 13th 2018  1.1.2 Release Notes    v1.1.1  August 30th 2018  1.1.1 Release Notes    v1.1  June 19th 2018  1.1 Release Notes    v1.0  June 1st 2018  Initial release", 
+            "text": "Version  Date  Release Notes      v1.1.3  September 18th 2018  1.1.3 Release Notes    v1.1.2  September 12th 2018  1.1.2 Release Notes    v1.1.1  August 30th 2018  1.1.1 Release Notes    v1.1  June 19th 2018  1.1 Release Notes    v1.0  June 1st 2018  Initial release", 
             "title": "Version History"
         }, 
         {
@@ -2061,13 +2061,28 @@
             "title": "Description"
         }, 
         {
+            "location": "/release-notes/1.1.3/", 
+            "text": "1.1.3 Release Notes\n\n\nSeptember 18th 2018\n\n\nResolved Issues\n\n\n\n\nThe storyboard callbacks \nStoryboardWillPresentInitialCanvasController\n and \nStoryboardWillPerformTransition\n, as well as a canvas controller's \nPrepareForStoryboardTransition\n method, are now guaranteed to be called prior to a canvas controller's \nStart\n method.\n\n\nWhen presenting a canvas controller from script, the configuration action is now guaranteed to be called prior to a canvas controller's \nStart\n method.\n\n\nResolved an issue whereby a Unity build error causes a storyboard to become unusable.", 
+            "title": "1.1.3"
+        }, 
+        {
+            "location": "/release-notes/1.1.3/#113-release-notes", 
+            "text": "September 18th 2018", 
+            "title": "1.1.3 Release Notes"
+        }, 
+        {
+            "location": "/release-notes/1.1.3/#resolved-issues", 
+            "text": "The storyboard callbacks  StoryboardWillPresentInitialCanvasController  and  StoryboardWillPerformTransition , as well as a canvas controller's  PrepareForStoryboardTransition  method, are now guaranteed to be called prior to a canvas controller's  Start  method.  When presenting a canvas controller from script, the configuration action is now guaranteed to be called prior to a canvas controller's  Start  method.  Resolved an issue whereby a Unity build error causes a storyboard to become unusable.", 
+            "title": "Resolved Issues"
+        }, 
+        {
             "location": "/release-notes/1.1.2/", 
-            "text": "1.1.2 Release Notes\n\n\nSeptember 13th 2018\n\n\nResolved Issues\n\n\n\n\nFixed a regression caused in version 1.1.1 whereby newly-loaded screens could flicker on-screen for a frame before transitioning.", 
+            "text": "1.1.2 Release Notes\n\n\nSeptember 12th 2018\n\n\nResolved Issues\n\n\n\n\nFixed a regression caused in version 1.1.1 whereby newly-loaded screens could flicker on-screen for a frame before transitioning.", 
             "title": "1.1.2"
         }, 
         {
             "location": "/release-notes/1.1.2/#112-release-notes", 
-            "text": "September 13th 2018", 
+            "text": "September 12th 2018", 
             "title": "1.1.2 Release Notes"
         }, 
         {
