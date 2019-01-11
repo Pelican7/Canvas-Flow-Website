@@ -2,7 +2,7 @@
     "docs": [
         {
             "location": "/", 
-            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\nAs Seen In\n\n\n\n    \n\n    \n\n    \n\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\nDocumentation\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\nUsing Curved UI with Canvas Flow\n\n\n\n\nSupport\n\n\nCan't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)\n\n\n\n\nEmail\n\n\nForum\n\n\nTwitter\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nRelease Notes\n\n\n\n\n\n\n\n\n\n\nv1.1.3\n\n\nSeptember 18th 2018\n\n\n1.1.3 Release Notes\n\n\n\n\n\n\nv1.1.2\n\n\nSeptember 12th 2018\n\n\n1.1.2 Release Notes\n\n\n\n\n\n\nv1.1.1\n\n\nAugust 30th 2018\n\n\n1.1.1 Release Notes\n\n\n\n\n\n\nv1.1\n\n\nJune 19th 2018\n\n\n1.1 Release Notes\n\n\n\n\n\n\nv1.0\n\n\nJune 1st 2018\n\n\nInitial release", 
+            "text": "Overview\n\n\nCanvas Flow is the essential companion to Unity UI, offering you a solution for easily transitioning between screens and crafting your user-interface's flow.\n\n\n\n\nEasily present \n dismiss screens \u2013 Canvases are dynamically loaded and unloaded, enabling you to build large, complex, or dynamic user-interface flows, loading only the necessary screens on demand.\n\n\nStoryboard your user-interface \u2013 Visually create the flow of your user-interface in a node-based editor to build complete screen flows without writing a line of code.\n\n\nCustomize the transitions between screens \u2013 Use one of five built-in, adjustable transition animators or build your own custom transition animations.\n\n\n\n\nAs Seen In\n\n\n\n    \n\n    \n\n    \n\n\n\n\n\nQuick Start\n\n\n\n    \n\n\n\n\n\nDocumentation\n\n\n\n\nManual\n\n\nScripting Reference\n\n\n\n\nTutorials\n\n\n\n\nCreating a Custom Storyboard Hook For UI.Toggle\n\n\nCreating A Custom Transition Animator Using DOTween\n\n\nUsing Curved UI with Canvas Flow\n\n\n\n\nSupport\n\n\nCan't find what you're looking for? Have a query, a question, feedback, or a suggestion? (Or just want to say hi. \ud83d\udc4b)\n\n\n\n\nEmail\n\n\nForum\n\n\nTwitter\n\n\n\n\n\n\nVersion History\n\n\n\n\n\n\n\n\nVersion\n\n\nDate\n\n\nRelease Notes\n\n\n\n\n\n\n\n\n\n\nv1.1.4\n\n\nJanuary 14th 2018\n\n\n1.1.4 Release Notes\n\n\n\n\n\n\nv1.1.3\n\n\nSeptember 18th 2018\n\n\n1.1.3 Release Notes\n\n\n\n\n\n\nv1.1.2\n\n\nSeptember 12th 2018\n\n\n1.1.2 Release Notes\n\n\n\n\n\n\nv1.1.1\n\n\nAugust 30th 2018\n\n\n1.1.1 Release Notes\n\n\n\n\n\n\nv1.1\n\n\nJune 19th 2018\n\n\n1.1 Release Notes\n\n\n\n\n\n\nv1.0\n\n\nJune 1st 2018\n\n\nInitial release", 
             "title": "Home"
         }, 
         {
@@ -37,7 +37,7 @@
         }, 
         {
             "location": "/#version-history", 
-            "text": "Version  Date  Release Notes      v1.1.3  September 18th 2018  1.1.3 Release Notes    v1.1.2  September 12th 2018  1.1.2 Release Notes    v1.1.1  August 30th 2018  1.1.1 Release Notes    v1.1  June 19th 2018  1.1 Release Notes    v1.0  June 1st 2018  Initial release", 
+            "text": "Version  Date  Release Notes      v1.1.4  January 14th 2018  1.1.4 Release Notes    v1.1.3  September 18th 2018  1.1.3 Release Notes    v1.1.2  September 12th 2018  1.1.2 Release Notes    v1.1.1  August 30th 2018  1.1.1 Release Notes    v1.1  June 19th 2018  1.1 Release Notes    v1.0  June 1st 2018  Initial release", 
             "title": "Version History"
         }, 
         {
@@ -2064,6 +2064,26 @@
             "location": "/scripting-reference/extensions/RectTransformExtensions/#description_1", 
             "text": "Make a rect transform fill its parent.", 
             "title": "Description"
+        }, 
+        {
+            "location": "/release-notes/1.1.4/", 
+            "text": "1.1.4 Release Notes\n\n\nJanuary 14th 2018\n\n\nChanges\n\n\n\n\nScrolling in the storyboard editor will now zoom in and out, instead of requiring you to hold \nALT\n whilst scrolling.\n\n\nThe storyboard editor can now be panned with the middle mouse button as well as the left mouse button.\n\n\nNewly created canvas controller scenes will now have no Skybox set by default.\n\n\nThe \nRoutine\n class (used by transition animators) now waits one frame between its last \nOnUpdate\n callback and its \nOnComplete\n callback.\n\n\nDowngrade \n\"Cannot present/dismiss/perform transition...\"\n from console errors to console logs. These are caused by attempting to perform a transition to/from a canvas controller that is already transitioning and exist to inform that the additional transition request is being ignored (i.e. not errors).\n\n\nMinimum supported Unity version is now 2018.1 (2018.1.0f2).\n\n\nMove to 2018.1 build pre/post-processor interface.\n\n\n\n\nResolved Issues\n\n\n\n\nFixed an issue whereby loading a scene in the same frame as presenting a canvas controller (or a storyboard) caused the following error: \n\"Could not find storyboardable in node...\"\n.", 
+            "title": "1.1.4"
+        }, 
+        {
+            "location": "/release-notes/1.1.4/#114-release-notes", 
+            "text": "January 14th 2018", 
+            "title": "1.1.4 Release Notes"
+        }, 
+        {
+            "location": "/release-notes/1.1.4/#changes", 
+            "text": "Scrolling in the storyboard editor will now zoom in and out, instead of requiring you to hold  ALT  whilst scrolling.  The storyboard editor can now be panned with the middle mouse button as well as the left mouse button.  Newly created canvas controller scenes will now have no Skybox set by default.  The  Routine  class (used by transition animators) now waits one frame between its last  OnUpdate  callback and its  OnComplete  callback.  Downgrade  \"Cannot present/dismiss/perform transition...\"  from console errors to console logs. These are caused by attempting to perform a transition to/from a canvas controller that is already transitioning and exist to inform that the additional transition request is being ignored (i.e. not errors).  Minimum supported Unity version is now 2018.1 (2018.1.0f2).  Move to 2018.1 build pre/post-processor interface.", 
+            "title": "Changes"
+        }, 
+        {
+            "location": "/release-notes/1.1.4/#resolved-issues", 
+            "text": "Fixed an issue whereby loading a scene in the same frame as presenting a canvas controller (or a storyboard) caused the following error:  \"Could not find storyboardable in node...\" .", 
+            "title": "Resolved Issues"
         }, 
         {
             "location": "/release-notes/1.1.3/", 
